@@ -1,0 +1,16 @@
+{
+	"initial": [
+		"js/egret.min_9ffc6af7.js",
+		"js/egret.web.min_6738cb90.js",
+		"js/eui.min_a0a66f8a.js",
+		"js/res.min_f2dfb165.js",
+		"js/game.min_5eb26499.js",
+		"js/experimental.min_31954293.js",
+		"js/promise.min_83a6a5d.js",
+		"js/puremvc-typescript-multicore-1.1.js"
+	],
+	"game": [
+		"js/default.thm.min_4de3508.js",
+		"js/main.min_f75e8730.js"
+	]
+}

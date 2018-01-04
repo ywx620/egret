@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="eui_game" width="1136" height="640" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="100%" height="100%" x="0" y="0" source="bg_jpg" name="bg"/>
+	<e:Image width="47" height="47" x="212.67" y="193.83" source="b1_png" name="ball_1" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="212.67" y="243.33" name="ball_2" source="b2_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="212.67" y="293.33" name="ball_3" source="b3_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="212.67" y="342.33" name="ball_4" source="b4_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="212.67" y="391.33" name="ball_5" source="b5_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="272.02" y="219.83" name="ball_6" source="b6_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="272.02" y="269.33" name="ball_7" source="b7_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="272.02" y="319.33" name="ball_8" source="b8_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="272.02" y="368.33" name="ball_9" source="b9_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="334.02" y="245.83" name="ball_10" source="b10_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="334.02" y="295.33" name="ball_11" source="b11_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="334.02" y="345.33" name="ball_12" source="b12_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="397.35" y="273" name="ball_13" source="b13_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="397.35" y="322.5" name="ball_14" source="b14_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="468.02" y="296.5" name="ball_15" source="b15_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="47" height="47" x="798.02" y="295.33" name="ball_0" source="b0_png" anchorOffsetX="23.5" anchorOffsetY="23.5"/>
+	<e:Image width="1134" height="36.33" x="568.85" y="19.17" source="selected_png" anchorOffsetX="567" anchorOffsetY="18.17"/>
+	<e:Image width="1138" height="37.33" x="568" y="621.34" anchorOffsetX="569" anchorOffsetY="18.67" source="selected_png"/>
+	<e:Image width="425" height="41.33" x="324.5" y="583.01" anchorOffsetX="212.5" anchorOffsetY="20.67" source="selected_png"/>
+	<e:Image width="425" height="41.33" x="811.5" y="583.01" anchorOffsetX="212.5" anchorOffsetY="20.67" source="selected_png"/>
+	<e:Image width="426" height="41.33" x="324" y="57" anchorOffsetX="213" anchorOffsetY="20.67" source="selected_png"/>
+	<e:Image width="424" height="41.33" x="811" y="57" anchorOffsetX="212" anchorOffsetY="20.67" source="selected_png"/>
+	<e:Image width="74" height="413.33" x="1097" y="320.39" anchorOffsetX="37" anchorOffsetY="206.72" source="selected_png"/>
+	<e:Image width="74" height="411.33" x="39" y="320.39" anchorOffsetX="37" anchorOffsetY="205.72" source="selected_png"/>
+	<e:Image width="31" height="86.33" x="17.35" y="80.5" anchorOffsetX="15.5" anchorOffsetY="43.17" source="selected_png"/>
+	<e:Image width="14.5" height="15.83" x="53.76" y="57" anchorOffsetX="7.25" anchorOffsetY="7.92" source="selected_png" name="hole"/>
+	<e:Image width="14.5" height="15.83" x="51.76" y="584.09" anchorOffsetX="7.25" anchorOffsetY="7.92" source="selected_png" name="hole"/>
+	<e:Image width="14.5" height="15.83" x="568" y="589.83" anchorOffsetX="7.25" anchorOffsetY="7.92" source="selected_png" name="hole"/>
+	<e:Image width="14.5" height="15.83" x="1083.56" y="57" anchorOffsetX="7.25" anchorOffsetY="7.92" source="selected_png" name="hole"/>
+	<e:Image width="14.5" height="15.83" x="1085.44" y="584.09" anchorOffsetX="7.25" anchorOffsetY="7.92" source="selected_png" name="hole"/>
+	<e:Image width="14.5" height="15.83" x="568" y="50.08" anchorOffsetX="7.25" anchorOffsetY="7.92" source="selected_png" name="hole"/>
+	<e:Image width="31" height="72.33" x="37.73" y="104.51" anchorOffsetX="15.5" anchorOffsetY="36.17" source="selected_png" rotation="126.63"/>
+	<e:Image width="31" height="72.33" x="97" y="40.64" anchorOffsetX="15.5" anchorOffsetY="36.17" source="selected_png" rotation="137.01"/>
+	<e:Image width="31" height="72.33" x="95.49" y="597.74" anchorOffsetX="15.5" anchorOffsetY="36.17" source="selected_png" rotation="224.79"/>
+	<e:Image width="31" height="72.33" x="39.58" y="539.53" anchorOffsetX="15.5" anchorOffsetY="36.17" source="selected_png" rotation="224.59"/>
+	<e:Image width="31" height="84.33" x="1120.35" y="78.5" anchorOffsetX="15.5" anchorOffsetY="42.17" source="selected_png"/>
+	<e:Image width="31" height="84.33" x="16.5" y="561.51" anchorOffsetX="15.5" anchorOffsetY="42.17" source="selected_png"/>
+	<e:Image width="31" height="92.33" x="1118.5" y="564.17" anchorOffsetX="15.5" anchorOffsetY="46.17" source="selected_png"/>
+	<e:Image width="31" height="80.33" x="1043.5" y="601.1" anchorOffsetX="15.5" anchorOffsetY="40.17" source="selected_png" rotation="312.58"/>
+	<e:Image width="31" height="80.33" x="1100" y="542.42" anchorOffsetX="15.5" anchorOffsetY="40.17" source="selected_png" rotation="312.58"/>
+	<e:Image width="31" height="80.33" x="1098.06" y="97.76" anchorOffsetX="15.5" anchorOffsetY="40.17" source="selected_png" rotation="43.64"/>
+	<e:Image width="31" height="80.33" x="1039.81" y="38.24" anchorOffsetX="15.5" anchorOffsetY="40.17" source="selected_png" rotation="41.94"/>
+</e:Skin>

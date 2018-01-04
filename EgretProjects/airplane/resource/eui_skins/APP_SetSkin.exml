@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="app.APP_PanelSkin" minHeight="230" minWidth="450" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" width="1136" height="640">
+    <e:Image left="0" right="0" bottom="0"  top="0" scale9Grid="2,2,12,12"  source="set-bg_jpg"/>
+	<e:Button id="btnClose" label="关闭" x="518" y="543"/>
+	<e:HSlider id="soundBg" width="230.61" height="26.06" x="338" y="432.5" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:HSlider id="soundEffect" width="230.61" height="26.06" x="338" y="486.44" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:ToggleSwitch id="soundIsNo" label="ToggleButton" x="338" y="108" anchorOffsetX="0" width="61" name="soundIsNo"/>
+	<e:ToggleSwitch id="turnShip" label="ToggleButton" x="338" y="164" name="turnShip"/>
+	<e:ToggleSwitch id="fireIsContinue" label="ToggleButton" x="338" y="216" name="fireIsContinue"/>
+	<e:ToggleSwitch id="moveAim" label="ToggleButton" x="338" y="269" name="moveAim"/>
+	<e:ToggleSwitch id="moveMap" label="ToggleButton" x="338" y="321" name="moveMap"/>
+	<e:ToggleSwitch id="showShip" label="ToggleButton" x="338" y="375" name="showShip"/>
+	<e:Group width="225.76" height="468.18" x="74" y="97" anchorOffsetX="0" anchorOffsetY="0">
+		<e:Label text="游戏设置" x="434.00000000000006" y="-65" scaleX="1" scaleY="1"/>
+		<e:Label text="静音设置" x="77.03" y="9"/>
+		<e:Label text="转动飞机" x="77.03" y="63"/>
+		<e:Label text="连续开火" x="77.03" y="117"/>
+		<e:Label text="移动靶标" x="77.03" y="170"/>
+		<e:Label text="移动地图" x="77.03" y="224"/>
+		<e:Label text="显示机舱" x="77.03" y="278"/>
+		<e:Label text="背景音量" x="77.03" y="332"/>
+		<e:Label text="特效音量" x="77.03" y="385.5"/>
+	</e:Group>
+</e:Skin>

@@ -1,0 +1,10 @@
+{
+  "1606d6b8ad9": {
+    "path": "..\\resource\\eui_skins\\TEST.ts",
+    "class": "TEST",
+    "parentPath": ""
+  },
+  "global": {
+    "globalAutoLayerMarkEnable": true
+  }
+}

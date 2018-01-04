@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="app.GameSkin" width="1136" height="640" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="map" width="2272" height="1280" x="568" y="320" source="game-bg_jpg" anchorOffsetY="640" anchorOffsetX="1136"/>
+	<e:Component id="enemyContainer" width="2272" height="1280" x="568" y="320" anchorOffsetX="1136" anchorOffsetY="640"/>
+	<e:Component id="container" width="100%" height="100%" x="0" y="0"/>
+	<e:Image id="airship" width="1363" height="744" x="568" y="320" anchorOffsetY="372" anchorOffsetX="681" source="planeHead_png"/>
+	<e:Image id="controlBg" width="200" height="200" x="184" y="472" anchorOffsetX="100" anchorOffsetY="100" source="control-bg_png"/>
+	<e:Image id="controlBar" width="64" height="64" x="184" y="472" source="control-bar_png" anchorOffsetX="32" anchorOffsetY="32"/>
+	<e:Button id="btnFire" label="" x="908" y="415">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="btn-fight1_png" source.down="btn-fight2_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Image id="aim" width="40" height="40" x="568.5" y="320" source="aim_png" anchorOffsetX="20" anchorOffsetY="20" alpha="0.5"/>
+	<e:Label id="txtScore" text="score：0" x="18" y="16" anchorOffsetX="0" width="156" anchorOffsetY="0" height="36"/>
+	<e:Button id="btnSet" label="" x="1060" y="16" width="50" height="50">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="btn-set_png" source.down="btn-set_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+</e:Skin>
