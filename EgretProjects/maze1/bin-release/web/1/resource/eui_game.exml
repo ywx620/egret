@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="eui_game" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<w:Config id="16010e21d7e"/>
+	<e:Image width="640" height="1136" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" scale9Grid="5,5,5,4" source="mazeBg_jpg" fillMode="scale" name="bg"/>
+	<e:Image width="644" height="22" x="321" y="36" source="button_down_png" anchorOffsetX="322" anchorOffsetY="11" scale9Grid="6,6,4,4"/>
+	<e:Image width="30.06" height="196.91" x="469.18" y="117.49" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="98.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="196.91" x="321.18" y="296.49" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="98.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="276.91" x="470.18" y="444.49" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="138.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="207.91" x="248.18" y="478.99" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="103.96" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="306.91" x="322.18" y="702.49" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="153.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="217.91" x="542.18" y="569.99" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="108.96" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="214.91" x="175.18" y="659.49" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="107.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="215.91" x="248.18" y="836.99" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="107.96" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="215.91" x="470.18" y="749.99" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="107.96" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="128.91" x="395.18" y="885.49" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="64.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="128.91" x="542.18" y="977.49" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="64.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="95.91" x="395.18" y="1053.99" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="47.96" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="125.91" x="175.18" y="972.99" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="62.96" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="187.91" x="323.18" y="1005.99" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="93.96" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="125.91" x="100.18" y="793.99" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="62.96" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="93.91" x="468.18" y="1047.99" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="46.96" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="122.91" x="395.18" y="251.49" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="61.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="94.91" x="322.18" y="85.49" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="47.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="77.06" height="32.91" x="223.68" y="115.49" source="button_down_png" anchorOffsetX="38.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="77.06" height="32.91" x="368.68" y="116.49" source="button_down_png" anchorOffsetX="38.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="77.06" height="32.91" x="140.68" y="206.49" source="button_down_png" anchorOffsetX="38.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="94.06" height="32.91" x="286.18" y="206.49" source="button_down_png" anchorOffsetX="47.03" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="99.06" height="32.91" x="504.68" y="206.49" source="button_down_png" anchorOffsetX="49.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="99.06" height="32.91" x="63.68" y="297.49" source="button_down_png" anchorOffsetX="49.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="99.06" height="32.91" x="135.68" y="388.49" source="button_down_png" anchorOffsetX="49.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="99.06" height="32.91" x="356.68" y="389.49" source="button_down_png" anchorOffsetX="49.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="91.06" height="32.91" x="62.68" y="568.49" source="button_down_png" anchorOffsetX="45.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="98.06" height="32.91" x="358.18" y="565.49" source="button_down_png" anchorOffsetX="49.03" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="311.06" height="32.91" x="315.68" y="479.49" source="button_down_png" anchorOffsetX="155.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="246.06" height="32.91" x="210.18" y="659.49" source="button_down_png" anchorOffsetX="123.03" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="172.06" height="32.91" x="467.18" y="658.49" source="button_down_png" anchorOffsetX="86.03" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="172.06" height="32.91" x="395.18" y="747.49" source="button_down_png" anchorOffsetX="86.03" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="99.06" height="32.91" x="137.68" y="747.49" source="button_down_png" anchorOffsetX="49.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="99.06" height="32.91" x="209.68" y="839.49" source="button_down_png" anchorOffsetX="49.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="99.06" height="32.91" x="62.68" y="839.49" source="button_down_png" anchorOffsetX="49.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="99.06" height="32.91" x="136.68" y="928.49" source="button_down_png" anchorOffsetX="49.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="99.06" height="32.91" x="284.68" y="927.49" source="button_down_png" anchorOffsetX="49.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="99.06" height="32.91" x="578.68" y="746.49" source="button_down_png" anchorOffsetX="49.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="151.06" height="32.91" x="476.68" y="928.49" source="button_down_png" anchorOffsetX="75.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="94.06" height="32.91" x="503.18" y="837.49" source="button_down_png" anchorOffsetX="47.03" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="94.06" height="32.91" x="503.18" y="1018.49" source="button_down_png" anchorOffsetX="47.03" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="167.06" height="32.91" x="176.68" y="1018.49" source="button_down_png" anchorOffsetX="83.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="31.06" height="94.91" x="100.68" y="1050.5" source="button_down_png" anchorOffsetX="15.53" anchorOffsetY="47.47" scale9Grid="5,5,5,4"/>
+	<e:Image width="99.06" height="32.91" x="506.68" y="385.49" source="button_down_png" anchorOffsetX="49.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="155.06" height="32.91" x="239.68" y="296.49" source="button_down_png" anchorOffsetX="77.53" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="226.06" height="32.91" x="496.18" y="297.49" source="button_down_png" anchorOffsetX="113.03" anchorOffsetY="16.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="122.91" x="100.18" y="163.49" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="61.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="217.91" x="101.18" y="478.99" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="108.96" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="122.91" x="175.18" y="340.49" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="61.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="30.06" height="196.91" x="173.18" y="120.49" source="button_down_png" anchorOffsetX="15.03" anchorOffsetY="98.46" scale9Grid="5,5,5,4"/>
+	<e:Image width="28.72" height="110.24" x="543.85" y="76.15" source="button_down_png" anchorOffsetX="14.37" anchorOffsetY="55.12" scale9Grid="5,5,5,4"/>
+	<e:Image width="618.48" height="24.54" x="320.68" y="1104.31" source="button_down_png" anchorOffsetX="309.25" anchorOffsetY="12.28" scale9Grid="5,5,5,4"/>
+	<e:Image width="26.07" height="1135.15" x="612.52" y="577.57" source="button_down_png" anchorOffsetX="13.04" anchorOffsetY="567.57" scale9Grid="5,5,5,4"/>
+	<e:Image width="26.55" height="1133" x="28.33" y="580.44" source="button_down_png" anchorOffsetX="13.28" anchorOffsetY="566.5" scale9Grid="5,5,5,4"/>
+	<e:Image width="40" height="40" x="505.67" y="90.33" source="football_png" name="football" anchorOffsetX="20" anchorOffsetY="20"/>
+</e:Skin>

@@ -1,0 +1,20 @@
+{
+	"groups": [
+		{
+			"keys": "description_json,tup_png",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"name": "description_json",
+			"type": "json",
+			"url": "config/description.json"
+		},
+		{
+			"name": "tup_png",
+			"type": "image",
+			"url": "assets/tup.png"
+		}
+	]
+}

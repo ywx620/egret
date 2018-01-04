@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="UIOver" width="600" height="550" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="100%" height="100%" x="0" y="0" source="bg-game_jpg" fillMode="scale"/>
+	<e:Button id="btnClose" label="关闭" x="221" y="435" anchorOffsetX="0" width="158" anchorOffsetY="0" height="76"/>
+	<e:Label id="label" text="" x="13" y="91" size="30" anchorOffsetX="0" width="568" anchorOffsetY="0" height="146"/>
+</e:Skin>

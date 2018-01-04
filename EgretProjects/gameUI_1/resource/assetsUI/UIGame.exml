@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="UIGame" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="100%" height="100%" x="0" y="0" source="bg-game_jpg"/>
+	<e:Button id="btnClose" label="close" x="270" y="1030"/>
+	<e:Group id="group" width="640" height="640" x="0" y="200" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Label id="txtTime" text="Label" x="243.96" y="83.61" size="38" anchorOffsetX="0" width="152.09" anchorOffsetY="0" height="42.55" textAlign="left"/>
+</e:Skin>

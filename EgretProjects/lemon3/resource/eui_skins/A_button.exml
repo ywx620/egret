@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="button" width="100" height="35" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"   states="up,down,disabled" >
+	<w:Config id="15f7076ef36"/>
+	<e:Image width="100" height="35" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="btn10001_png" fillMode="scale" source.down="btn10002_png" source.disabled="btn10003_png" scale9Grid="12,4,76,28" alpha.down="0.6"/>
+	<e:Label id="labelDisplay" text="" x="11" y="4" textColor="0xfcfeff" height="27" anchorOffsetX="0" width="78" fontFamily="Arial"/>
+</e:Skin>

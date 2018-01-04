@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ywx.Test" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="100%" height="100%" x="0" y="0" source="bg_jpg"/>
+	<e:Button id="btn1" label="Button" x="200" y="171" anchorOffsetX="0" width="131" anchorOffsetY="0" height="48">
+		<e:skinName>
+		<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="btn-1-1_png" source.down="btn-1-2_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+		</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button label="Button" x="426" y="181" anchorOffsetX="0" width="132" anchorOffsetY="0" height="48">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="btn-2-1_png" source.down="btn-2-2_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Button label="Button" x="332" y="73" anchorOffsetX="0" width="149" anchorOffsetY="0" height="52"/>
+	<e:CheckBox label="CheckBox" x="145" y="96">
+	</e:CheckBox>
+	<e:Button label="Butt" x="114" y="246"/>
+</e:Skin>

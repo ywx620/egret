@@ -1,0 +1,24 @@
+{
+  "native": {
+    "path_ignore": []
+  },
+  "engineVersion": "5.1.2",
+  "compilerVersion": "5.1.2",
+  "publish": {
+    "web": 0,
+    "native": 1,
+    "path": "bin-release"
+  },
+  "template": {},
+  "modules": [
+    {
+      "name": "egret"
+    },
+    {
+      "name": "promise"
+    }
+  ],
+  "target": {
+    "current": "wxgame"
+  }
+}

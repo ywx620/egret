@@ -1,0 +1,16 @@
+{
+	"initial": [
+		"libs/modules/egret/egret.js",
+		"libs/modules/egret/egret.web.js",
+		"libs/modules/game/game.js",
+		"libs/modules/res/res.js",
+		"libs/modules/tween/tween.js",
+		"libs/modules/socket/socket.js",
+		"libs/modules/eui/eui.js",
+		"promise/bin/promise.js",
+		"pomelo/src/PomeloClient.js"
+	],
+	"game": [
+		"bin-debug/Main.js"
+	]
+}

@@ -1,0 +1,115 @@
+{
+	"groups": [
+		{
+			"keys": "bg_jpg,egret_icon_png,description_json,Dragon_1_ske_json,Dragon_1_tex_json,Dragon_1_tex_png,texture_json,texture_png,skeleton_json,Dragon_tex_png,Dragon_ske_json,Dragon_tex_json,tenWater_tex_json,tenWater_ske_json,tenWater_tex_png,zhuzhen_ske_json,zhuzhen_tex_json,zhuzhen_tex_png,wukong_tex_png,wukong_ske_json,wukong_tex_json",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"name": "bg_jpg",
+			"type": "image",
+			"url": "assets/bg.jpg"
+		},
+		{
+			"name": "egret_icon_png",
+			"type": "image",
+			"url": "assets/egret_icon.png"
+		},
+		{
+			"name": "description_json",
+			"type": "json",
+			"url": "config/description.json"
+		},
+		{
+			"name": "Dragon_1_ske_json",
+			"type": "json",
+			"url": "db/Dragon_1_ske.json"
+		},
+		{
+			"name": "Dragon_1_tex_json",
+			"type": "json",
+			"url": "db/Dragon_1_tex.json"
+		},
+		{
+			"name": "Dragon_1_tex_png",
+			"type": "image",
+			"url": "db/Dragon_1_tex.png"
+		},
+		{
+			"name": "texture_json",
+			"type": "json",
+			"url": "db/texture.json"
+		},
+		{
+			"name": "texture_png",
+			"type": "image",
+			"url": "db/texture.png"
+		},
+		{
+			"name": "skeleton_json",
+			"type": "json",
+			"url": "db/skeleton.json"
+		},
+		{
+			"name": "Dragon_tex_png",
+			"type": "image",
+			"url": "db/Dragon_tex.png"
+		},
+		{
+			"name": "Dragon_ske_json",
+			"type": "json",
+			"url": "db/Dragon_ske.json"
+		},
+		{
+			"name": "Dragon_tex_json",
+			"type": "json",
+			"url": "db/Dragon_tex.json"
+		},
+		{
+			"name": "tenWater_tex_json",
+			"type": "json",
+			"url": "db/tenWater_tex.json"
+		},
+		{
+			"name": "tenWater_ske_json",
+			"type": "json",
+			"url": "db/tenWater_ske.json"
+		},
+		{
+			"name": "tenWater_tex_png",
+			"type": "image",
+			"url": "db/tenWater_tex.png"
+		},
+		{
+			"name": "zhuzhen_ske_json",
+			"type": "json",
+			"url": "db/zhuzhen_ske.json"
+		},
+		{
+			"name": "zhuzhen_tex_json",
+			"type": "json",
+			"url": "db/zhuzhen_tex.json"
+		},
+		{
+			"name": "zhuzhen_tex_png",
+			"type": "image",
+			"url": "db/zhuzhen_tex.png"
+		},
+		{
+			"name": "wukong_tex_png",
+			"type": "image",
+			"url": "db/wukong_tex.png"
+		},
+		{
+			"name": "wukong_ske_json",
+			"type": "json",
+			"url": "db/wukong_ske.json"
+		},
+		{
+			"name": "wukong_tex_json",
+			"type": "json",
+			"url": "db/wukong_tex.json"
+		}
+	]
+}

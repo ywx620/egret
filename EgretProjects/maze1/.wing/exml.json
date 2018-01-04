@@ -1,0 +1,16 @@
+{
+  "global": {
+    "globalRulerEnable": true,
+    "globalAdsorbEnable": false
+  },
+  "16010e21d7e": {
+    "backgroundType": "null",
+    "backgroundX": 0,
+    "backgroundY": 0,
+    "backgroundWidth": -1,
+    "backgroundHeight": -1,
+    "useBgImage": true,
+    "useBgColor": true,
+    "backgroundAlpha": 100
+  }
+}

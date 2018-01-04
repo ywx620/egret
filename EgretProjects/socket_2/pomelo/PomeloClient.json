@@ -1,0 +1,9 @@
+{
+  "name": "PomeloClient",
+  "dependence": [],
+  "source": "src",
+  "file_list": [
+    "PomeloClient.js",
+    "PomeloClient.d.ts"
+  ]
+}

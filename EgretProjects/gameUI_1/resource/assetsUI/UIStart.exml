@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="100%" height="100%" x="0" y="0" source="bg-start_jpg"/>
+	<e:Button id="btnStart" label="开始" x="226" y="726" anchorOffsetX="0" width="200" anchorOffsetY="0" height="66" skinName="UIBbtn2"/>
+	<e:Button id="btnSet" label="设置" x="226" y="807" anchorOffsetX="0" width="200" anchorOffsetY="0" height="66" skinName="UIBbtn3"/>
+	<e:Button id="btnClose" label="退出" x="226" y="887" anchorOffsetX="0" width="200" anchorOffsetY="0" height="66" skinName="UIBbtn4"/>
+</e:Skin>

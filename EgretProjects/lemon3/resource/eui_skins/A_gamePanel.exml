@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="gamePanel" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*" xmlns:ns1="*">
+	<w:Declarations>
+		<tween:TweenGroup>
+		</tween:TweenGroup>
+	</w:Declarations>
+	<e:Button label="Button" x="66" y="32" skinName="BtnSkin" anchorOffsetX="0" width="137" anchorOffsetY="0" height="88"/>
+	<e:Button label="" x="103" y="159" skinName="button"/>
+	<e:Panel width="268" height="193" x="33.5" y="244.5" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:VScrollBar width="99" height="102" x="431.5" y="689" anchorOffsetX="0" anchorOffsetY="0" enabled="false"/>
+	<e:List id="list" width="234" height="246" x="336" y="20" itemRendererSkinName="skins.ItemRendererSkin" anchorOffsetX="0" anchorOffsetY="0">
+		<e:ArrayCollection>
+		<e:Array>
+			<e:Object label="11"/>
+			<e:Object label="22"/>
+			<e:Object label="33"/>
+			<e:Object label="44"/>
+			<e:Object label="55"/>
+			<e:Object label="66"/>
+			<e:Object label="77"/>
+		</e:Array>
+		</e:ArrayCollection>
+	</e:List>
+	<e:TabBar width="200" height="200" x="381" y="341"/>
+	<e:HScrollBar width="92" height="59" x="88.5" y="689" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:ToggleButton label="ToggleButton" x="167.5" y="568" anchorOffsetX="0" width="432" anchorOffsetY="0" height="57"/>
+	<e:EditableText width="148" height="125" text="Label" x="262" y="769" anchorOffsetX="0" anchorOffsetY="0" wordWrap="true" borderColor="0xf40c0c" multiline="true"/>
+	<e:Component width="137" height="84" x="145" y="974" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:ProgressBar width="201" height="23" x="153" y="934" anchorOffsetX="0" anchorOffsetY="0" value="50"/>
+	<e:Rect width="120" height="51" x="79" y="872" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:TabBar width="200" height="200" x="388" y="804"/>
+	<e:Scroller id="scroller" width="200" height="200" x="187" y="709" scrollPolicyH="off">
+		<e:Group x="66" y="-69"/>
+	</e:Scroller>
+	<e:VSlider width="20" height="20" x="30" y="787"/>
+</e:Skin>

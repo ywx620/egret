@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="map" width="1990" height="640" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<w:Config id="1602ed5399d"/>
+	<e:Image width="100%" height="100%" x="0" y="0" source="bg_jpg" fillMode="clip" name="bg"/>
+	<e:Image width="1988" height="128" x="994" y="568" source="header_png" anchorOffsetX="994" anchorOffsetY="64"/>
+	<e:Image width="76" height="644" x="24" y="320" anchorOffsetX="38" anchorOffsetY="322" source="header_png"/>
+	<e:Image width="76" height="644" x="1970" y="318" anchorOffsetX="38" anchorOffsetY="322" source="header_png"/>
+	<e:Image width="428" height="116" x="628" y="504" anchorOffsetX="214" anchorOffsetY="58" source="header_png"/>
+</e:Skin>

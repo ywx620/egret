@@ -1,0 +1,9 @@
+{
+    "useClip": true,
+    "maxImageWidth": 2048,
+    "maxImageHeight": 2048,
+    "defaultResPath": "c:\\Users\\4399-3046\\Documents\\EgretProjects\\lemon3\\resource\\default.res.json",
+    "packGroups": {
+        "preload": true
+    }
+}

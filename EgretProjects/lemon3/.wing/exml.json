@@ -1,0 +1,31 @@
+{
+  "global": {
+    "globalAutoLayerMarkEnable": false,
+    "globalBindingDataTestObj": []
+  },
+  "15f7076ef36": {
+    "guideLinesEnabled": false,
+    "backgroundType": "null",
+    "backgroundX": 0,
+    "backgroundY": 0,
+    "backgroundWidth": -1,
+    "backgroundHeight": -1,
+    "useBgImage": true,
+    "useBgColor": true,
+    "backgroundAlpha": 100,
+    "bindingDataTestObj": []
+  },
+  "15f718335a4": {
+    "guideLinesEnabled": false
+  },
+  "15f72481149": {
+    "backgroundType": "user"
+  },
+  "15f7248114a": {
+    "backgroundColor": "#015e15",
+    "backgroundType": "null",
+    "backgroundImage": "C:\\Users\\4399-3046\\Downloads\\566fedc865dad\\p2ball_update_2.5_logo\\source\\code\\resource\\assets\\rect.png",
+    "guideLinesEnabled": true,
+    "bindingDataTestObj": []
+  }
+}
