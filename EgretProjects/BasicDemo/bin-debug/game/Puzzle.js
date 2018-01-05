@@ -50,11 +50,42 @@ var Puzzle = (function (_super) {
         this.coltrolMove = new control.ControlFingerMove(this.stage);
         this.coltrolMove.open();
         this.coltrolMove.startBackFun = this.hitImage.bind(this);
-        this.coltrolMove.endBackFun = this.hitImage.bind(this);
+        //this.coltrolMove.endBackFun=this.hitImage.bind(this);
+        this.coltrolMove.moveEndBackFun = this.moveEnd.bind(this);
         this.setStep();
     };
     Puzzle.prototype.setStep = function () {
         simpleTrace("步数:" + this.step++);
+    };
+    Puzzle.prototype.moveEnd = function (point) {
+        if (this.checkImages.length == 1) {
+            var imageA = this.checkImages[0];
+            var len = this.images.length;
+            for (var i = 0; i < len; i++) {
+                var image = this.images[i];
+                if (imageA != image) {
+                    if (point.x != 0) {
+                        if (image.y == imageA.y) {
+                            var dis = Math.floor(image.x - imageA.x);
+                            if (dis == Math.floor(this.imaWidth * point.x)) {
+                                this.checkImages.push(image);
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        if (image.x == imageA.x) {
+                            var dis = Math.floor(image.y - imageA.y);
+                            if (dis == Math.floor(this.imaWidth * point.y)) {
+                                this.checkImages.push(image);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        this.checkResult();
     };
     Puzzle.prototype.hitImage = function (point) {
         var len = this.images.length;
@@ -65,6 +96,9 @@ var Puzzle = (function (_super) {
                 break;
             }
         }
+        this.checkResult();
+    };
+    Puzzle.prototype.checkResult = function () {
         if (this.checkImages.length == 2) {
             var imageA = this.checkImages[0];
             var imageB = this.checkImages[1];

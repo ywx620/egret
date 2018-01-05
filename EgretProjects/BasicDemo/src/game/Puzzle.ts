@@ -43,13 +43,44 @@ class Puzzle extends egret.DisplayObjectContainer{
         this.coltrolMove=new control.ControlFingerMove(this.stage);
         this.coltrolMove.open();
         this.coltrolMove.startBackFun=this.hitImage.bind(this);
-        this.coltrolMove.endBackFun=this.hitImage.bind(this);
+        //this.coltrolMove.endBackFun=this.hitImage.bind(this);
+        this.coltrolMove.moveEndBackFun=this.moveEnd.bind(this);
 
         this.setStep();
     }
     private setStep():void
     {
         simpleTrace("步数:"+this.step++);
+    }
+    private moveEnd(point:egret.Point):void
+    {
+        if(this.checkImages.length==1){
+            let imageA:egret.Bitmap=this.checkImages[0];
+            let len=this.images.length;
+            for(let i=0;i<len;i++){
+                let image:egret.Bitmap=this.images[i];
+                if(imageA!=image){
+                    if(point.x!=0){
+                        if(image.y==imageA.y){
+                            let dis:number=Math.floor(image.x-imageA.x);
+                            if(dis==Math.floor(this.imaWidth*point.x)){
+                                this.checkImages.push(image);
+                                break;
+                            }
+                        }
+                    }else{
+                        if(image.x==imageA.x){
+                            let dis:number=Math.floor(image.y-imageA.y);
+                            if(dis==Math.floor(this.imaWidth*point.y)){
+                                this.checkImages.push(image);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        this.checkResult();
     }
     private hitImage(point:egret.Point):void
     {
@@ -61,11 +92,16 @@ class Puzzle extends egret.DisplayObjectContainer{
                 break;
             }
         }
+        this.checkResult();
+    }
+    private checkResult():void
+    {
         if(this.checkImages.length==2){
             let imageA:egret.Bitmap=this.checkImages[0];
             let imageB:egret.Bitmap=this.checkImages[1];
             if(imageA!=imageB){
                 this.coltrolMove.close();
+                /** */
                 let ax=imageA.x;
                 let ay=imageA.y;
                 let bx=imageB.x;

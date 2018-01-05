@@ -14,9 +14,9 @@
 	],
 	"game": [
 		"bin-debug/moon/MoonTheme.js",
+		"bin-debug/p2/AbstractP2Test.js",
 		"bin-debug/utils/BasicComponent.js",
 		"bin-debug/utils/BasicEgret.js",
-		"bin-debug/p2/AbstractP2Test.js",
 		"bin-debug/p2/p2DebugDraw.js",
 		"bin-debug/dragon/DragonDemo.js",
 		"bin-debug/dragon/FrameAnimation.js",
@@ -31,7 +31,7 @@
 		"bin-debug/mvc/mvcMediatorView.js",
 		"bin-debug/Main.js",
 		"bin-debug/p2/P2Camera.js",
-		"bin-debug/LoadingUI.js",
+		"bin-debug/utils/SoundControl.js",
 		"bin-debug/p2/P2Drag.js",
 		"bin-debug/p2/TestFromPolygon.js",
 		"bin-debug/test/ControlTest.js",
@@ -49,6 +49,6 @@
 		"bin-debug/utils/EventManager.js",
 		"bin-debug/utils/LayoutManager.js",
 		"bin-debug/utils/P2World.js",
-		"bin-debug/utils/SoundControl.js"
+		"bin-debug/LoadingUI.js"
 	]
 }

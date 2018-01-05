@@ -14,15 +14,15 @@ class MainTest extends egret.DisplayObjectContainer {
         this.stageH=this.stage.stageHeight;
         //this.p2Test();
         //this.readJson();
-        //this.astar()
+        //this.astar();
         //this.moon();
         //this.gameParkour();
         //this.control();
         //this.text();
         //this.morePointTouch();
-        //this.scaleMode()
-        this.mainMvc()
-        //this.puzzle();
+        //this.scaleMode();
+        //this.mainMvc();
+        this.puzzle();
     }
     private puzzle():void
     {
