@@ -22,7 +22,12 @@ class MainTest extends egret.DisplayObjectContainer {
         //this.morePointTouch();
         //this.scaleMode();
         //this.mainMvc();
-        this.puzzle();
+        //this.puzzle();
+        this.worldHandestGame();
+    }
+    private worldHandestGame():void
+    {
+        this.addChild(new WorldHardestGame);
     }
     private puzzle():void
     {

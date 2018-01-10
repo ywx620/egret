@@ -31,7 +31,11 @@ var MainTest = (function (_super) {
         //this.morePointTouch();
         //this.scaleMode();
         //this.mainMvc();
-        this.puzzle();
+        //this.puzzle();
+        this.worldHandestGame();
+    };
+    MainTest.prototype.worldHandestGame = function () {
+        this.addChild(new WorldHardestGame);
     };
     MainTest.prototype.puzzle = function () {
         this.addChild(new Puzzle);

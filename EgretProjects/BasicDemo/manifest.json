@@ -24,6 +24,7 @@
 		"bin-debug/dragon/astar/AStarTest.js",
 		"bin-debug/game/GameParkour.js",
 		"bin-debug/game/Puzzle.js",
+		"bin-debug/game/WorldHardestGame.js",
 		"bin-debug/AssetAdapter.js",
 		"bin-debug/mvc/mvcCommand.js",
 		"bin-debug/mvc/mvcConst.js",
@@ -47,6 +48,7 @@
 		"bin-debug/utils/Camera2D.js",
 		"bin-debug/utils/ControlManager.js",
 		"bin-debug/utils/EventManager.js",
+		"bin-debug/utils/HitManager.js",
 		"bin-debug/utils/LayoutManager.js",
 		"bin-debug/utils/P2World.js",
 		"bin-debug/LoadingUI.js"

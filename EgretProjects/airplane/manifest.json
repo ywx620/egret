@@ -10,16 +10,16 @@
 	],
 	"game": [
 		"bin-debug/utils/BasicComponent.js",
-		"bin-debug/appSet.js",
+		"bin-debug/appMain.js",
 		"bin-debug/AssetAdapter.js",
 		"bin-debug/LoadingUI.js",
 		"bin-debug/Main.js",
 		"bin-debug/ThemeAdapter.js",
-		"bin-debug/utils/SystemSetManager.js",
+		"bin-debug/appSet.js",
 		"bin-debug/utils/Bullet.js",
 		"bin-debug/utils/Const.js",
 		"bin-debug/utils/EnemyManager.js",
 		"bin-debug/utils/SoundControl.js",
-		"bin-debug/appMain.js"
+		"bin-debug/utils/SystemSetManager.js"
 	]
 }

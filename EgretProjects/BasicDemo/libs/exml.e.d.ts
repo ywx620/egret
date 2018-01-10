@@ -4,6 +4,8 @@ declare class ScaleModeSkin{
 }
 declare class TestSkin{
 }
+declare class WHG_level1{
+}
 declare module skins{
 	class ButtonSkin{
 	}

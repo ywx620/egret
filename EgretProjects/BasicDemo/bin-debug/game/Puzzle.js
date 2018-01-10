@@ -104,6 +104,7 @@ var Puzzle = (function (_super) {
             var imageB = this.checkImages[1];
             if (imageA != imageB) {
                 this.coltrolMove.close();
+                /** */
                 var ax = imageA.x;
                 var ay = imageA.y;
                 var bx = imageB.x;
