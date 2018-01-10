@@ -10,7 +10,142 @@ function __extends(d, b) {
 window.generateEUI = {};
 generateEUI.paths = {};
 generateEUI.skins = {"eui.Button":"resource/eui_skins/ButtonSkin.exml","eui.CheckBox":"resource/eui_skins/CheckBoxSkin.exml","eui.HScrollBar":"resource/eui_skins/HScrollBarSkin.exml","eui.HSlider":"resource/eui_skins/HSliderSkin.exml","eui.Panel":"resource/eui_skins/PanelSkin.exml","eui.TextInput":"resource/eui_skins/TextInputSkin.exml","eui.ProgressBar":"resource/eui_skins/ProgressBarSkin.exml","eui.RadioButton":"resource/eui_skins/RadioButtonSkin.exml","eui.Scroller":"resource/eui_skins/ScrollerSkin.exml","eui.ToggleSwitch":"resource/eui_skins/ToggleSwitchSkin.exml","eui.VScrollBar":"resource/eui_skins/VScrollBarSkin.exml","eui.VSlider":"resource/eui_skins/VSliderSkin.exml","eui.ItemRenderer":"resource/eui_skins/ItemRendererSkin.exml"}
-generateEUI.paths['resource/askins/WHG_level1.exml'] = window.WHG_level1 = (function (_super) {
+generateEUI.paths['resource/askins/WHG_control.exml'] = window.WHG_control = (function (_super) {
+	__extends(WHG_control, _super);
+	function WHG_control() {
+		_super.call(this);
+		this.skinParts = ["arrow_r","arrow_l","arrow_d","arrow_u","arrow_ru","arrow_rd","arrow_lu","arrow_ld","bar"];
+		
+		this.height = 1136;
+		this.width = 640;
+		this.elementsContent = [this._Image1_i(),this.arrow_r_i(),this.arrow_l_i(),this.arrow_d_i(),this.arrow_u_i(),this.arrow_ru_i(),this.arrow_rd_i(),this.arrow_lu_i(),this.arrow_ld_i(),this.bar_i()];
+	}
+	var _proto = WHG_control.prototype;
+
+	_proto._Image1_i = function () {
+		var t = new eui.Image();
+		t.height = 380;
+		t.horizontalCenter = 0;
+		t.source = "arrowControl_png";
+		t.verticalCenter = 300;
+		t.width = 380;
+		return t;
+	};
+	_proto.arrow_r_i = function () {
+		var t = new eui.Image();
+		this.arrow_r = t;
+		t.height = 73;
+		t.name = "arrow_r";
+		t.source = "arrow_png";
+		t.width = 105;
+		t.x = 379;
+		t.y = 835.14;
+		return t;
+	};
+	_proto.arrow_l_i = function () {
+		var t = new eui.Image();
+		this.arrow_l = t;
+		t.height = 73;
+		t.name = "arrow_l";
+		t.rotation = 180;
+		t.source = "arrow_png";
+		t.width = 105;
+		t.x = 264;
+		t.y = 906.8;
+		return t;
+	};
+	_proto.arrow_d_i = function () {
+		var t = new eui.Image();
+		this.arrow_d = t;
+		t.height = 73;
+		t.name = "arrow_d";
+		t.rotation = 90.09;
+		t.source = "arrow_png";
+		t.width = 105;
+		t.x = 356.58;
+		t.y = 931.91;
+		return t;
+	};
+	_proto.arrow_u_i = function () {
+		var t = new eui.Image();
+		this.arrow_u = t;
+		t.height = 73;
+		t.name = "arrow_u";
+		t.rotation = 270.09;
+		t.source = "arrow_png";
+		t.width = 105;
+		t.x = 283.42;
+		t.y = 813.03;
+		return t;
+	};
+	_proto.arrow_ru_i = function () {
+		var t = new eui.Image();
+		this.arrow_ru = t;
+		t.anchorOffsetX = 0.06;
+		t.anchorOffsetY = 36;
+		t.height = 73;
+		t.name = "arrow_ru";
+		t.rotation = 325.79;
+		t.source = "arrow_png";
+		t.width = 105;
+		t.x = 361.39;
+		t.y = 830.84;
+		return t;
+	};
+	_proto.arrow_rd_i = function () {
+		var t = new eui.Image();
+		this.arrow_rd = t;
+		t.anchorOffsetY = 36;
+		t.height = 73;
+		t.name = "arrow_rd";
+		t.rotation = 50.38;
+		t.source = "arrow_png";
+		t.width = 105;
+		t.x = 368.66;
+		t.y = 913.06;
+		return t;
+	};
+	_proto.arrow_lu_i = function () {
+		var t = new eui.Image();
+		this.arrow_lu = t;
+		t.anchorOffsetY = 36;
+		t.height = 73;
+		t.name = "arrow_lu";
+		t.rotation = 227.72;
+		t.source = "arrow_png";
+		t.width = 105;
+		t.x = 275.67;
+		t.y = 834.25;
+		return t;
+	};
+	_proto.arrow_ld_i = function () {
+		var t = new eui.Image();
+		this.arrow_ld = t;
+		t.anchorOffsetX = -0.94;
+		t.anchorOffsetY = 37;
+		t.height = 73;
+		t.name = "arrow_ld";
+		t.rotation = 145.79;
+		t.source = "arrow_png";
+		t.width = 105;
+		t.x = 283.21;
+		t.y = 912.02;
+		return t;
+	};
+	_proto.bar_i = function () {
+		var t = new eui.Image();
+		this.bar = t;
+		t.anchorOffsetX = 40;
+		t.anchorOffsetY = 40;
+		t.height = 80;
+		t.source = "controlBar_png";
+		t.width = 80;
+		t.x = 320.58;
+		t.y = 868.8;
+		return t;
+	};
+	return WHG_control;
+})(eui.Skin);generateEUI.paths['resource/askins/WHG_level1.exml'] = window.WHG_level1 = (function (_super) {
 	__extends(WHG_level1, _super);
 	function WHG_level1() {
 		_super.call(this);

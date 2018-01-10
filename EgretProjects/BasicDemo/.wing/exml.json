@@ -5,7 +5,7 @@
     "parentPath": ""
   },
   "global": {
-    "globalAutoLayerMarkEnable": true,
+    "globalAutoLayerMarkEnable": false,
     "globalAdsorbEnable": true,
     "globalRulerEnable": false
   }

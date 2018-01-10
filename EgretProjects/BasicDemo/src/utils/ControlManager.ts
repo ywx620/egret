@@ -152,32 +152,72 @@ module control
             this.display=display;
             this.distance=new egret.Point;
         }
-        /** 打开事件*/
-        public open():void{
-            this.display.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
-        }
-        /** 关闭事件*/
-        public close():void{
-            this.display.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
-        }
-        protected onTouch(e: egret.TouchEvent){
-            super.onTouch(e);
-            switch (e.type) {
-                case egret.TouchEvent.TOUCH_BEGIN:
-                    this.distance.x = e.stageX - this.display.x;
-                    this.distance.y = e.stageY - this.display.y;
-                    break;
-            }
+        protected controlStart(): void {
+            super.controlStart();
+            this.distance.x = this.posStart.x - this.display.x;
+            this.distance.y = this.posStart.y - this.display.y;
         }
         protected controlMove(): void {
             this.display.x = this.posMove.x - this.distance.x;
             this.display.y = this.posMove.y - this.distance.y;
         }
+    }
+    /**
+	 * @author vinson
+	 * 创建时间：2017-12-28 上午9:36:42
+	 * 多点按下与松开的触控管理
+	 */
+    export class ControlMoreTab extends ControlBasic{
+        private id:number;
+        private nodes:any[]=[];
+        /**datas:[{display:display:backCall:backCall}]*/
+        constructor(stage:egret.Stage,datas:any[]) {
+            super(stage);
+            for(var i:number=0;i<datas.length;i++){
+                var obj=datas[i];
+                var node:MorePointNode=new MorePointNode(obj.display,obj.backCall);
+                this.nodes.push(node);
+            }
+        }
+        protected onTouch(e: egret.TouchEvent){
+            this.id=e.touchPointID;
+            super.onTouch(e);
+        }
+        private check(x:number,y:number,type:number):void
+        {
+            var nodes:any[]=this.nodes;
+            for(var i:number=0;i<nodes.length;i++){
+                var node:MorePointNode=nodes[i];
+                if(type==1){//按下
+                    if(node.display.hitTestPoint(x,y)){
+                        node.id=this.id;
+                        node.backCall(type);
+                    }
+                }else{//松开
+                    if(node.id==this.id){
+                        node.id=-1;
+                        node.backCall(type);
+                    }
+                }
+            }
+        }
+        protected controlStart(): void {
+            this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
+            this.check(this.posStart.x,this.posStart.y,1);
+        }
         protected controlEnd():void{
             super.controlEnd();
-            if(this.endBackFun!=null){
-                this.endBackFun()
-            }
+           this.check(this.posEnd.x,this.posEnd.y,0);
+        }
+    }
+    export class MorePointNode
+    {
+        public id:number;
+        public display:egret.DisplayObject;
+        public backCall:Function;
+        constructor(display:egret.DisplayObject,backCall:Function) {
+            this.display=display;
+            this.backCall=backCall;
         }
     }
 }

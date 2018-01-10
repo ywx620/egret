@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="WHG_control" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="380" height="380" source="arrowControl_png" horizontalCenter="0" verticalCenter="300"/>
+	<e:Image id="arrow_r" width="105" height="73" x="379" y="835.14" source="arrow_png" name="arrow_r"/>
+	<e:Image id="arrow_l" width="105" height="73" x="264" y="906.8" source="arrow_png" rotation="180" name="arrow_l"/>
+	<e:Image id="arrow_d" width="105" height="73" x="356.58" y="931.91" source="arrow_png" rotation="90.09" name="arrow_d"/>
+	<e:Image id="arrow_u" width="105" height="73" x="283.42" y="813.03" source="arrow_png" rotation="270.09" name="arrow_u"/>
+	<e:Image id="arrow_ru" width="105" height="73" x="361.39" y="830.84" source="arrow_png" rotation="325.79" anchorOffsetX="0.06" anchorOffsetY="36" name="arrow_ru"/>
+	<e:Image id="arrow_rd" width="105" height="73" x="368.66" y="913.06" source="arrow_png" anchorOffsetY="36" rotation="50.38" name="arrow_rd"/>
+	<e:Image id="arrow_lu" width="105" height="73" x="275.67" y="834.25" source="arrow_png" rotation="227.72" anchorOffsetY="36" name="arrow_lu"/>
+	<e:Image id="arrow_ld" width="105" height="73" x="283.21" y="912.02" source="arrow_png" rotation="145.79" anchorOffsetX="-0.94" anchorOffsetY="37" name="arrow_ld"/>
+	<e:Image id="bar" width="80" height="80" x="320.58" y="868.8" anchorOffsetX="40" anchorOffsetY="40" source="controlBar_png"/>
+</e:Skin>

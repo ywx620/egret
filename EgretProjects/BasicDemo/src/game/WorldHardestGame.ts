@@ -1,3 +1,4 @@
+var path:string="../"
 class WorldHardestGame extends egret.DisplayObjectContainer{
     controlMove:control.ControlBarMove;
     levelControl:LevelControl;
@@ -13,20 +14,25 @@ class WorldHardestGame extends egret.DisplayObjectContainer{
     }
     private createControl():void
     {
-        var w:number=(this.stage.stageHeight-640)>>2;
-        var controlBg:Sprite=moon.MoonUI.getCircle(w,0Xffff00);
-        controlBg.alpha=0;
-        var controlBar:Sprite=moon.MoonUI.getCircle(w-30,0XFF0000);
-        var controlAuton:control.ControlBarMove=new control.ControlBarMove(this.stage,controlBar,controlBg);
-        //controlAuton.open();
-        controlBg.x=controlBar.x=this.stage.stageWidth>>1;
-        controlBg.y=controlBar.y=this.stage.stageHeight-(w<<1);
-        this.addChild(controlBg);
-        this.addChild(controlBar);
-        controlAuton.open();
-        controlAuton.moveBackFun=this.moveBackFun.bind(this);
-        controlAuton.startBackFun=this.startBackFun.bind(this);
-        controlAuton.endBackFun=this.endBackFun.bind(this);
+        // var w:number=(this.stage.stageHeight-640)>>2;
+        // var controlBg:Sprite=moon.MoonUI.getCircle(w,0Xffff00);
+        // controlBg.alpha=0;
+        // var controlBar:Sprite=moon.MoonUI.getCircle(w-30,0XFF0000);
+        // var controlAuton:control.ControlBarMove=new control.ControlBarMove(this.stage,controlBar,controlBg);
+        // //controlAuton.open();
+        // controlBg.x=controlBar.x=this.stage.stageWidth>>1;
+        // controlBg.y=controlBar.y=this.stage.stageHeight-(w<<1);
+        // this.addChild(controlBg);
+        // this.addChild(controlBar);
+        // controlAuton.open();
+        // controlAuton.moveBackFun=this.moveBackFun.bind(this);
+        // controlAuton.startBackFun=this.startBackFun.bind(this);
+        // controlAuton.endBackFun=this.endBackFun.bind(this);
+
+        var control:ArrowControl=new ArrowControl();
+        control.level=this.levelControl;
+        this.addChild(control);
+        
     }
     private startBackFun(point:egret.Point):void
     {
@@ -40,20 +46,68 @@ class WorldHardestGame extends egret.DisplayObjectContainer{
         this.levelControl.controlPlay(point);
     }
 }
+class ArrowControl extends BasicComponent
+{
+    private arrow_l:eui.Image;
+    private arrow_r:eui.Image;
+    private arrow_u:eui.Image;
+    private arrow_d:eui.Image;
+    private point:egret.Point;
+    public level:LevelControl;
+    constructor() {
+        super();
+        this.setSkinName(path+"resource/askins/WHG_control.exml");
+    }
+    protected render(): void {
+        var datas:any[]=[{display:this.arrow_l,backCall:this.moveleft.bind(this)},
+        {display:this.arrow_r,backCall:this.moveright.bind(this)},
+        {display:this.arrow_u,backCall:this.moveup.bind(this)},
+        {display:this.arrow_d,backCall:this.movedown.bind(this)}
+        ]
+        var controlTab:control.ControlMoreTab=new control.ControlMoreTab(this.stage,datas);
+        controlTab.open();
+        this.point=new egret.Point;
+    }
+    private moveleft(type:number):void
+    {
+        this.point.x=type==1?-1:0;
+        this.controlMove(type);
+    }
+    private moveright(type:number):void
+    {
+        this.point.x=type==1?1:0;
+        this.controlMove(type);
+    }
+    private moveup(type:number):void
+    {
+        this.point.y=type==1?-1:0;
+        this.controlMove(type);
+    }
+    private movedown(type:number):void
+    {
+        this.point.y=type==1?1:0;
+        this.controlMove(type);
+    }
+    private controlMove(type:number):void
+    {
+        this.level.isMove=type==1;
+        this.level.controlPlay(this.point);
+    }
+}
 class LevelControl extends BasicComponent
 {
     private test1:egret.tween.TweenGroup;
     private player:eui.Image;
     private wall:eui.Image;
     private safeAreas:any[]=[];
-    private isMove:Boolean;
+    public isMove:Boolean;
     private startPoint:egret.Point;
     private movePoint:egret.Point=new egret.Point;
-    private speedX:number=1;
-    private speedY:number=1;
+    private speedX:number=2;
+    private speedY:number=2;
     constructor() {
         super();
-        this.setSkinName("../resource/askins/WHG_level1.exml");
+        this.setSkinName(path+"resource/askins/WHG_level1.exml");
     }
     protected render(): void {
         for(var i=0;i<this.numChildren;i++){
@@ -93,7 +147,6 @@ class LevelControl extends BasicComponent
             that.player.y=that.startPoint.y;
             that.player.alpha=1;
         }
-       
     }
     private onLoop(e):void
     {
@@ -146,13 +199,17 @@ class LevelControl extends BasicComponent
     }
     public controlPlay(point:egret.Point):void
     {
-        var x:number=point.x;
-        var y:number=point.y;
-        if(point.x>0)  this.movePoint.x=1;
-        else           this.movePoint.x=-1;
-        if(point.y>0)  this.movePoint.y=1;
-        else           this.movePoint.y=-1;
-        if(Math.abs(x)<50)  this.movePoint.x=0;
-        if(Math.abs(y)<50)  this.movePoint.y=0;
+        this.movePoint=point;
     }
+    // public controlPlay(point:egret.Point):void
+    // {
+    //     var x:number=point.x;
+    //     var y:number=point.y;
+    //     if(point.x>0)  this.movePoint.x=1;
+    //     else           this.movePoint.x=-1;
+    //     if(point.y>0)  this.movePoint.y=1;
+    //     else           this.movePoint.y=-1;
+    //     if(Math.abs(x)<50)  this.movePoint.x=0;
+    //     if(Math.abs(y)<50)  this.movePoint.y=0;
+    // }
 }

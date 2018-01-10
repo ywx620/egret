@@ -160,36 +160,79 @@ var control;
             _this.distance = new egret.Point;
             return _this;
         }
-        /** 打开事件*/
-        ControlDrag.prototype.open = function () {
-            this.display.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
-        };
-        /** 关闭事件*/
-        ControlDrag.prototype.close = function () {
-            this.display.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
-        };
-        ControlDrag.prototype.onTouch = function (e) {
-            _super.prototype.onTouch.call(this, e);
-            switch (e.type) {
-                case egret.TouchEvent.TOUCH_BEGIN:
-                    this.distance.x = e.stageX - this.display.x;
-                    this.distance.y = e.stageY - this.display.y;
-                    break;
-            }
+        ControlDrag.prototype.controlStart = function () {
+            _super.prototype.controlStart.call(this);
+            this.distance.x = this.posStart.x - this.display.x;
+            this.distance.y = this.posStart.y - this.display.y;
         };
         ControlDrag.prototype.controlMove = function () {
             this.display.x = this.posMove.x - this.distance.x;
             this.display.y = this.posMove.y - this.distance.y;
         };
-        ControlDrag.prototype.controlEnd = function () {
-            _super.prototype.controlEnd.call(this);
-            if (this.endBackFun != null) {
-                this.endBackFun();
-            }
-        };
         return ControlDrag;
     }(ControlBasic));
     control.ControlDrag = ControlDrag;
     __reflect(ControlDrag.prototype, "control.ControlDrag");
+    /**
+     * @author vinson
+     * 创建时间：2017-12-28 上午9:36:42
+     * 多点按下与松开的触控管理
+     */
+    var ControlMoreTab = (function (_super) {
+        __extends(ControlMoreTab, _super);
+        /**datas:[{display:display:backCall:backCall}]*/
+        function ControlMoreTab(stage, datas) {
+            var _this = _super.call(this, stage) || this;
+            _this.nodes = [];
+            for (var i = 0; i < datas.length; i++) {
+                var obj = datas[i];
+                var node = new MorePointNode(obj.display, obj.backCall);
+                _this.nodes.push(node);
+            }
+            return _this;
+        }
+        ControlMoreTab.prototype.onTouch = function (e) {
+            this.id = e.touchPointID;
+            _super.prototype.onTouch.call(this, e);
+        };
+        ControlMoreTab.prototype.check = function (x, y, type) {
+            var nodes = this.nodes;
+            for (var i = 0; i < nodes.length; i++) {
+                var node = nodes[i];
+                if (type == 1) {
+                    if (node.display.hitTestPoint(x, y)) {
+                        node.id = this.id;
+                        node.backCall(type);
+                    }
+                }
+                else {
+                    if (node.id == this.id) {
+                        node.id = -1;
+                        node.backCall(type);
+                    }
+                }
+            }
+        };
+        ControlMoreTab.prototype.controlStart = function () {
+            this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
+            this.check(this.posStart.x, this.posStart.y, 1);
+        };
+        ControlMoreTab.prototype.controlEnd = function () {
+            _super.prototype.controlEnd.call(this);
+            this.check(this.posEnd.x, this.posEnd.y, 0);
+        };
+        return ControlMoreTab;
+    }(ControlBasic));
+    control.ControlMoreTab = ControlMoreTab;
+    __reflect(ControlMoreTab.prototype, "control.ControlMoreTab");
+    var MorePointNode = (function () {
+        function MorePointNode(display, backCall) {
+            this.display = display;
+            this.backCall = backCall;
+        }
+        return MorePointNode;
+    }());
+    control.MorePointNode = MorePointNode;
+    __reflect(MorePointNode.prototype, "control.MorePointNode");
 })(control || (control = {}));
 //# sourceMappingURL=ControlManager.js.map

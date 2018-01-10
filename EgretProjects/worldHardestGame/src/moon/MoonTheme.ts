@@ -4,9 +4,13 @@ var trace=function(...arg):void
          moon.showLog.getIns().logMessage(arg[i])
     }
 }
-var simpleTrace=function(s):void
+var simpleTrace=function(...arg):void
 {
-    moon.showLog.getIns().log(s);
+	var str:string="";
+	for(let i:number=0;i<arg.length;i++){
+         str+=arg[i];
+    }
+    moon.showLog.getIns().log(str);
 }
 module moon
 {

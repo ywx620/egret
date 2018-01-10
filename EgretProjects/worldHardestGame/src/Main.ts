@@ -97,6 +97,7 @@ class Main extends eui.UILayer {
      * Create scene interface
      */
     protected createGameScene(): void {
+        moon.showLog.getIns().init(this.stage);
         this.addChild(new WorldHardestGame);
     }
 }

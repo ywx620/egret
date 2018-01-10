@@ -17,8 +17,16 @@ var trace = function () {
         moon.showLog.getIns().logMessage(arg[i]);
     }
 };
-var simpleTrace = function (s) {
-    moon.showLog.getIns().log(s);
+var simpleTrace = function () {
+    var arg = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        arg[_i] = arguments[_i];
+    }
+    var str = "";
+    for (var i = 0; i < arg.length; i++) {
+        str += arg[i];
+    }
+    moon.showLog.getIns().log(str);
 };
 var moon;
 (function (moon) {

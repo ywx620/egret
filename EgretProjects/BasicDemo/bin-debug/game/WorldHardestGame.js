@@ -22,20 +22,23 @@ var WorldHardestGame = (function (_super) {
         this.createControl();
     };
     WorldHardestGame.prototype.createControl = function () {
-        var w = (this.stage.stageHeight - 640) >> 2;
-        var controlBg = moon.MoonUI.getCircle(w, 0Xffff00);
-        controlBg.alpha = 0;
-        var controlBar = moon.MoonUI.getCircle(w - 30, 0XFF0000);
-        var controlAuton = new control.ControlBarMove(this.stage, controlBar, controlBg);
-        //controlAuton.open();
-        controlBg.x = controlBar.x = this.stage.stageWidth >> 1;
-        controlBg.y = controlBar.y = this.stage.stageHeight - (w << 1);
-        this.addChild(controlBg);
-        this.addChild(controlBar);
-        controlAuton.open();
-        controlAuton.moveBackFun = this.moveBackFun.bind(this);
-        controlAuton.startBackFun = this.startBackFun.bind(this);
-        controlAuton.endBackFun = this.endBackFun.bind(this);
+        // var w:number=(this.stage.stageHeight-640)>>2;
+        // var controlBg:Sprite=moon.MoonUI.getCircle(w,0Xffff00);
+        // controlBg.alpha=0;
+        // var controlBar:Sprite=moon.MoonUI.getCircle(w-30,0XFF0000);
+        // var controlAuton:control.ControlBarMove=new control.ControlBarMove(this.stage,controlBar,controlBg);
+        // //controlAuton.open();
+        // controlBg.x=controlBar.x=this.stage.stageWidth>>1;
+        // controlBg.y=controlBar.y=this.stage.stageHeight-(w<<1);
+        // this.addChild(controlBg);
+        // this.addChild(controlBar);
+        // controlAuton.open();
+        // controlAuton.moveBackFun=this.moveBackFun.bind(this);
+        // controlAuton.startBackFun=this.startBackFun.bind(this);
+        // controlAuton.endBackFun=this.endBackFun.bind(this);
+        var control = new ArrowControl();
+        control.level = this.levelControl;
+        this.addChild(control);
     };
     WorldHardestGame.prototype.startBackFun = function (point) {
         this.levelControl.setStartPoint();
@@ -49,14 +52,54 @@ var WorldHardestGame = (function (_super) {
     return WorldHardestGame;
 }(egret.DisplayObjectContainer));
 __reflect(WorldHardestGame.prototype, "WorldHardestGame");
+var ArrowControl = (function (_super) {
+    __extends(ArrowControl, _super);
+    function ArrowControl() {
+        var _this = _super.call(this) || this;
+        _this.setSkinName("../resource/askins/WHG_control.exml");
+        return _this;
+    }
+    ArrowControl.prototype.render = function () {
+        var datas = [{ display: this.arrow_l, backCall: this.moveleft.bind(this) },
+            { display: this.arrow_r, backCall: this.moveright.bind(this) },
+            { display: this.arrow_u, backCall: this.moveup.bind(this) },
+            { display: this.arrow_d, backCall: this.movedown.bind(this) }
+        ];
+        var controlTab = new control.ControlMoreTab(this.stage, datas);
+        controlTab.open();
+        this.point = new egret.Point;
+    };
+    ArrowControl.prototype.moveleft = function (type) {
+        this.point.x = type == 1 ? -1 : 0;
+        this.controlMove(type);
+    };
+    ArrowControl.prototype.moveright = function (type) {
+        this.point.x = type == 1 ? 1 : 0;
+        this.controlMove(type);
+    };
+    ArrowControl.prototype.moveup = function (type) {
+        this.point.y = type == 1 ? -1 : 0;
+        this.controlMove(type);
+    };
+    ArrowControl.prototype.movedown = function (type) {
+        this.point.y = type == 1 ? 1 : 0;
+        this.controlMove(type);
+    };
+    ArrowControl.prototype.controlMove = function (type) {
+        this.level.isMove = type == 1;
+        this.level.controlPlay(this.point);
+    };
+    return ArrowControl;
+}(BasicComponent));
+__reflect(ArrowControl.prototype, "ArrowControl");
 var LevelControl = (function (_super) {
     __extends(LevelControl, _super);
     function LevelControl() {
         var _this = _super.call(this) || this;
         _this.safeAreas = [];
         _this.movePoint = new egret.Point;
-        _this.speedX = 1;
-        _this.speedY = 1;
+        _this.speedX = 2;
+        _this.speedY = 2;
         _this.setSkinName("../resource/askins/WHG_level1.exml");
         return _this;
     }
@@ -152,20 +195,7 @@ var LevelControl = (function (_super) {
         }
     };
     LevelControl.prototype.controlPlay = function (point) {
-        var x = point.x;
-        var y = point.y;
-        if (point.x > 0)
-            this.movePoint.x = 1;
-        else
-            this.movePoint.x = -1;
-        if (point.y > 0)
-            this.movePoint.y = 1;
-        else
-            this.movePoint.y = -1;
-        if (Math.abs(x) < 50)
-            this.movePoint.x = 0;
-        if (Math.abs(y) < 50)
-            this.movePoint.y = 0;
+        this.movePoint = point;
     };
     return LevelControl;
 }(BasicComponent));
