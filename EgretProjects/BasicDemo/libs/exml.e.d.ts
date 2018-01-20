@@ -1,62 +1,62 @@
-declare class P2CameraSkin{
+declare class P2CameraSkin extends eui.Skin{
 }
-declare class ScaleModeSkin{
+declare class ScaleModeSkin extends eui.Skin{
 }
-declare class TestSkin{
+declare class TestSkin extends eui.Skin{
 }
-declare class WHG_control{
+declare class WHG_control extends eui.Skin{
 }
-declare class WHG_level1{
+declare class WHG_level1 extends eui.Skin{
 }
 declare module skins{
-	class ButtonSkin{
+	class ButtonSkin extends eui.Skin{
 	}
 }
 declare module skins{
-	class CheckBoxSkin{
+	class CheckBoxSkin extends eui.Skin{
 	}
 }
 declare module skins{
-	class HScrollBarSkin{
+	class HScrollBarSkin extends eui.Skin{
 	}
 }
 declare module skins{
-	class HSliderSkin{
+	class HSliderSkin extends eui.Skin{
 	}
 }
 declare module skins{
-	class ItemRendererSkin{
+	class ItemRendererSkin extends eui.Skin{
 	}
 }
 declare module skins{
-	class PanelSkin{
+	class PanelSkin extends eui.Skin{
 	}
 }
 declare module skins{
-	class ProgressBarSkin{
+	class ProgressBarSkin extends eui.Skin{
 	}
 }
 declare module skins{
-	class RadioButtonSkin{
+	class RadioButtonSkin extends eui.Skin{
 	}
 }
 declare module skins{
-	class ScrollerSkin{
+	class ScrollerSkin extends eui.Skin{
 	}
 }
 declare module skins{
-	class TextInputSkin{
+	class TextInputSkin extends eui.Skin{
 	}
 }
 declare module skins{
-	class ToggleSwitchSkin{
+	class ToggleSwitchSkin extends eui.Skin{
 	}
 }
 declare module skins{
-	class VScrollBarSkin{
+	class VScrollBarSkin extends eui.Skin{
 	}
 }
 declare module skins{
-	class VSliderSkin{
+	class VSliderSkin extends eui.Skin{
 	}
 }

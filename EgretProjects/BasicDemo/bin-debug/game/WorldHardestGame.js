@@ -8,15 +8,15 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
+var path = "../";
 var WorldHardestGame = (function (_super) {
     __extends(WorldHardestGame, _super);
     function WorldHardestGame() {
         var _this = _super.call(this) || this;
-        _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.addToStage, _this);
+        _this.once(egret.Event.ADDED_TO_STAGE, _this.addToStage, _this); //只帧听一次然后自动删除
         return _this;
     }
     WorldHardestGame.prototype.addToStage = function () {
-        this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.addToStage, this);
         this.levelControl = new LevelControl;
         this.addChild(this.levelControl);
         this.createControl();
@@ -56,7 +56,7 @@ var ArrowControl = (function (_super) {
     __extends(ArrowControl, _super);
     function ArrowControl() {
         var _this = _super.call(this) || this;
-        _this.setSkinName("../resource/askins/WHG_control.exml");
+        _this.setSkinName(path + "resource/askins/WHG_control.exml");
         return _this;
     }
     ArrowControl.prototype.render = function () {
@@ -100,7 +100,7 @@ var LevelControl = (function (_super) {
         _this.movePoint = new egret.Point;
         _this.speedX = 2;
         _this.speedY = 2;
-        _this.setSkinName("../resource/askins/WHG_level1.exml");
+        _this.setSkinName(path + "resource/askins/WHG_level1.exml");
         return _this;
     }
     LevelControl.prototype.render = function () {

@@ -165,6 +165,7 @@ var Main = (function (_super) {
      * Create scene interface
      */
     Main.prototype.createGameScene = function () {
+        platform.login();
         moon.showLog.getIns().init(this.stage);
         this.addChild(new WorldHardestGame);
     };

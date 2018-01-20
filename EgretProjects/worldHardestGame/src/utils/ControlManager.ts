@@ -189,7 +189,7 @@ module control
             for(var i:number=0;i<nodes.length;i++){
                 var node:MorePointNode=nodes[i];
                 if(type==1){//按下
-                    if(node.display.hitTestPoint(x,y)){
+                    if(node.display.hitTestPoint(x,y,true)){
                         node.id=this.id;
                         node.backCall(type);
                     }

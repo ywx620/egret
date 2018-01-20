@@ -32,12 +32,11 @@ var GameParkour = (function (_super) {
         _this.speed = 100;
         _this.stones = [];
         _this.jumpNum = 2;
-        _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.addToStage, _this);
+        _this.once(egret.Event.ADDED_TO_STAGE, _this.addToStage, _this); //只帧听一次然后自动删除
         return _this;
     }
     GameParkour.prototype.addToStage = function () {
         this.addChild(moon.MoonUI.getRect(this.stage.stageWidth, this.stage.stageHeight, 0XFFFFFF));
-        this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.addToStage, this);
         FrameAnimation.getIns().loop();
         FrameAnimation.getIns().addFactoryByName("wukong");
         this.names = [

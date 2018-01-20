@@ -200,7 +200,7 @@ var control;
             for (var i = 0; i < nodes.length; i++) {
                 var node = nodes[i];
                 if (type == 1) {
-                    if (node.display.hitTestPoint(x, y)) {
+                    if (node.display.hitTestPoint(x, y, true)) {
                         node.id = this.id;
                         node.backCall(type);
                     }

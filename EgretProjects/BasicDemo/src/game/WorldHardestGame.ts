@@ -4,10 +4,9 @@ class WorldHardestGame extends egret.DisplayObjectContainer{
     levelControl:LevelControl;
     constructor() {
        super()
-       this.addEventListener(egret.Event.ADDED_TO_STAGE,this.addToStage,this);
+       this.once(egret.Event.ADDED_TO_STAGE,this.addToStage,this);//只帧听一次然后自动删除
     }
     private addToStage():void {
-        this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.addToStage,this);
         this.levelControl=new LevelControl
         this.addChild(this.levelControl);
         this.createControl();

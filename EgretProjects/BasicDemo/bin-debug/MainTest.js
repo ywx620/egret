@@ -32,47 +32,81 @@ var MainTest = (function (_super) {
         //this.scaleMode();
         //this.mainMvc();
         //this.puzzle();
-        this.worldHandestGame();
+        //this.worldHandestGame();
+        //this.testSkinClass();
+        //this.turnCard();
+        //this.testHit();
+        //this.testDisplayDo();
+        this.moonTest();
     };
+    MainTest.prototype.moonTest = function () {
+        this.addChild(new MoonTest);
+    };
+    MainTest.prototype.testDisplayDo = function () {
+        this.addChild(new TestDisplayDo);
+    };
+    MainTest.prototype.testHit = function () {
+        this.addChild(new TestDisplayHit);
+    };
+    /** 测试翻页*/
+    MainTest.prototype.turnCard = function () {
+        this.addChild(new TestCardTurn);
+    };
+    /** */
+    MainTest.prototype.testSkinClass = function () {
+        this.addChild(new TestSkinClass);
+    };
+    /** */
     MainTest.prototype.worldHandestGame = function () {
         this.addChild(new WorldHardestGame);
     };
+    /** */
     MainTest.prototype.puzzle = function () {
         this.addChild(new Puzzle);
     };
+    /** */
     MainTest.prototype.mainMvc = function () {
         /**发布时注意－使用puremvc-typescript-multicore-1.1.min.js有错
          * 需要手动修改为puremvc-typescript-multicore-1.1.js
         */
         this.addChild(new MainMvc);
     };
+    /** */
     MainTest.prototype.scaleMode = function () {
         this.addChild(new TestView());
     };
+    /** */
     MainTest.prototype.morePointTouch = function () {
         //this.addChild(new MorePointTouch)
         this.addChild(new MorePointTouch2);
     };
+    /** */
     MainTest.prototype.text = function () {
         this.addChild(new TextTest);
     };
+    /** */
     MainTest.prototype.control = function () {
         this.addChild(new ControlTest);
     };
+    /** */
     MainTest.prototype.gameParkour = function () {
         this.addChild(new GameParkour);
     };
+    /** */
     MainTest.prototype.p2Test = function () {
         //this.addChild(new P2Camera);
         //this.addChild(new TestFromPolygon);
         //this.addChild(new P2Drag);
     };
+    /** */
     MainTest.prototype.readJson = function () {
         new ReadJson();
     };
+    /** */
     MainTest.prototype.astar = function () {
         this.addChild(new AStarTest);
     };
+    /** */
     MainTest.prototype.moon = function () {
         var rect = new egret.Rectangle(0, 0, this.stageW, this.stageH);
         var home = new egret.Rectangle(10, 200, 20, 200);

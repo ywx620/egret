@@ -158,6 +158,7 @@ module control
             this.distance.y = this.posStart.y - this.display.y;
         }
         protected controlMove(): void {
+            super.controlMove();
             this.display.x = this.posMove.x - this.distance.x;
             this.display.y = this.posMove.y - this.distance.y;
         }

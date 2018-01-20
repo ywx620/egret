@@ -7,10 +7,9 @@ class Puzzle extends egret.DisplayObjectContainer{
     step:number=0;
     constructor() {
        super()
-       this.addEventListener(egret.Event.ADDED_TO_STAGE,this.addToStage,this);
+       this.once(egret.Event.ADDED_TO_STAGE,this.addToStage,this);//只帧听一次然后自动删除
     }
     private addToStage():void {
-        this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.addToStage,this);
         var texture:egret.Texture = RES.getRes("bg_jpg");
         var poker:egret.SpriteSheet = new egret.SpriteSheet(texture);
         var num:number=3;

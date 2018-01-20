@@ -44,19 +44,17 @@ var ArrowControl = (function (_super) {
             { display: this.arrow_u, backCall: this.moveup.bind(this) },
             { display: this.arrow_d, backCall: this.movedown.bind(this) }
         ];
-        for (var i = 0; i < datas.length; i++)
-            datas[i].display.alpha = 0;
+        //for(var i=0;i<datas.length;i++) datas[i].display.alpha=0;
         var controlTab = new control.ControlMoreTab(this.stage, datas);
         controlTab.open();
         this.point = new egret.Point;
-        for (var i = 0; i < this.numChildren; i++) {
-            var image = this.getChildAt(i);
-            var name = image.name.split("_")[0];
-            if (name == "arrow") {
-                image.alpha = 0;
-                this.arrows.push(image);
-            }
-        }
+        // for(var i:number=0;i<this.numChildren;i++){
+        //     var image:eui.Image=this.getChildAt(i) as eui.Image;
+        //     var name=image.name.split("_")[0];
+        //     if(name=="arrow"){
+        //         this.arrows.push(image);
+        //     }
+        // }
         // var controlBg:egret.Sprite=moon.MoonUI.getCircle(140,0Xffff00);
         // var controlAuton:control.ControlBarMove=new control.ControlBarMove(this.stage,this.bar,controlBg);
         // controlBg.x=this.bar.x;
@@ -66,79 +64,58 @@ var ArrowControl = (function (_super) {
         // controlAuton.startBackFun=this.startBackFun.bind(this);
         // controlAuton.endBackFun=this.endBackFun.bind(this);
     };
-    ArrowControl.prototype.startBackFun = function (point) {
-        this.level.isMove = true;
-    };
-    ArrowControl.prototype.endBackFun = function (point) {
-        this.level.isMove = false;
-    };
-    ArrowControl.prototype.moveBackFun = function (p) {
-        var len = this.arrows.length;
-        for (var i = 0; i < len; i++) {
-            var image = this.arrows[i];
-            var name = image.name.split("_")[1];
-            image.alpha = 0;
-            if (image.hitTestPoint(this.bar.x, this.bar.y, true)) {
-                image.alpha = 1;
-                switch (name) {
-                    case "l":
-                        this.point.x = -1;
-                        this.point.y = 0;
-                        break;
-                    case "r":
-                        this.point.x = 1;
-                        this.point.y = 0;
-                        break;
-                    case "u":
-                        this.point.y = 0;
-                        this.point.y = -1;
-                        break;
-                    case "d":
-                        this.point.y = 0;
-                        this.point.y = 1;
-                        break;
-                    case "ru":
-                        this.point.x = 1;
-                        this.point.y = -1;
-                        break;
-                    case "rd":
-                        this.point.x = 1;
-                        this.point.y = 1;
-                        break;
-                    case "lu":
-                        this.point.x = -1;
-                        this.point.y = -1;
-                        break;
-                    case "ld":
-                        this.point.x = -1;
-                        this.point.y = 1;
-                        break;
+    /**
+    private startBackFun(point:egret.Point):void
+    {
+        this.level.isMove=true;
+    }
+    private endBackFun(point:egret.Point):void{
+        this.level.isMove=false;
+    }
+    private moveBackFun(p:any):void
+    {
+        var len:number=this.arrows.length;
+        for(var i:number=0;i<len;i++){
+            var image:eui.Image=this.arrows[i];
+            var name=image.name.split("_")[1];
+            image.alpha=0;
+            if(image.hitTestPoint(this.bar.x,this.bar.y,true)){
+                image.alpha=1;
+                
+                switch(name){
+                    case "l": this.point.x=-1;  this.point.y=0; break;
+                    case "r": this.point.x=1;   this.point.y=0; break;
+                    case "u": this.point.y=0;   this.point.y=-1;break;
+                    case "d": this.point.y=0;   this.point.y=1; break;
+                    case "ru":this.point.x=1;   this.point.y=-1;break;
+                    case "rd":this.point.x=1;   this.point.y=1; break;
+                    case "lu":this.point.x=-1;  this.point.y=-1;break;
+                    case "ld":this.point.x=-1;  this.point.y=1; break;
                 }
                 this.level.controlPlay(this.point);
+                
             }
         }
-    };
+    }
+    */
     ArrowControl.prototype.moveleft = function (type) {
         this.point.x = type == 1 ? -1 : 0;
-        this.arrow_l.alpha = type;
         this.controlMove(type);
     };
     ArrowControl.prototype.moveright = function (type) {
         this.point.x = type == 1 ? 1 : 0;
-        this.arrow_r.alpha = type;
         this.controlMove(type);
     };
     ArrowControl.prototype.moveup = function (type) {
         this.point.y = type == 1 ? -1 : 0;
-        this.arrow_u.alpha = type;
         this.controlMove(type);
     };
     ArrowControl.prototype.movedown = function (type) {
         this.point.y = type == 1 ? 1 : 0;
-        this.arrow_d.alpha = type;
         this.controlMove(type);
     };
     ArrowControl.prototype.controlMove = function (type) {
+        this.level.setMove(type);
         this.level.controlPlay(this.point);
     };
     return ArrowControl;
@@ -149,10 +126,11 @@ var LevelControl = (function (_super) {
     function LevelControl() {
         var _this = _super.call(this) || this;
         _this.safeAreas = [];
+        _this.isMove = 0;
         _this.movePoint = new egret.Point;
         _this.speedX = 4;
         _this.speedY = 4;
-        _this.setSkinName(path + "resource/askins/WHG_level1.exml");
+        _this.setSkinName(path + "resource/askins/WHG_level2.exml");
         return _this;
     }
     LevelControl.prototype.render = function () {
@@ -166,18 +144,35 @@ var LevelControl = (function (_super) {
                     this.wall = image;
                 else if (name == "safe")
                     this.safeAreas.push(image);
+                else if (name == "enem") {
+                    var time = 1000;
+                    var imgY1 = 0;
+                    var imgY2 = 0;
+                    if (image.y > this.player.y) {
+                        imgY1 = 268;
+                        imgY2 = 371;
+                    }
+                    else {
+                        imgY1 = 371;
+                        imgY2 = 268;
+                    }
+                    var tw = egret.Tween.get(image, { loop: true });
+                    tw.to({ y: imgY1 }, time).to({ y: imgY2 }, time);
+                }
             }
         }
         this.startPoint = new egret.Point(this.player.x, this.player.y);
-        this.test1.play();
-        this.test1.addEventListener(egret.Event.COMPLETE, this.onTweenGroupComplete, this);
+        if (this.test1) {
+            this.test1.play();
+            this.test1.addEventListener(egret.Event.COMPLETE, this.onTweenGroupComplete, this);
+        }
         this.addEventListener(egret.Event.ENTER_FRAME, this.onLoop, this);
     };
     LevelControl.prototype.onTweenGroupComplete = function (e) {
         this.test1.play(0);
     };
     LevelControl.prototype.gameOver = function () {
-        this.isMove = false;
+        this.isMove = 0;
         var that = this;
         var tw = egret.Tween.get(this.player);
         tw.to({ alpha: 0 }, 800).call(callBack);
@@ -188,12 +183,14 @@ var LevelControl = (function (_super) {
         }
     };
     LevelControl.prototype.onLoop = function (e) {
-        //simpleTrace(this.isMove);
-        if (this.isMove) {
+        simpleTrace(this.isMove);
+        if (this.isMove > 0) {
             var speedX = this.speedX * this.movePoint.x;
             var speedY = this.speedY * this.movePoint.y;
             this.player.x += speedX;
             this.player.y += speedY;
+            speedX = speedX == 0 ? speedY : speedX;
+            speedY = speedY == 0 ? speedX : speedY;
             var playerX = this.player.x;
             var playerY = this.player.y;
             var halfWidth = this.player.width >> 1;
@@ -202,16 +199,16 @@ var LevelControl = (function (_super) {
                 if (image != this.player) {
                     var name = image.name.substr(0, 4);
                     if (name == "wall") {
-                        if (image.hitTestPoint(playerX + halfWidth + speedX, playerY, true)) {
+                        if (image.hitTestPoint(playerX + halfWidth, playerY, true)) {
                             this.player.x -= speedX;
                         }
-                        if (image.hitTestPoint(playerX - halfWidth + speedX, playerY, true)) {
+                        if (image.hitTestPoint(playerX - halfWidth, playerY, true)) {
                             this.player.x -= speedX;
                         }
-                        if (image.hitTestPoint(playerX, playerY + halfWidth + speedY, true)) {
+                        if (image.hitTestPoint(playerX, playerY + halfWidth, true)) {
                             this.player.y -= speedY;
                         }
-                        if (image.hitTestPoint(playerX, playerY - halfWidth + speedY, true)) {
+                        if (image.hitTestPoint(playerX, playerY - halfWidth, true)) {
                             this.player.y -= speedY;
                         }
                     }
@@ -219,22 +216,28 @@ var LevelControl = (function (_super) {
                     }
                     else if (name == "back") {
                     }
-                    else {
-                        if (image.hitTestPoint(playerX, playerY, true)) {
-                            this.gameOver();
-                        }
-                        else if (image.hitTestPoint(playerX + halfWidth, playerY, true)) {
-                            this.gameOver();
-                        }
-                        else if (image.hitTestPoint(playerX - halfWidth, playerY, true)) {
-                            this.gameOver();
-                        }
-                        else if (image.hitTestPoint(playerX, playerY + halfWidth, true)) {
-                            this.gameOver();
-                        }
-                        else if (image.hitTestPoint(playerX, playerY - halfWidth, true)) {
-                            this.gameOver();
-                        }
+                }
+            }
+        }
+        var playerX = this.player.x;
+        var playerY = this.player.y;
+        for (var i = 0; i < this.numChildren; i++) {
+            var image = this.getChildAt(i);
+            if (image != this.player) {
+                var name = image.name.substr(0, 4);
+                if (name == "wall") {
+                }
+                else if (name == "safe") {
+                }
+                else if (name == "back") {
+                }
+                else {
+                    var dx = image.x - playerX;
+                    var dy = image.y - playerY;
+                    var ds = Math.sqrt(dx * dx + dy * dy);
+                    var dis = image.width / 2 + this.player.width / 2;
+                    if (ds < dis) {
+                        this.gameOver();
                     }
                 }
             }
@@ -243,6 +246,10 @@ var LevelControl = (function (_super) {
     LevelControl.prototype.controlPlay = function (point) {
         this.movePoint = point;
         simpleTrace(this.movePoint.x, this.movePoint.y);
+    };
+    LevelControl.prototype.setMove = function (type) {
+        type == 1 ? this.isMove++ : this.isMove--;
+        this.isMove = this.isMove < 0 ? 0 : this.isMove;
     };
     return LevelControl;
 }(BasicComponent));

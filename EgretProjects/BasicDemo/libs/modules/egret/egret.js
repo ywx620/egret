@@ -15672,16 +15672,16 @@ var egret;
                 return drawCalls;
             }
             // 为显示对象创建一个新的buffer
-            var displayBuffer = this.createRenderBuffer(displayBounds.width, displayBounds.height, true);
+            var displayBuffer = this.createRenderBuffer(displayBounds.width - displayBounds.x, displayBounds.height - displayBounds.y, true);
             var displayContext = displayBuffer.context;
             if (displayObject.$mask) {
-                drawCalls += this.drawWithClip(displayObject, context, offsetX, offsetY);
+                drawCalls += this.drawWithClip(displayObject, displayContext, -displayBounds.x, -displayBounds.y);
             }
             else if (displayObject.$scrollRect || displayObject.$maskRect) {
-                drawCalls += this.drawWithScrollRect(displayObject, context, offsetX, offsetY);
+                drawCalls += this.drawWithScrollRect(displayObject, displayContext, -displayBounds.x, -displayBounds.y);
             }
             else {
-                drawCalls += this.drawDisplayObject(displayObject, context, offsetX, offsetY);
+                drawCalls += this.drawDisplayObject(displayObject, displayContext, -displayBounds.x, -displayBounds.y);
             }
             //绘制结果到屏幕
             if (drawCalls > 0) {
@@ -15865,12 +15865,13 @@ var egret;
                 drawCalls += this.drawDisplayObject(displayObject, context, offsetX, offsetY);
                 return drawCalls;
             }
-            drawCalls += this.drawDisplayObject(displayObject, displayContext, 0, 0);
+            drawCalls += this.drawDisplayObject(displayObject, displayContext, -displayBounds.x, -displayBounds.y);
             //绘制遮罩
             if (mask) {
                 var maskMatrix = egret.Matrix.create();
                 maskMatrix.copyFrom(mask.$getConcatenatedMatrix());
                 mask.$getConcatenatedMatrixAt(displayObject, maskMatrix);
+                maskMatrix.translate(-displayBounds.x, -displayBounds.y);
                 //如果只有一次绘制或是已经被cache直接绘制到displayContext
                 if (egret.Capabilities.$runtimeType == egret.RuntimeType.WEB && maskRenderNode && maskRenderNode.$getRenderCount() == 1 || mask.$displayList) {
                     displayContext.globalCompositeOperation = "destination-in";
@@ -15883,7 +15884,7 @@ var egret;
                     var maskBuffer = this.createRenderBuffer(displayBounds.width, displayBounds.height);
                     var maskContext = maskBuffer.context;
                     maskContext.setTransform(maskMatrix.a, maskMatrix.b, maskMatrix.c, maskMatrix.d, maskMatrix.tx, maskMatrix.ty);
-                    drawCalls += this.drawDisplayObject(mask, maskContext, -displayBounds.x, -displayBounds.y);
+                    drawCalls += this.drawDisplayObject(mask, maskContext, 0, 0);
                     displayContext.globalCompositeOperation = "destination-in";
                     displayContext.globalAlpha = 1;
                     displayContext.drawImage(maskBuffer.surface, 0, 0);
@@ -17166,7 +17167,7 @@ var egret;
              * @language zh_CN
              */
             get: function () {
-                return "5.1.1";
+                return "5.1.2";
             },
             enumerable: true,
             configurable: true

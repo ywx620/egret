@@ -166,6 +166,7 @@ var control;
             this.distance.y = this.posStart.y - this.display.y;
         };
         ControlDrag.prototype.controlMove = function () {
+            _super.prototype.controlMove.call(this);
             this.display.x = this.posMove.x - this.distance.x;
             this.display.y = this.posMove.y - this.distance.y;
         };

@@ -4,6 +4,7 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 var ArrayManager = (function () {
     function ArrayManager() {
     }
+    /**用已有的数组得到随机数组 */
     ArrayManager.getRandomArray = function (array) {
         var value = [];
         var copy = array.concat();

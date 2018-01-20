@@ -23,16 +23,46 @@ class MainTest extends egret.DisplayObjectContainer {
         //this.scaleMode();
         //this.mainMvc();
         //this.puzzle();
-        this.worldHandestGame();
+        //this.worldHandestGame();
+        //this.testSkinClass();
+        //this.turnCard();
+        //this.testHit();
+        //this.testDisplayDo();
+        this.moonTest();
     }
+    private moonTest():void
+    {
+        this.addChild(new MoonTest)
+    }
+    private testDisplayDo():void
+    {
+        this.addChild(new TestDisplayDo);
+    }
+    private testHit():void
+    {
+        this.addChild(new TestDisplayHit)
+    }
+    /** 测试翻页*/
+    private turnCard():void
+    {
+        this.addChild(new TestCardTurn);
+    }
+    /** */
+    private testSkinClass():void
+    {
+        this.addChild(new TestSkinClass);
+    }
+    /** */
     private worldHandestGame():void
     {
         this.addChild(new WorldHardestGame);
     }
+    /** */
     private puzzle():void
     {
         this.addChild(new Puzzle)
     }
+    /** */
     private mainMvc():void
     {
         /**发布时注意－使用puremvc-typescript-multicore-1.1.min.js有错
@@ -40,27 +70,33 @@ class MainTest extends egret.DisplayObjectContainer {
         */
         this.addChild(new MainMvc);
     }
+    /** */
     private scaleMode():void
     {
         this.addChild(new TestView())
     }
+    /** */
     private morePointTouch():void
     {
         //this.addChild(new MorePointTouch)
         this.addChild(new MorePointTouch2)
     }
+    /** */
     private text():void
     {
         this.addChild(new TextTest)
     }
+    /** */
     private control():void
     {
         this.addChild(new ControlTest)
     }
+    /** */
     private gameParkour():void
     {
         this.addChild(new GameParkour)
     }
+    /** */
     private p2Test():void
     {
         //this.addChild(new P2Camera);
@@ -68,14 +104,17 @@ class MainTest extends egret.DisplayObjectContainer {
         //this.addChild(new P2Drag);
         
     }
+    /** */
     private readJson():void
     {
         new ReadJson();
     }
+    /** */
     private astar():void
     {
        this.addChild(new AStarTest);
     }
+    /** */
     private moon():void
     {
         var rect:egret.Rectangle=new egret.Rectangle(0,0,this.stageW,this.stageH);

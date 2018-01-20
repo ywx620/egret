@@ -18,6 +18,7 @@
 	"exmls": [
 		"resource/askins/WHG_control.exml",
 		"resource/askins/WHG_level1.exml",
+		"resource/askins/WHG_level2.exml",
 		"resource/eui_skins/ButtonSkin.exml",
 		"resource/eui_skins/CheckBoxSkin.exml",
 		"resource/eui_skins/HScrollBarSkin.exml",

@@ -14,134 +14,73 @@ generateEUI.paths['resource/askins/WHG_control.exml'] = window.WHG_control = (fu
 	__extends(WHG_control, _super);
 	function WHG_control() {
 		_super.call(this);
-		this.skinParts = ["arrow_r","arrow_l","arrow_d","arrow_u","arrow_ru","arrow_rd","arrow_lu","arrow_ld","bar"];
+		this.skinParts = ["arrow_u","arrow_d","arrow_r","arrow_l"];
 		
 		this.height = 1136;
 		this.width = 640;
-		this.elementsContent = [this._Image1_i(),this.arrow_r_i(),this.arrow_l_i(),this.arrow_d_i(),this.arrow_u_i(),this.arrow_ru_i(),this.arrow_rd_i(),this.arrow_lu_i(),this.arrow_ld_i(),this.bar_i()];
+		this.elementsContent = [this.arrow_u_i(),this.arrow_d_i(),this.arrow_r_i(),this.arrow_l_i()];
 	}
 	var _proto = WHG_control.prototype;
 
-	_proto._Image1_i = function () {
+	_proto.arrow_u_i = function () {
 		var t = new eui.Image();
-		t.height = 380;
-		t.horizontalCenter = 0;
-		t.source = "arrowControl_png";
-		t.verticalCenter = 300;
-		t.width = 380;
-		return t;
-	};
-	_proto.arrow_r_i = function () {
-		var t = new eui.Image();
-		this.arrow_r = t;
+		this.arrow_u = t;
 		t.height = 73;
 		t.name = "arrow_r";
+		t.scaleX = 3;
+		t.scaleY = 3;
 		t.source = "arrow_png";
 		t.width = 105;
-		t.x = 379;
-		t.y = 835.14;
-		return t;
-	};
-	_proto.arrow_l_i = function () {
-		var t = new eui.Image();
-		this.arrow_l = t;
-		t.height = 73;
-		t.name = "arrow_l";
-		t.rotation = 180;
-		t.source = "arrow_png";
-		t.width = 105;
-		t.x = 264;
-		t.y = 906.8;
+		t.x = 158.09;
+		t.y = 651.81;
 		return t;
 	};
 	_proto.arrow_d_i = function () {
 		var t = new eui.Image();
 		this.arrow_d = t;
+		t.anchorOffsetX = 105.33;
+		t.anchorOffsetY = 73.33;
+		t.height = 73;
+		t.name = "arrow_l";
+		t.rotation = 180;
+		t.scaleX = 3;
+		t.scaleY = 3;
+		t.source = "arrow_png";
+		t.width = 105;
+		t.x = 157.09;
+		t.y = 869.64;
+		return t;
+	};
+	_proto.arrow_r_i = function () {
+		var t = new eui.Image();
+		this.arrow_r = t;
+		t.anchorOffsetX = -1.22;
+		t.anchorOffsetY = 72;
 		t.height = 73;
 		t.name = "arrow_d";
 		t.rotation = 90.09;
+		t.scaleX = 3;
+		t.scaleY = 3;
 		t.source = "arrow_png";
 		t.width = 105;
-		t.x = 356.58;
-		t.y = 931.91;
+		t.x = 320.84;
+		t.y = 709.31;
 		return t;
 	};
-	_proto.arrow_u_i = function () {
+	_proto.arrow_l_i = function () {
 		var t = new eui.Image();
-		this.arrow_u = t;
+		this.arrow_l = t;
+		t.anchorOffsetX = 105.33;
+		t.anchorOffsetY = -0.17;
 		t.height = 73;
 		t.name = "arrow_u";
 		t.rotation = 270.09;
+		t.scaleX = 3;
+		t.scaleY = 3;
 		t.source = "arrow_png";
 		t.width = 105;
-		t.x = 283.42;
-		t.y = 813.03;
-		return t;
-	};
-	_proto.arrow_ru_i = function () {
-		var t = new eui.Image();
-		this.arrow_ru = t;
-		t.anchorOffsetX = 0.06;
-		t.anchorOffsetY = 36;
-		t.height = 73;
-		t.name = "arrow_ru";
-		t.rotation = 325.79;
-		t.source = "arrow_png";
-		t.width = 105;
-		t.x = 361.39;
-		t.y = 830.84;
-		return t;
-	};
-	_proto.arrow_rd_i = function () {
-		var t = new eui.Image();
-		this.arrow_rd = t;
-		t.anchorOffsetY = 36;
-		t.height = 73;
-		t.name = "arrow_rd";
-		t.rotation = 50.38;
-		t.source = "arrow_png";
-		t.width = 105;
-		t.x = 368.66;
-		t.y = 913.06;
-		return t;
-	};
-	_proto.arrow_lu_i = function () {
-		var t = new eui.Image();
-		this.arrow_lu = t;
-		t.anchorOffsetY = 36;
-		t.height = 73;
-		t.name = "arrow_lu";
-		t.rotation = 227.72;
-		t.source = "arrow_png";
-		t.width = 105;
-		t.x = 275.67;
-		t.y = 834.25;
-		return t;
-	};
-	_proto.arrow_ld_i = function () {
-		var t = new eui.Image();
-		this.arrow_ld = t;
-		t.anchorOffsetX = -0.94;
-		t.anchorOffsetY = 37;
-		t.height = 73;
-		t.name = "arrow_ld";
-		t.rotation = 145.79;
-		t.source = "arrow_png";
-		t.width = 105;
-		t.x = 283.21;
-		t.y = 912.02;
-		return t;
-	};
-	_proto.bar_i = function () {
-		var t = new eui.Image();
-		this.bar = t;
-		t.anchorOffsetX = 40;
-		t.anchorOffsetY = 40;
-		t.height = 80;
-		t.source = "controlBar_png";
-		t.width = 80;
-		t.x = 320.58;
-		t.y = 868.8;
+		t.x = 94.33;
+		t.y = 711.63;
 		return t;
 	};
 	return WHG_control;
@@ -149,38 +88,47 @@ generateEUI.paths['resource/askins/WHG_control.exml'] = window.WHG_control = (fu
 	__extends(WHG_level1, _super);
 	function WHG_level1() {
 		_super.call(this);
-		this.skinParts = ["test1","image","image0","image1","image2"];
+		this.skinParts = ["test1","image","image0","image1","image2","image3","image5","image6","image7","image8"];
 		
 		this.height = 640;
 		this.width = 640;
 		this.test1_i();
-		this.elementsContent = [this._Image1_i(),this._Image2_i(),this._Image3_i(),this._Image4_i(),this._Image5_i(),this.image_i(),this.image0_i(),this.image1_i(),this.image2_i()];
+		this.elementsContent = [this._Image1_i(),this._Image2_i(),this._Image3_i(),this._Image4_i(),this._Image5_i(),this.image_i(),this.image0_i(),this.image1_i(),this.image2_i(),this.image3_i(),this.image5_i(),this.image6_i(),this.image7_i(),this.image8_i()];
 		
 		eui.Binding.$bindProperties(this, ["image"],[0],this._TweenItem1,"target")
-		eui.Binding.$bindProperties(this, [200.9],[],this._Object1,"x")
-		eui.Binding.$bindProperties(this, [370.1],[],this._Object1,"y")
-		eui.Binding.$bindProperties(this, [200.5],[],this._Object2,"x")
-		eui.Binding.$bindProperties(this, [271.3],[],this._Object2,"y")
+		eui.Binding.$bindProperties(this, [371],[],this._Object1,"y")
+		eui.Binding.$bindProperties(this, [268],[],this._Object2,"y")
 		eui.Binding.$bindProperties(this, ["image0"],[0],this._TweenItem2,"target")
-		eui.Binding.$bindProperties(this, [272.8],[],this._Object3,"y")
-		eui.Binding.$bindProperties(this, [271.9],[],this._Object4,"x")
-		eui.Binding.$bindProperties(this, [369.3],[],this._Object4,"y")
+		eui.Binding.$bindProperties(this, [371],[],this._Object3,"y")
+		eui.Binding.$bindProperties(this, [268],[],this._Object4,"y")
 		eui.Binding.$bindProperties(this, ["image1"],[0],this._TweenItem3,"target")
-		eui.Binding.$bindProperties(this, [368.4],[],this._Object5,"x")
-		eui.Binding.$bindProperties(this, [369.3],[],this._Object5,"y")
-		eui.Binding.$bindProperties(this, [366.4],[],this._Object6,"x")
-		eui.Binding.$bindProperties(this, [271.3],[],this._Object6,"y")
+		eui.Binding.$bindProperties(this, [371],[],this._Object5,"y")
+		eui.Binding.$bindProperties(this, [268],[],this._Object6,"y")
 		eui.Binding.$bindProperties(this, ["image2"],[0],this._TweenItem4,"target")
-		eui.Binding.$bindProperties(this, [438.9],[],this._Object7,"x")
-		eui.Binding.$bindProperties(this, [272.8],[],this._Object7,"y")
-		eui.Binding.$bindProperties(this, [369.3],[],this._Object8,"y")
+		eui.Binding.$bindProperties(this, [371],[],this._Object7,"y")
+		eui.Binding.$bindProperties(this, [268],[],this._Object8,"y")
+		eui.Binding.$bindProperties(this, ["image3"],[0],this._TweenItem5,"target")
+		eui.Binding.$bindProperties(this, [371],[],this._Object9,"y")
+		eui.Binding.$bindProperties(this, [268],[],this._Object10,"y")
+		eui.Binding.$bindProperties(this, ["image5"],[0],this._TweenItem6,"target")
+		eui.Binding.$bindProperties(this, [270],[],this._Object11,"y")
+		eui.Binding.$bindProperties(this, [370],[],this._Object12,"y")
+		eui.Binding.$bindProperties(this, ["image6"],[0],this._TweenItem7,"target")
+		eui.Binding.$bindProperties(this, [270],[],this._Object13,"y")
+		eui.Binding.$bindProperties(this, [370],[],this._Object14,"y")
+		eui.Binding.$bindProperties(this, ["image7"],[0],this._TweenItem8,"target")
+		eui.Binding.$bindProperties(this, [270],[],this._Object15,"y")
+		eui.Binding.$bindProperties(this, [370],[],this._Object16,"y")
+		eui.Binding.$bindProperties(this, ["image8"],[0],this._TweenItem9,"target")
+		eui.Binding.$bindProperties(this, [270],[],this._Object17,"y")
+		eui.Binding.$bindProperties(this, [370],[],this._Object18,"y")
 	}
 	var _proto = WHG_level1.prototype;
 
 	_proto.test1_i = function () {
 		var t = new egret.tween.TweenGroup();
 		this.test1 = t;
-		t.items = [this._TweenItem1_i(),this._TweenItem2_i(),this._TweenItem3_i(),this._TweenItem4_i()];
+		t.items = [this._TweenItem1_i(),this._TweenItem2_i(),this._TweenItem3_i(),this._TweenItem4_i(),this._TweenItem5_i(),this._TweenItem6_i(),this._TweenItem7_i(),this._TweenItem8_i(),this._TweenItem9_i()];
 		return t;
 	};
 	_proto._TweenItem1_i = function () {
@@ -311,6 +259,166 @@ generateEUI.paths['resource/askins/WHG_control.exml'] = window.WHG_control = (fu
 		this._Object8 = t;
 		return t;
 	};
+	_proto._TweenItem5_i = function () {
+		var t = new egret.tween.TweenItem();
+		this._TweenItem5 = t;
+		t.paths = [this._Set5_i(),this._To9_i(),this._To10_i()];
+		return t;
+	};
+	_proto._Set5_i = function () {
+		var t = new egret.tween.Set();
+		return t;
+	};
+	_proto._To9_i = function () {
+		var t = new egret.tween.To();
+		t.duration = 500;
+		t.props = this._Object9_i();
+		return t;
+	};
+	_proto._Object9_i = function () {
+		var t = {};
+		this._Object9 = t;
+		return t;
+	};
+	_proto._To10_i = function () {
+		var t = new egret.tween.To();
+		t.duration = 500;
+		t.props = this._Object10_i();
+		return t;
+	};
+	_proto._Object10_i = function () {
+		var t = {};
+		this._Object10 = t;
+		return t;
+	};
+	_proto._TweenItem6_i = function () {
+		var t = new egret.tween.TweenItem();
+		this._TweenItem6 = t;
+		t.paths = [this._Set6_i(),this._To11_i(),this._To12_i()];
+		return t;
+	};
+	_proto._Set6_i = function () {
+		var t = new egret.tween.Set();
+		return t;
+	};
+	_proto._To11_i = function () {
+		var t = new egret.tween.To();
+		t.duration = 500;
+		t.props = this._Object11_i();
+		return t;
+	};
+	_proto._Object11_i = function () {
+		var t = {};
+		this._Object11 = t;
+		return t;
+	};
+	_proto._To12_i = function () {
+		var t = new egret.tween.To();
+		t.duration = 500;
+		t.props = this._Object12_i();
+		return t;
+	};
+	_proto._Object12_i = function () {
+		var t = {};
+		this._Object12 = t;
+		return t;
+	};
+	_proto._TweenItem7_i = function () {
+		var t = new egret.tween.TweenItem();
+		this._TweenItem7 = t;
+		t.paths = [this._Set7_i(),this._To13_i(),this._To14_i()];
+		return t;
+	};
+	_proto._Set7_i = function () {
+		var t = new egret.tween.Set();
+		return t;
+	};
+	_proto._To13_i = function () {
+		var t = new egret.tween.To();
+		t.duration = 500;
+		t.props = this._Object13_i();
+		return t;
+	};
+	_proto._Object13_i = function () {
+		var t = {};
+		this._Object13 = t;
+		return t;
+	};
+	_proto._To14_i = function () {
+		var t = new egret.tween.To();
+		t.duration = 500;
+		t.props = this._Object14_i();
+		return t;
+	};
+	_proto._Object14_i = function () {
+		var t = {};
+		this._Object14 = t;
+		return t;
+	};
+	_proto._TweenItem8_i = function () {
+		var t = new egret.tween.TweenItem();
+		this._TweenItem8 = t;
+		t.paths = [this._Set8_i(),this._To15_i(),this._To16_i()];
+		return t;
+	};
+	_proto._Set8_i = function () {
+		var t = new egret.tween.Set();
+		return t;
+	};
+	_proto._To15_i = function () {
+		var t = new egret.tween.To();
+		t.duration = 500;
+		t.props = this._Object15_i();
+		return t;
+	};
+	_proto._Object15_i = function () {
+		var t = {};
+		this._Object15 = t;
+		return t;
+	};
+	_proto._To16_i = function () {
+		var t = new egret.tween.To();
+		t.duration = 500;
+		t.props = this._Object16_i();
+		return t;
+	};
+	_proto._Object16_i = function () {
+		var t = {};
+		this._Object16 = t;
+		return t;
+	};
+	_proto._TweenItem9_i = function () {
+		var t = new egret.tween.TweenItem();
+		this._TweenItem9 = t;
+		t.paths = [this._Set9_i(),this._To17_i(),this._To18_i()];
+		return t;
+	};
+	_proto._Set9_i = function () {
+		var t = new egret.tween.Set();
+		return t;
+	};
+	_proto._To17_i = function () {
+		var t = new egret.tween.To();
+		t.duration = 500;
+		t.props = this._Object17_i();
+		return t;
+	};
+	_proto._Object17_i = function () {
+		var t = {};
+		this._Object17 = t;
+		return t;
+	};
+	_proto._To18_i = function () {
+		var t = new egret.tween.To();
+		t.duration = 500;
+		t.props = this._Object18_i();
+		return t;
+	};
+	_proto._Object18_i = function () {
+		var t = {};
+		this._Object18 = t;
+		return t;
+	};
 	_proto._Image1_i = function () {
 		var t = new eui.Image();
 		t.percentHeight = 100;
@@ -376,7 +484,7 @@ generateEUI.paths['resource/askins/WHG_control.exml'] = window.WHG_control = (fu
 		t.source = "enemy_png";
 		t.width = 16;
 		t.x = 200.5;
-		t.y = 274.5;
+		t.y = 268.5;
 		return t;
 	};
 	_proto.image0_i = function () {
@@ -387,8 +495,8 @@ generateEUI.paths['resource/askins/WHG_control.exml'] = window.WHG_control = (fu
 		t.height = 16;
 		t.source = "enemy_png";
 		t.width = 16;
-		t.x = 272.4;
-		t.y = 365.8;
+		t.x = 260;
+		t.y = 268.5;
 		return t;
 	};
 	_proto.image1_i = function () {
@@ -399,8 +507,8 @@ generateEUI.paths['resource/askins/WHG_control.exml'] = window.WHG_control = (fu
 		t.height = 16;
 		t.source = "enemy_png";
 		t.width = 16;
-		t.x = 366.4;
-		t.y = 272.8;
+		t.x = 320;
+		t.y = 268.5;
 		return t;
 	};
 	_proto.image2_i = function () {
@@ -411,8 +519,68 @@ generateEUI.paths['resource/askins/WHG_control.exml'] = window.WHG_control = (fu
 		t.height = 16;
 		t.source = "enemy_png";
 		t.width = 16;
-		t.x = 442.4;
-		t.y = 369.3;
+		t.x = 379;
+		t.y = 268.5;
+		return t;
+	};
+	_proto.image3_i = function () {
+		var t = new eui.Image();
+		this.image3 = t;
+		t.anchorOffsetX = 8;
+		t.anchorOffsetY = 8;
+		t.height = 16;
+		t.source = "enemy_png";
+		t.width = 16;
+		t.x = 439;
+		t.y = 268.5;
+		return t;
+	};
+	_proto.image5_i = function () {
+		var t = new eui.Image();
+		this.image5 = t;
+		t.anchorOffsetX = 8;
+		t.anchorOffsetY = 8;
+		t.height = 16;
+		t.source = "enemy_png";
+		t.width = 16;
+		t.x = 234;
+		t.y = 371;
+		return t;
+	};
+	_proto.image6_i = function () {
+		var t = new eui.Image();
+		this.image6 = t;
+		t.anchorOffsetX = 8;
+		t.anchorOffsetY = 8;
+		t.height = 16;
+		t.source = "enemy_png";
+		t.width = 16;
+		t.x = 294;
+		t.y = 371;
+		return t;
+	};
+	_proto.image7_i = function () {
+		var t = new eui.Image();
+		this.image7 = t;
+		t.anchorOffsetX = 8;
+		t.anchorOffsetY = 8;
+		t.height = 16;
+		t.source = "enemy_png";
+		t.width = 16;
+		t.x = 353;
+		t.y = 371;
+		return t;
+	};
+	_proto.image8_i = function () {
+		var t = new eui.Image();
+		this.image8 = t;
+		t.anchorOffsetX = 8;
+		t.anchorOffsetY = 8;
+		t.height = 16;
+		t.source = "enemy_png";
+		t.width = 16;
+		t.x = 413;
+		t.y = 371;
 		return t;
 	};
 	return WHG_level1;

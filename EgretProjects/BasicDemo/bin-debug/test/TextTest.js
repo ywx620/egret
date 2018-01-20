@@ -26,7 +26,7 @@ var TextTest = (function (_super) {
         var tip = new moon.BasicTips("selected_png");
         tip.side = 60;
         //tip.x=300;
-        tip.setTextFlow([{ text: "这是一个TIPS测试", style: { size: 140, textColor: 0 } }]);
+        tip.setTextFlow([{ text: "这是一个TIPS测试", style: { size: 80, textColor: 0 } }]);
         this.addChild(tip);
         tip.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onClick, this);
         var txt = new TextField;

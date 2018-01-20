@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="TestSkin" width="400" height="300" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Button id="BB" label="Button" x="67" y="150"/>
-	<e:Label id="ll" text="Label" x="164" y="73"/>
+<e:Skin class="TestSkin" width="640" height="640" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*">
+	<w:Declarations>
+		<tween:TweenGroup id="tt">
+			<tween:TweenItem target="{ll}">
+				<tween:Set/>
+				<tween:To duration="500">
+					<tween:props>
+						<e:Object y="{238}"/>
+					</tween:props>
+				</tween:To>
+				<tween:To duration="500">
+					<tween:props>
+						<e:Object y="{23}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+			<tween:TweenItem target="{btn}">
+				<tween:Set/>
+				<tween:To duration="500">
+					<tween:props>
+						<e:Object rotation="{90.87}"/>
+					</tween:props>
+				</tween:To>
+				<tween:To duration="500">
+					<tween:props>
+						<e:Object rotation="{271.61}" x="{59}" y="{37.06}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+			<tween:TweenItem target="{group}">
+				<tween:Set/>
+				<tween:To duration="500">
+					<tween:props>
+						<e:Object rotation="{39.25}"/>
+					</tween:props>
+				</tween:To>
+				<tween:To duration="500">
+					<tween:props>
+						<e:Object x="{278.54}" y="{18.58}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+	</w:Declarations>
+	<e:Button id="btn" label="Button" x="262" anchorOffsetX="0" anchorOffsetY="0" name="ghjg" y="162"/>
+	<e:Label id="ll" text="Label" x="174" y="0"/>
+	<e:Group id="group" width="200" height="200" x="0" y="80">
+		<e:Button label="Button" x="17" y="12" name="btn1-1"/>
+		<e:Button label="Button" x="96" name="rterter" y="80"/>
+	</e:Group>
 </e:Skin>

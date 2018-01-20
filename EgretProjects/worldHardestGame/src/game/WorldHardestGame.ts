@@ -43,18 +43,17 @@ class ArrowControl extends BasicComponent
         {display:this.arrow_u,backCall:this.moveup.bind(this)},
         {display:this.arrow_d,backCall:this.movedown.bind(this)}
         ];
-        for(var i=0;i<datas.length;i++) datas[i].display.alpha=0;
+        //for(var i=0;i<datas.length;i++) datas[i].display.alpha=0;
         var controlTab:control.ControlMoreTab=new control.ControlMoreTab(this.stage,datas);
         controlTab.open();
         this.point=new egret.Point;
-        for(var i:number=0;i<this.numChildren;i++){
-            var image:eui.Image=this.getChildAt(i) as eui.Image;
-            var name=image.name.split("_")[0];
-            if(name=="arrow"){
-                image.alpha=0;
-                this.arrows.push(image);
-            }
-        }
+        // for(var i:number=0;i<this.numChildren;i++){
+        //     var image:eui.Image=this.getChildAt(i) as eui.Image;
+        //     var name=image.name.split("_")[0];
+        //     if(name=="arrow"){
+        //         this.arrows.push(image);
+        //     }
+        // }
 
         // var controlBg:egret.Sprite=moon.MoonUI.getCircle(140,0Xffff00);
         // var controlAuton:control.ControlBarMove=new control.ControlBarMove(this.stage,this.bar,controlBg);
@@ -66,6 +65,7 @@ class ArrowControl extends BasicComponent
         // controlAuton.endBackFun=this.endBackFun.bind(this);
        
     }
+    /**
     private startBackFun(point:egret.Point):void
     {
         this.level.isMove=true;
@@ -98,32 +98,30 @@ class ArrowControl extends BasicComponent
             }
         }
     }
+    */
     private moveleft(type:number):void
     {
         this.point.x=type==1?-1:0;
-        this.arrow_l.alpha=type;
         this.controlMove(type);
     }
     private moveright(type:number):void
     {
         this.point.x=type==1?1:0;
-        this.arrow_r.alpha=type;
         this.controlMove(type);
     }
     private moveup(type:number):void
     {
         this.point.y=type==1?-1:0;
-        this.arrow_u.alpha=type;
         this.controlMove(type);
     }
     private movedown(type:number):void
     {
         this.point.y=type==1?1:0;
-        this.arrow_d.alpha=type;
         this.controlMove(type);
     }
     private controlMove(type:number):void
     {
+        this.level.setMove(type);
         this.level.controlPlay(this.point);
     }
 }
@@ -133,14 +131,14 @@ class LevelControl extends BasicComponent
     private player:eui.Image;
     private wall:eui.Image;
     private safeAreas:any[]=[];
-    public isMove:boolean;
+    private isMove:number=0;
     private startPoint:egret.Point;
     private movePoint:egret.Point=new egret.Point;
     private speedX:number=4;
     private speedY:number=4;
     constructor() {
         super();
-        this.setSkinName(path+"resource/askins/WHG_level1.exml");
+        this.setSkinName(path+"resource/askins/WHG_level2.exml");
     }
     protected render(): void {
         for(var i=0;i<this.numChildren;i++){
@@ -150,11 +148,27 @@ class LevelControl extends BasicComponent
                 if(name=="play") this.player=image;
                 else if(name=="wall") this.wall=image;
                 else if(name=="safe") this.safeAreas.push(image);
+                else if(name=="enem"){
+                    var time:number=1000;
+                    var imgY1:number=0;
+                    var imgY2:number=0;
+                    if(image.y>this.player.y){
+                        imgY1=268;
+                        imgY2=371;
+                    }else{
+                        imgY1=371;
+                        imgY2=268;
+                    }
+                    var tw:egret.Tween=egret.Tween.get(image,{loop:true});
+                    tw.to({y:imgY1},time).to({y:imgY2},time);
+                }
             }
         }
         this.startPoint=new egret.Point(this.player.x,this.player.y);
-        this.test1.play();
-        this.test1.addEventListener(egret.Event.COMPLETE, this.onTweenGroupComplete, this);
+        if(this.test1){
+            this.test1.play();
+            this.test1.addEventListener(egret.Event.COMPLETE, this.onTweenGroupComplete, this);
+        }
         this.addEventListener(egret.Event.ENTER_FRAME,this.onLoop,this);
     }
     protected onTweenGroupComplete(e):void
@@ -163,7 +177,7 @@ class LevelControl extends BasicComponent
     }
     private gameOver():void
     {
-        this.isMove=false;
+        this.isMove=0;
         var that=this;
         var tw:egret.Tween=egret.Tween.get(this.player);
         tw.to({alpha:0},800).call(callBack);
@@ -172,16 +186,17 @@ class LevelControl extends BasicComponent
             that.player.y=that.startPoint.y;
             that.player.alpha=1;
         }
-       
     }
     private onLoop(e):void
     {
-        //simpleTrace(this.isMove);
-        if(this.isMove){
+        simpleTrace(this.isMove);
+        if(this.isMove>0){
             var speedX:number=this.speedX*this.movePoint.x;
             var speedY:number=this.speedY*this.movePoint.y;
             this.player.x+=speedX;
             this.player.y+=speedY;
+            speedX=speedX==0?speedY:speedX;
+            speedY=speedY==0?speedX:speedY;
             var playerX:number=this.player.x;
             var playerY:number=this.player.y;
             var halfWidth:number=this.player.width>>1;
@@ -190,43 +205,59 @@ class LevelControl extends BasicComponent
                 if(image!=this.player){
                     var name:String=image.name.substr(0,4);
                     if(name=="wall"){
-                        if (image.hitTestPoint(playerX+halfWidth+speedX , playerY, true)){
+                        if (image.hitTestPoint(playerX+halfWidth , playerY, true)){
                             this.player.x-=speedX;
                         }
-                        if (image.hitTestPoint(playerX-halfWidth+speedX, playerY, true)){
+                        if (image.hitTestPoint(playerX-halfWidth, playerY, true)){
                             this.player.x-=speedX;
                         }
-                        if (image.hitTestPoint(playerX , playerY+halfWidth+speedY, true)){
+                        if (image.hitTestPoint(playerX , playerY+halfWidth, true)){
                             this.player.y-=speedY;
                         }
-                        if (image.hitTestPoint(playerX, playerY-halfWidth+speedY, true)){
+                        if (image.hitTestPoint(playerX, playerY-halfWidth, true)){
                             this.player.y-=speedY;
                         } 
                     }else if(name=="safe"){
 
                     }else if(name=="back"){
                         
-                    }else{
-                        if(image.hitTestPoint(playerX,playerY,true)){
-                            this.gameOver();
-                        }else if (image.hitTestPoint(playerX+halfWidth,playerY,true)){
-                            this.gameOver();
-                        }else if (image.hitTestPoint(playerX-halfWidth,playerY,true)){
-                            this.gameOver();
-                        }else if (image.hitTestPoint(playerX,playerY+halfWidth,true)){
-                            this.gameOver();
-                        }else if (image.hitTestPoint(playerX,playerY-halfWidth,true)){
-                            this.gameOver();
-                        } 
                     }
                 }
             }
         }
+            var playerX:number=this.player.x;
+            var playerY:number=this.player.y;
+            for(var i=0;i<this.numChildren;i++){
+                var image:eui.Image=this.getChildAt(i) as eui.Image;
+                if(image!=this.player){
+                    var name:String=image.name.substr(0,4);
+                    if(name=="wall"){
+                    }else if(name=="safe"){
+
+                    }else if(name=="back"){
+                        
+                    }else{
+                        var dx:number=image.x-playerX;
+                        var dy:number=image.y-playerY;
+                        var ds:number=Math.sqrt(dx*dx+dy*dy);
+                        var dis:number=image.width/2+this.player.width/2;
+                        if(ds<dis){
+                            this.gameOver();
+                        }
+
+                    }
+                }
+            }
     }
     public controlPlay(point:egret.Point):void
     {
         this.movePoint=point;
         simpleTrace(this.movePoint.x,this.movePoint.y)
+    }
+    public setMove(type:number):void
+    {
+        type==1?this.isMove++:this.isMove--
+        this.isMove=this.isMove<0?0:this.isMove;
     }
     // public controlPlay(point:egret.Point):void
     // {

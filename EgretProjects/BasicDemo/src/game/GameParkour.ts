@@ -14,11 +14,10 @@ class GameParkour extends egret.DisplayObjectContainer{
     distance:number;
     constructor() {
        super()
-       this.addEventListener(egret.Event.ADDED_TO_STAGE,this.addToStage,this);
+       this.once(egret.Event.ADDED_TO_STAGE,this.addToStage,this);//只帧听一次然后自动删除
     }
     private addToStage():void {
         this.addChild(moon.MoonUI.getRect(this.stage.stageWidth,this.stage.stageHeight,0XFFFFFF))
-        this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.addToStage,this);
         FrameAnimation.getIns().loop();
         FrameAnimation.getIns().addFactoryByName("wukong");
         this.names=[

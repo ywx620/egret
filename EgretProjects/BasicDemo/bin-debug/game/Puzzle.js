@@ -16,11 +16,10 @@ var Puzzle = (function (_super) {
         _this.checkImages = [];
         _this.rightOrder = "";
         _this.step = 0;
-        _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.addToStage, _this);
+        _this.once(egret.Event.ADDED_TO_STAGE, _this.addToStage, _this); //只帧听一次然后自动删除
         return _this;
     }
     Puzzle.prototype.addToStage = function () {
-        this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.addToStage, this);
         var texture = RES.getRes("bg_jpg");
         var poker = new egret.SpriteSheet(texture);
         var num = 3;

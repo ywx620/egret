@@ -1,4 +1,5 @@
  class ArrayManager  {
+     /**用已有的数组得到随机数组 */
     public static getRandomArray(array:any[]):any[]
     {
         let value:any[]=[];
