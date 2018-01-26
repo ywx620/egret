@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,RoleIcon_json,wukong_ske_json,wukong_tex_json,wukong_tex_png,zm5Bg_png,zm5Ft_png,tips_png,keyDown_mp3,wall_png,safeArea_png,player_png,enemy_png,bg2_jpg,controlBar_png,arrow_png,arrowControl_png",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,RoleIcon_json,wukong_ske_json,wukong_tex_json,wukong_tex_png,zm5Bg_png,zm5Ft_png,tips_png,keyDown_mp3,wall_png,safeArea_png,player_png,enemy_png,bg2_jpg,controlBar_png,arrow_png,arrowControl_png,btn1_png,btn2_png,maomao_png",
 			"name": "preload"
 		}
 	],
@@ -132,89 +132,104 @@
 			"name": "egret_icon_png"
 		},
 		{
-			"name": "description_json",
+			"url": "config/description.json",
 			"type": "json",
-			"url": "config/description.json"
+			"name": "description_json"
 		},
 		{
-			"name": "RoleIcon_json",
+			"url": "config/RoleIcon.json",
 			"type": "json",
-			"url": "config/RoleIcon.json"
+			"name": "RoleIcon_json"
 		},
 		{
-			"name": "wukong_ske_json",
+			"url": "bd/wukong_ske.json",
 			"type": "json",
-			"url": "bd/wukong_ske.json"
+			"name": "wukong_ske_json"
 		},
 		{
-			"name": "wukong_tex_json",
+			"url": "bd/wukong_tex.json",
 			"type": "json",
-			"url": "bd/wukong_tex.json"
+			"name": "wukong_tex_json"
 		},
 		{
-			"name": "wukong_tex_png",
+			"url": "bd/wukong_tex.png",
 			"type": "image",
-			"url": "bd/wukong_tex.png"
+			"name": "wukong_tex_png"
 		},
 		{
-			"name": "zm5Bg_png",
+			"url": "assets/zm5Bg.png",
 			"type": "image",
-			"url": "assets/zm5Bg.png"
+			"name": "zm5Bg_png"
 		},
 		{
-			"name": "zm5Ft_png",
+			"url": "assets/zm5Ft.png",
 			"type": "image",
-			"url": "assets/zm5Ft.png"
+			"name": "zm5Ft_png"
 		},
 		{
-			"name": "tips_png",
+			"url": "assets/tips.png",
 			"type": "image",
-			"url": "assets/tips.png"
+			"name": "tips_png"
 		},
 		{
-			"name": "keyDown_mp3",
+			"url": "sound/keyDown.mp3",
 			"type": "sound",
-			"url": "sound/keyDown.mp3"
+			"name": "keyDown_mp3"
 		},
 		{
-			"name": "wall_png",
+			"url": "whg/wall.png",
 			"type": "image",
-			"url": "whg/wall.png"
+			"name": "wall_png"
 		},
 		{
-			"name": "safeArea_png",
+			"url": "whg/safeArea.png",
 			"type": "image",
-			"url": "whg/safeArea.png"
+			"name": "safeArea_png"
 		},
 		{
-			"name": "player_png",
+			"url": "whg/player.png",
 			"type": "image",
-			"url": "whg/player.png"
+			"name": "player_png"
 		},
 		{
-			"name": "enemy_png",
+			"url": "whg/enemy.png",
 			"type": "image",
-			"url": "whg/enemy.png"
+			"name": "enemy_png"
 		},
 		{
-			"name": "bg2_jpg",
+			"url": "whg/bg.jpg",
 			"type": "image",
-			"url": "whg/bg.jpg"
+			"name": "bg2_jpg"
 		},
 		{
-			"name": "controlBar_png",
+			"url": "whg/controlBar.png",
 			"type": "image",
-			"url": "whg/controlBar.png"
+			"name": "controlBar_png"
 		},
 		{
-			"name": "arrow_png",
+			"url": "whg/arrow.png",
 			"type": "image",
-			"url": "whg/arrow.png"
+			"name": "arrow_png"
 		},
 		{
-			"name": "arrowControl_png",
+			"url": "whg/arrowControl.png",
 			"type": "image",
-			"url": "whg/arrowControl.png"
+			"name": "arrowControl_png"
+		},
+		{
+			"url": "assets/btn1.png",
+			"type": "image",
+			"name": "btn1_png"
+		},
+		{
+			"url": "assets/btn2.png",
+			"type": "image",
+			"name": "btn2_png"
+		},
+		{
+			"url": "assets/maomao.png",
+			"type": "image",
+			"name": "maomao_png"
 		}
 	]
 }

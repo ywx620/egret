@@ -149,7 +149,7 @@ class LevelControl extends BasicComponent
     }
     private onLoop(e):void
     {
-        simpleTrace(this.isMove);
+        traceSimple(this.isMove);
         if(this.isMove){
             var speedX:number=this.speedX*this.movePoint.x;
             var speedY:number=this.speedY*this.movePoint.y;

@@ -45,7 +45,7 @@ class TestDisplayHit extends moon.BasicView{
         var isHit2:boolean=r1.intersects(r2);
         //simpleTrace("hitTestPoint="+isHit1);
 
-        simpleTrace("intersects="+isHit2);
+        traceSimple("intersects="+isHit2);
         
     }
     /**显示锚点位置 */

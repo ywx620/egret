@@ -1,5 +1,3 @@
-class Button extends eui.Button{};
-class ImageIcon extends eui.Image{};
 class TextField extends egret.TextField {};
 class Sprite extends egret.Sprite {};
 class Shape extends egret.Shape {};
@@ -10,6 +8,7 @@ class Rectangle extends egret.Rectangle{};
 class Bitmap extends egret.Bitmap{};
 class BitmapData extends egret.BitmapData{};
 class Stage extends egret.Stage{};
+class Tween extends egret.Tween{};
 //----------------------------------------------
 var trace=function(...arg):void
 {
@@ -20,7 +19,7 @@ var trace=function(...arg):void
 	str=str.substr(0,str.length-1);
 	moon.showLog.getIns().logMessage(str)
 }
-var simpleTrace=function(...arg):void
+var traceSimple=function(...arg):void
 {
 	var str:string="";
 	for(let i:number=0;i<arg.length;i++){
@@ -36,14 +35,25 @@ module moon
 		public static fontName:string="黑体";
 	}
 	export class Const{
-		public static readonly buttonStatusNormal:number=0;
-		public static readonly buttonStatusDown:number=1;
+		/**横版布局 */
+		public static readonly HORIZONTAL:string="horizontal";
+		/**竖版布局 */
+		public static readonly VERTICAL:string="vertical";
 	}
-	export interface IFace{  
+	export interface IItem{  
 		update():void;
 		addItem(item:DisplayObject):void;
 		removeItem(item:DisplayObject):void;
+		hasItem(index:number):boolean;
+		getItem(index:number):DisplayObject;
     }
+	export interface ILayout{  
+		layout(type:string,interval:number):void;
+    }
+	export interface IOnoff{
+		open():void;
+		close():void;
+	}
 	/**颜色 */
 	export class Color
 	{
@@ -55,46 +65,59 @@ module moon
 		public static get green():number {return 0X00FF00};
 		public static get bule():number {return 0X0000FF};
 		public static get skinNormal():number{return 0X15191C};
-		public static get skinDown():number{return 0X20262B};
+		public static get skinDown():number{return 0X999999};
 		public static get titleBackground():number{return 0X20262B};
 	}
 	/**皮肤 */
 	export class Skin
 	{
-		public static get pointNormal():Sprite{return moon.MoonUI.getCircle(6,moon.Color.black)};
-		public static get pointDown():Sprite{return moon.MoonUI.getCircle(6,moon.Color.gray)};
-		public static get buttonNormal():Sprite{return moon.MoonUI.getRect(60,60,moon.Color.skinNormal)};
-		public static get buttonDown():Sprite{return moon.MoonUI.getRect(60,60,moon.Color.skinDown)};
 		public static get randomRect():Sprite{return moon.MoonUI.getRect(60,60,moon.Color.random)};
 		public static get randomCircle():Sprite{return moon.MoonUI.getCircle(50,moon.Color.random)};
-		public static get radioNormal():Sprite{return moon.MoonUI.getRadioCircle(moon.Color.white,moon.Color.white)};
-		public static get radioDown():Sprite{return moon.MoonUI.getRadioCircle(moon.Color.white,moon.Color.black,1)};
-		public static get checkBoxOnNormal():Sprite{return moon.MoonUI.getCheckBoxRect(moon.Color.white,moon.Color.white)};
-		public static get checkBoxOnDown():Sprite{return moon.MoonUI.getCheckBoxRect(moon.Color.white,moon.Color.white)};
-		public static get checkBoxOffNormal():Sprite{return moon.MoonUI.getCheckBoxRect(moon.Color.white,moon.Color.black,1)};
-		public static get checkBoxOffDown():Sprite{return moon.MoonUI.getCheckBoxRect(moon.Color.white,moon.Color.black,1)};
-		
-		public static get switchOnNormal():Sprite{
-			var node:Sprite=moon.MoonUI.getRoundRect(80,50,moon.Color.skinNormal,60,60);
-			node.addChild(moon.MoonUI.getCircle(22,moon.Color.white,25,25));
-			return node;
-		};
-		public static get switchOnDown():Sprite{
-			var node:Sprite=moon.MoonUI.getRoundRect(80,50,moon.Color.skinDown,60,60);
-			node.addChild(moon.MoonUI.getCircle(22,moon.Color.white,25,25));
-			return node;
-		};
-		public static get switchOffNormal():Sprite{
-			var node:Sprite=moon.MoonUI.getRoundRect(80,50,moon.Color.skinNormal,60,60);
-			node.addChild(moon.MoonUI.getCircle(22,moon.Color.white,55,25));
-			return node;
-		};
-		public static get switchOffDown():Sprite{
-			var node:Sprite=moon.MoonUI.getRoundRect(80,50,moon.Color.skinDown,60,60);
-			node.addChild(moon.MoonUI.getCircle(22,moon.Color.white,55,25));
-			return node;
-		};
+		/**默认点 */
+		public static get pointNormal():Sprite{return moon.MoonUI.getCircle(6,moon.Color.black)};
+		public static get pointDown():Sprite{return moon.MoonUI.getCircle(6,moon.Color.gray)};
+		/**默认按钮 */
+		public static get buttonNormal():Sprite{return moon.MoonUI.getRect(60,60,moon.Color.skinNormal)};
+		public static get buttonDown():Sprite{return moon.MoonUI.getRect(60,60,moon.Color.skinDown)};
+		/**默认单选框 */
+		public static get radioOff():Sprite{return moon.MoonUI.getRadioCircle(moon.Color.white,moon.Color.white)};
+		public static get radioOn():Sprite{return moon.MoonUI.getRadioCircle(moon.Color.white,moon.Color.black,1)};
+		/**默认复选框 */
+		public static get checkBoxOff():Sprite{return moon.MoonUI.getCheckBoxRect(moon.Color.white,moon.Color.white)};
+		public static get checkBoxOn():Sprite{return moon.MoonUI.getCheckBoxRect(moon.Color.white,moon.Color.black,1)};
+		/**默认开关 */
+		public static get switchOff():Sprite{return moon.MoonUI.getSwitch(moon.Color.skinNormal,moon.Color.white)};
+		public static get switchOn():Sprite{return moon.MoonUI.getSwitch(moon.Color.skinNormal,moon.Color.white,1)};
+		/**默认进度条 */
+		public static get progressBackground():Sprite{return moon.MoonUI.getRect(300,20,moon.Color.skinNormal);}
+		public static get progressValue():Sprite{return moon.MoonUI.getRect(300,20,moon.Color.skinDown);}
+		/**默认滑动器 */
+		public static get sliderBackground():Sprite{return moon.MoonUI.getRect(300,10,moon.Color.skinNormal);}
+		public static get sliderValue():Sprite{return moon.MoonUI.getRect(300,10,moon.Color.skinDown);}
+		public static get sliderBar():Sprite{return moon.MoonUI.getCircle(15,moon.Color.white);}
+		/**默认滚动条 */
+		public static get scrollBar():Sprite{return moon.MoonUI.getRect(10,10,moon.Color.skinNormal);}
 
+		public static getRodatioButton(label:string):BasicButton
+		{
+			var btn:BasicButton=new BasicButton(moon.Skin.radioOff,moon.Skin.radioOn);
+			btn.skinAutoScale=false;
+			btn.label=label;
+			btn.labelColor=moon.Color.black;
+            btn.setLabelPoint(40,0);
+			return btn;
+		}
+		public static getCheckBox(label:string):MoreSkinButton
+		{
+			var skins:any[]=[moon.Skin.checkBoxOff,moon.Skin.checkBoxOff,moon.Skin.checkBoxOn,moon.Skin.checkBoxOn]
+            var btn:moon.MoreSkinButton=new moon.MoreSkinButton(skins);
+			btn.skinAutoScale=false;
+			btn.label=label;
+            btn.toggleSwitch=true;
+            btn.labelColor=moon.Color.black;
+            btn.setLabelPoint(50,2);
+			return btn;
+		}
 	}
     /**
 	 * ...
@@ -219,20 +242,26 @@ module moon
 			s.addChild(text);
 			return s;
 		}
+		/**得到矩形-switchButton bc背景颜色，gc钩选的颜色,type为0是没有钩为1是有钩*/
+		public static getSwitch(bc:number=0XFFFFFF,gc:number=0,type:number=0):Sprite
+		{
+			var node:Sprite=moon.MoonUI.getRoundRect(80,50,bc,60,60);
+			node.addChild(moon.MoonUI.getCircle(22,gc,type==0?25:55,25));
+			return node;
+		}
 		/**得到矩形-复选框 bc背景颜色，gc钩的颜色,type为0是没有钩为1是有钩*/
 		public static getCheckBoxRect(bc:number=0XFFFFFF,gc:number=0,type:number=0):Sprite
 		{
 			var s:Sprite = new Sprite;
-			s.addChild(this.getRect(20,20,bc));
+			s.addChild(this.getRect(40,40,bc));
 			if(type==1){
 				var r:Sprite=new Sprite;
 				r.graphics.beginFill(gc);
-				r.graphics.moveTo(0,10);
-				r.graphics.lineTo(10,18);r.graphics.lineTo(22,4);r.graphics.lineTo(18,0);r.graphics.lineTo(10,9);
-				r.graphics.lineTo(6,4);r.graphics.lineTo(0,10);
+				r.graphics.moveTo(0,20);
+				r.graphics.lineTo(20,36);r.graphics.lineTo(44,8);r.graphics.lineTo(36,0);r.graphics.lineTo(20,18);
+				r.graphics.lineTo(12,8);r.graphics.lineTo(0,20);
 				s.addChild(r);
 			}
-			s.scaleX=s.scaleY=1.5;
 			return s;
 		}
 		/**得到矩形-单选框 bc背景颜色，gc钩的颜色,type为0是没有圆为1是有圆*/
@@ -345,16 +374,16 @@ module moon
 				this.tipsView.x=pos.x-(this.tipsView.width>>1);
 				this.tipsView.y=pos.y-this.tipsView.height*2;
 				if(this.tipsView.y<0){
-					this.tipsView.x=pos.x+50
 					this.tipsView.y=pos.y;
+				}
+				if((this.tipsView.y+this.tipsView.height)>this.stage.stageHeight){
+					this.tipsView.y=pos.y-(this.tipsView.height+50);
 				}
 				if(this.tipsView.x<0){
 					this.tipsView.x=pos.x+50
-					this.tipsView.y=pos.y;
 				}
 				if((this.tipsView.x+this.tipsView.width)>this.stage.stageWidth){
 					this.tipsView.x=pos.x-(this.tipsView.width+50);
-					this.tipsView.y=pos.y;
 				}
 			}
 		}
@@ -384,6 +413,7 @@ module moon
 		public static readonly RENDER_COMPLETE:string="render complete";
 		public static readonly UPDATE:string="update";
 		public static readonly START:string="start";
+		public static readonly MOVE:string="move";
 		public static readonly OVER:string="over";
 		public static readonly PAUSE:string="pause";
 		
@@ -397,37 +427,6 @@ module moon
 			this.type=type;
 			this.data=data;
 			this.currentTarget=currentTarget;
-		}
-	}
-	/**基础皮肤类 */
-	export class BasicSkinComponent extends eui.Component
-	{
-		isCreateChildren: boolean;
-		isLoadComplete: boolean;
-		constructor() {
-			super();
-		}
-		public setSkinName(skinName: string): void {
-			this.addEventListener(eui.UIEvent.COMPLETE, this.onComplete, this);
-			this.skinName = skinName;
-		}
-		protected createChildren(): void {
-			super.createChildren();
-			this.isCreateChildren = true;
-			this.init();
-		}
-		private onComplete(): void {
-			this.isLoadComplete = true;
-			this.init();
-		}
-		private init(): void {
-			if (this.isCreateChildren && this.isLoadComplete) {
-				this.render();
-			}
-		}
-		/**从这个渲染开始*/
-		protected render(): void {
-
 		}
 	}
     export class MoonContainer extends DisplayObjectContainer
@@ -457,7 +456,7 @@ module moon
 			this.stageHeight=this.stage.stageHeight;
         }
 		/**发布事件*/
-		public newDispatchEvent(type:string,data:Object=null,dataType:Object=null):void
+		public dispEvent(type:string,data:Object=null,dataType:Object=null):void
 		{
 			if(this.dataEvent){
 				var fun:Function=this.dataEvent[type] as Function;
@@ -467,19 +466,24 @@ module moon
 					moonEvent.data=data;
 					moonEvent.type=type;
 					moonEvent.dataType=dataType;
-					fun(moonEvent);
+					if(fun["this"]){
+						(<Function>fun).apply(fun["this"],[moonEvent]);
+					}else{
+						fun(moonEvent)
+					}
 				}
 			}
 		}
 		/**帧听事件*/
-		public newAddEventListener(type:string, listener:Function):void
+		public addEvent(type:string, listener:Function,thisObj:any=null):void
 		{
 			if(this.dataEvent&&this.dataEvent[type]==null){
+				listener["this"]=thisObj
 				this.dataEvent[type]=listener;
 			}
 		}
 		/**删除事件*/
-		public newRemoveEventListener(type:string, listener:Function):void
+		public removeEvent(type:string, listener:Function):void
 		{
 			if(this.dataEvent&&this.dataEvent[type]){
 				delete this.dataEvent[type];
@@ -585,21 +589,14 @@ module moon
             }
         }
     }
-	export class Scale9Image extends MoonContainer
+	/**九宫格*/
+	export class Scale9Image extends Bitmap
 	{
-		private image:eui.Image;
-		public constructor(name:string)
+		public constructor(name:string,rect:Rectangle=null)
         {
             super();
-			this.image=new eui.Image(name);
-			this.image.scale9Grid=new Rectangle(4,4,2,2);
-			this.addChild(this.image);
-		}
-		/**设置宽高，默认为0是不改变大小 */
-		public setSize(w:number=0,h:number=0):void
-		{
-			if(w>0)	this.image.width=w;
-			if(h>0)	this.image.height=h;
+        	this.texture = RES.getRes(name);
+			this.scale9Grid=rect||new Rectangle(8,8,2,2);
 		}
 	}
 	export class BasicTips extends MoonContainer
@@ -639,7 +636,8 @@ module moon
 			var side:number=this.side;
 			var w:number=text.width+side;
 			var h:number=text.height+side;
-			image.setSize(w,h);
+			image.width=w;
+			image.height=h;
 			text.x=text.y=side>>1;
 		}
 	}
@@ -670,7 +668,6 @@ module moon
 		protected text:TextField;
 		/**皮肤大小随字体大小变化 */
 		public skinAutoScale:boolean=true;
-		public status:number=0;
 		public constructor(normal:DisplayObject=null,down:DisplayObject=null)
         {
 			super();
@@ -680,8 +677,6 @@ module moon
 			this.addChild(this.skinContainer);
 			this.updateSkin(this.statusNormal);
 			this.text=(new Label).textField;
-			this.text.textAlign = egret.HorizontalAlign.CENTER;
-			this.text.verticalAlign = egret.VerticalAlign.MIDDLE;
 			this.addChild(this.text);
 
 			this.touchEnabled=true;
@@ -715,6 +710,10 @@ module moon
 		get label():string
 		{
 			return this.text.text;
+		}
+		get textFild():TextField
+		{
+			return this.text;
 		}
 		/**设置富文字 {text:"string",style:{"size":50,"textColor":0}}*/
 		public setTextFlow(textFlow:egret.ITextElement[]):void
@@ -753,11 +752,21 @@ module moon
 		{
 			if(this.skinAutoScale&&this.text.text!=""){
 				var scale:number=this.textWidth/this.statusNormal.width;
-				this.statusNormal.scaleX=this.statusDown.scaleX=scale;
+				if(this.statusNormal instanceof Bitmap){
+					this.statusNormal.width=this.textWidth;
+					this.statusDown.width=this.textWidth;
+				}else{
+					this.statusNormal.scaleX=this.statusDown.scaleX=scale;
+				} 
 				var height:number=this.textHeight;
 				if(height>=this.statusNormal.height){
 					scale=height/this.statusNormal.height;
-					this.statusNormal.scaleY=this.statusDown.scaleY=scale;
+					if(this.statusNormal instanceof Bitmap){
+						this.statusNormal.height=this.textHeight;
+						this.statusDown.height=this.textHeight;
+					}else{ 
+						this.statusNormal.scaleY=this.statusDown.scaleY=scale;
+					}
 				}
 			}
 		}
@@ -765,17 +774,15 @@ module moon
 		{
 			this.text.anchorOffsetX=this.text.width>>1;
 			this.text.anchorOffsetY=this.text.height>>1;
-			this.text.x=this.textWidth>>1;
-			this.text.y=this.statusNormal.height>>1;
-			if(this.textHeight>this.statusNormal.height){
-				this.text.y=this.textHeight>>1;
-			}
+			if(this.textWidth>this.statusNormal.width)		this.text.x=this.textWidth>>1;
+			else											this.text.x=this.statusNormal.width>>1;
+			if(this.textHeight>this.statusNormal.height)	this.text.y=this.textHeight>>1;
+			else											this.text.y=this.statusNormal.height>>1;
 		}
 		protected updateSkin(skin:DisplayObject):void
 		{
 			this.skinContainer.removeChildren();
 			this.skinContainer.addChild(skin);
-			this.status=skin==this.statusNormal?Const.buttonStatusNormal:Const.buttonStatusDown;
 		}
 		public dispose():void
 		{
@@ -823,6 +830,32 @@ module moon
 			super.onTouch(e);								
 		}
 	}
+	/**基础的组件类*/
+	export class BasicBar extends BasicView implements IItem
+	{
+		protected items:any[]=[];
+		public addItem(item:DisplayObject):void
+		{
+			this.items.push(item);
+		}
+		public removeItem(item:DisplayObject):void
+		{
+			var index:number=this.items.indexOf(item);
+			if(index>0) this.items.splice(index,1);
+		}
+		public hasItem(index:number):boolean
+		{
+			return index>=0||index<this.items.length;
+		}
+		public getItem(index:number):DisplayObject
+		{
+			return this.items[index];
+		}
+		public update():void
+		{
+
+		}
+	}
 	/***进度条 */
 	export class ProgressBar extends MoonContainer
 	{
@@ -830,18 +863,19 @@ module moon
 		protected skinValue:DisplayObject;
 		protected text:TextField;
 		protected _value:number=0;
-		public constructor(bg:DisplayObject,value:DisplayObject)
+		public constructor(bg:DisplayObject=null,value:DisplayObject=null)
         {
 			super();
-			this.skinBg=bg;
-			this.skinValue=value;
+			this.setSkin(bg,value);
 			this.addChild(this.skinBg);
 			this.addChild(this.skinValue);
-			this.value=0;
 			this.text=(new Label).textField;
-			this.text.textAlign = egret.HorizontalAlign.CENTER;
-			this.text.verticalAlign = egret.VerticalAlign.MIDDLE;
 			this.addChild(this.text);
+		}
+		protected setSkin(bg:DisplayObject=null,value:DisplayObject=null)
+        {
+			this.skinBg=bg||Skin.progressBackground;
+			this.skinValue=value||Skin.progressValue;
 		}
 		/**值只能是0－1之间 */
 		set value(v:number)
@@ -863,79 +897,256 @@ module moon
 			else			this.text.y=y;
 		}
 	}
-	/**复选框按钮 */
-	export class CheckBoxBar extends BasicView implements IFace
+	/***滑动器 */
+	export class SliderBar extends ProgressBar implements ILayout
 	{
-		protected items:MoreSkinButton[]=[];
-		public addItemLabel(item:MoreSkinButton,str:string):void
-		{
-			item.skinAutoScale=false;
-			item.label=str;
-			this.addItem(item)
+		protected skinBar:DisplayObject;
+		protected type:string;
+		public constructor(bg:DisplayObject=null,value:DisplayObject=null,bar:DisplayObject=null)
+        {
+			super(bg,value);
+			this.skinBar=bar||Skin.sliderBar;
+			this.addChild(this.skinBar);
+			this.skinBar.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouch,this);
+			this.skinBar.touchEnabled=true;
+			this.layout();
+			this.value=1;
 		}
-		public addItem(item:MoreSkinButton):void
-		{
-			item.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onClick,this);
-			this.addChild(item);
-			this.items.push(item);
+		protected setSkin(bg:DisplayObject=null,value:DisplayObject=null)
+        {
+			this.skinBg=bg||Skin.sliderBackground;
+			this.skinValue=value||Skin.sliderValue;
 		}
-		public removeItem(item:MoreSkinButton):void
+		protected onTouch(e:egret.TouchEvent):void
 		{
-			item.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onClick,this);
-			var index:number=this.items.indexOf(item);
-			if(index>0) this.items.splice(index,1);
-			item.removeFromParent(true);
+			switch (e.type) {
+                case egret.TouchEvent.TOUCH_BEGIN:
+					this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
+					this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouch, this);
+					this.dispEvent(MoonEvent.START);
+                    break;
+				case egret.TouchEvent.TOUCH_MOVE:
+					this.moveDo(e.stageX,e.stageY);
+					this.dispEvent(MoonEvent.MOVE);
+				break;
+                case egret.TouchEvent.TOUCH_END:
+					this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
+					this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouch, this);
+					this.dispEvent(MoonEvent.OVER);
+                    break;
+            }
 		}
-		public hasItem(index:number):boolean
+		protected moveDo(x:number,y:number):void
 		{
-			return index>=0||index<this.items.length;
+			var p:Point=this.globalToLocal(x,y);
+			var v:number;
+			if(this.type==Const.HORIZONTAL)	v=p.x/this.skinValue.width;
+			else							v=-p.y/this.skinValue.width;
+			this.value=v;
 		}
-		public getItem(index:number):MoreSkinButton
+		/**值只能是0－1之间 */
+		set value(v:number)
 		{
-			return this.items[index];
+			v=v<0?0:v>1?1:v;
+			this._value=v;
+			this.skinValue.scaleX=v;
+			if(this.type==Const.HORIZONTAL)	this.skinBar.x=this.skinValue.width*v;
+			else							this.skinBar.y=-this.skinValue.width*v;
 		}
-		public update():void
-		{
-
+		get value():number
+		{//get 方法竟然是不能继承的，这个得注意了。
+			return this._value;
 		}
-		protected onClick(e:egret.TouchEvent):void
+		/**横竖版布局，默认是横版布局 */
+		public layout(type:string=Const.HORIZONTAL,interval:number=0):void
 		{
-			var item:MoreSkinButton=e.currentTarget as MoreSkinButton;
-			this.newDispatchEvent(moon.MoonEvent.CHANGE)
+			this.type=type
+			if(type==Const.VERTICAL){
+				var angle=-90;
+				this.skinBar.x=this.skinValue.height>>1;
+			}else{
+				var angle=0;
+				this.skinBar.y=this.skinValue.height>>1;
+			}
+			this.skinBg.rotation=angle;
+			this.skinValue.rotation=angle;
 		}
 	}
-	/**单选框按钮 */
-	export class RadioButtonBar extends BasicView implements IFace
+	/***滚动条 */
+	export class ScrollBar extends MoonContainer implements ILayout
 	{
-		protected _selectIndex:number;
-				protected items:BasicButton[]=[];
-		public isAutoLayout:Boolean=false;
-		public addItemLabel(item:BasicButton,str:string):void
+		protected skinBar:DisplayObject;
+		protected _target:DisplayObject;
+		protected maskRect:DisplayObject;
+		protected type:string;
+		protected startPos:Point;
+		protected stPos:Point;
+		protected startTime:number;
+		public constructor(bar:DisplayObject=null)
+        {
+			super();
+			this.skinBar=bar||Skin.scrollBar;
+			this.skinBar.alpha=0;
+			this.addChild(this.skinBar);
+			this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouch,this);
+			this.touchEnabled=true;
+			this.startPos=new Point;
+			this.stPos=new Point;
+			this.setSize();
+			this.layout();
+		}
+		protected onTouch(e: egret.TouchEvent){
+			
+            switch (e.type) {
+                case egret.TouchEvent.TOUCH_BEGIN:
+					this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
+					this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouch, this);
+					this.stPos.x=e.stageX;
+					this.stPos.y=e.stageY;
+					this.startPos.x=e.stageX-this._target.x;
+					this.startPos.y=e.stageY-this._target.y;
+					this.hideShow(1);
+					this.startTime=egret.getTimer();
+                    break;
+				case egret.TouchEvent.TOUCH_MOVE:
+					this.moveDo(e.stageX,e.stageY);
+				break;
+                case egret.TouchEvent.TOUCH_END:
+					this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
+					this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouch, this);
+					this.hideShow(0);
+					this.timeMove(e.stageX,e.stageY);
+                    break;
+            }
+        }
+		protected timeMove(x:number,y:number):void
 		{
-			item.skinAutoScale=false;
-			item.label=str;
+			//缓动动画
+		}
+		protected hideShow(alpha:number):void
+		{
+			Tween.removeTweens(this.skinBar);
+			if(alpha==1){
+				this.skinBar.alpha=1;
+			}
+			var tw:Tween=Tween.get(this.skinBar);
+			tw.to({alpha:alpha},1500);
+		}
+		protected moveDo(x:number,y:number):void
+		{
+			if(this.type==Const.VERTICAL){
+				this.canMoveY(y);
+			}else if(this.type==Const.HORIZONTAL){
+				this.canMoveX(x);
+			}
+		}
+		protected canMoveX(x:number):void
+		{
+			var dis:number=this.maskRect.width-this._target.width;
+			var xx=x-this.startPos.x;
+			if(xx>dis&&xx<0){
+				this._target.x=xx;
+				this.skinBar.x=-xx/(this._target.width-this.maskRect.width)*(this.maskRect.width-this.skinBar.width);
+			}
+		}
+		protected canMoveY(y:number):void
+		{
+			var dis:number=this.maskRect.height-this._target.height;
+			var yy=y-this.startPos.y;
+			if(yy>dis&&yy<0){
+				this._target.y=yy;
+				this.skinBar.y=-yy/(this._target.height-this.maskRect.height)*(this.maskRect.height-this.skinBar.height);
+			}
+		}
+		protected setMask():void
+		{
+			if(this.maskRect!=null&&this._target!=null){
+				this._target.mask=this.maskRect;
+			}
+		}
+		protected setSkinBarPos():void
+		{
+			this.skinBar.x=this.skinBar.y=0;
+			if(this.type==Const.VERTICAL){
+				this.skinBar.x=this.maskRect.width-this.skinBar.width;
+			}else if(this.type==Const.HORIZONTAL){
+				this.skinBar.y=this.maskRect.height-this.skinBar.height;
+			}
+		}
+		public layout(type:string=Const.VERTICAL,interval:number=0):void
+		{
+			this.type=type;
+			this.setSkinBarPos();
+		}
+		public setSize(w:number=200,h:number=200):void
+		{
+			this.maskRect=MoonUI.getRect(w,h);
+			this.addChild(this.maskRect);
+			this.setMask();
+			this.setSkinBarPos();
+		}
+		set target(value:DisplayObject)
+		{
+			this._target=value;
+			this.addChildAt(this._target,0);
+			this.setMask();
+		} 
+	}
+	/**复选框按钮 */
+	export class CheckBoxBar extends BasicBar implements ILayout
+	{
+		public addItemLabel(label:string,item:MoreSkinButton=null):void
+		{
+			if(item==null)		item=Skin.getCheckBox(label);
+			else				item.label=label;
 			this.addItem(item)
 		}
 		public addItem(item:BasicButton):void
 		{
+			super.addItem(item);
 			item.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onClick,this);
 			this.addChild(item);
-			this.items.push(item);
 		}
 		public removeItem(item:BasicButton):void
 		{
+			super.removeItem(item);
 			item.removeEventListener(egret.TouchEvent.TOUCH_TAP,this.onClick,this);
-			var index:number=this.items.indexOf(item);
-			if(index>0) this.items.splice(index,1);
 			item.removeFromParent(true);
 		}
-		public hasItem(index:number):boolean
+		protected onClick(e:egret.TouchEvent):void
 		{
-			return index>=0||index<this.items.length;
+			var item:MoreSkinButton=e.currentTarget as MoreSkinButton;
+			this.dispEvent(moon.MoonEvent.CHANGE);
 		}
-		public getItem(index:number):BasicButton
+		/**布局 type类型为横或竖，interval为对象间的间隔*/
+		public layout(type:string=Const.VERTICAL,interval:number=50):void
 		{
-			return this.items[index];
+			for(var i:number=0;i<this.items.length;i++){
+				var item:DisplayObject=this.items[i];
+				if(type==Const.VERTICAL) item.y=interval*i;
+				else					 item.x=interval*i;
+			}
+		}
+		public get selectIndexs():number[]
+		{
+			var nums:number[]=[];
+			for(var i:number=0;i<this.items.length;i++){
+				var btn:MoreSkinButton=this.items[i] as MoreSkinButton;
+				if(btn.currentPage==1) nums.push(i);
+			}
+			return nums;
+		}
+	}
+	/**单选框按钮 */
+	export class RadioButtonBar extends CheckBoxBar
+	{
+		protected _selectIndex:number;
+		public isAutoLayout:Boolean=false;
+		public addItemLabel(label:string,item:BasicButton=null):void
+		{
+			if(item==null)				item=Skin.getRodatioButton(label);
+			else						item.label=label;
+			this.addItem(item)
 		}
 		protected render():void
 		{
@@ -955,7 +1166,7 @@ module moon
 		{
 			var item:BasicButton=e.currentTarget as BasicButton;
 			this.selectIndex=this.items.indexOf(item);
-			this.newDispatchEvent(moon.MoonEvent.CHANGE);
+			this.dispEvent(moon.MoonEvent.CHANGE);
 		}
 		set selectIndex(index:number){
 			this._selectIndex=index;
@@ -970,8 +1181,8 @@ module moon
 			return this._selectIndex;
 		}
 	}
-	
-	export class PanelBar extends BasicView implements IFace
+	/**面板 */
+	export class PanelBar extends BasicBar
 	{
 		protected titleBg:Sprite;
 		protected title:TextField;
@@ -1005,8 +1216,6 @@ module moon
 			this.createRectBySprite(this.containerBg,this.stageWidth,this.stageHeight-this.titleHeight,moon.Color.white,0,this.titleHeight);
 			this.addChild(this.titleBg);
 			this.addChild(this.containerBg);
-			this.title.textAlign = egret.HorizontalAlign.CENTER;
-			this.title.verticalAlign = egret.VerticalAlign.MIDDLE;
 			this.title.anchorOffsetX=this.title.textWidth>>1;
 			this.title.anchorOffsetY=this.title.textHeight>>1;
 			this.title.x=this.stageWidth>>1;
@@ -1016,19 +1225,18 @@ module moon
 			this.addChild(this.container);
 			this.containerMask=this.createRect(this.stageWidth,this.stageHeight-this.titleHeight,moon.Color.white,0,this.titleHeight);
 			this.container.mask=this.containerMask;
-			this.newDispatchEvent(MoonEvent.RENDER_COMPLETE);
+			this.dispEvent(MoonEvent.RENDER_COMPLETE);
         }
 		public addItem(item:DisplayObject,x:number=0,y:number=0):void
 		{
+			super.addItem(item);
 			if(x!=0)item.x=x;if(y!=0)item.y=y;
 			this.container.addChild(item)
 		}
 		public removeItem(item:DisplayObject):void
 		{
+			super.removeItem(item);
 			if(this.container.contains(item)) this.container.removeChild(item);
-		}
-		public update():void{
-
 		}
 		set label(value:string){
 			this.title.text=value;
@@ -1054,9 +1262,9 @@ module moon
 			this.container.dispose();
 		}
 	}
-	export class PanelMoreManager extends BasicView implements IFace
+	/**多个面板管理 */
+	export class PanelMoreManager extends BasicBar implements IOnoff
 	{
-		protected items:PanelBar[]=[];
 		protected radioButton:RadioButtonBar=new RadioButtonBar;
 		protected container:MoonContainer;
 		protected pWidth:number;
@@ -1072,22 +1280,13 @@ module moon
 			this.addChild(this.container);
 			this.radioButton.isAutoLayout=true;
 		}
-		public addItem(item:PanelBar):void
+		public open():void
 		{
-			this.items.push(item);
+			this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
 		}
-		public removeItem(item:PanelBar):void
+		public close():void
 		{
-			var index:number=this.items.indexOf(item)
-			if(index>0) this.items.splice(index,1);
-		}
-		public hasItem(index:number):boolean
-		{
-			return index>=0||index<this.items.length;
-		}
-		public getItem(index:number):PanelBar
-		{
-			return this.items[index];
+			this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
 		}
 		public update():void
 		{
@@ -1106,7 +1305,7 @@ module moon
 				var btn:BasicButton=new BasicButton(moon.Skin.pointNormal,moon.Skin.pointDown);
 				this.radioButton.addItem(btn);
 			}
-			btn=this.radioButton.getItem(0);
+			btn=this.radioButton.getItem(0) as BasicButton;
 			btn.setSkinDown();
 			this.radioButton.x=(itemW-len*22)>>1;
 			this.radioButton.y=itemH-20;
@@ -1116,7 +1315,7 @@ module moon
 		{
 			this.update();
 			if(this.items.length>1){
-				this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
+				this.open();
 			}
         }
         protected onTouch(e: egret.TouchEvent){
@@ -1125,6 +1324,7 @@ module moon
 					this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
 					this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouch, this);
                     this.posStartX=e.stageX;
+					this.dispEvent(MoonEvent.START)
                     break;
 				case egret.TouchEvent.TOUCH_MOVE:
 					this.moveDo(e.stageX)
@@ -1211,6 +1411,7 @@ module moon
 			this.radioButton.selectIndex=this.currentPage;
 			this.moveItems.length=0;
 			this.container.x=0;
+			this.dispEvent(MoonEvent.OVER)
 		}
 	}
 }

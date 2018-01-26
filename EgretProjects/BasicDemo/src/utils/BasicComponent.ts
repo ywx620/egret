@@ -1,5 +1,9 @@
+class Button extends eui.Button {};
+class ImageIcon extends eui.Image {};
+class Component extends eui.Component {};
+
 /**基础皮肤类 */
-class BasicComponent extends eui.Component {
+class BasicComponent extends Component {
     isCreateChildren: boolean;
     isLoadComplete: boolean;
     constructor() {

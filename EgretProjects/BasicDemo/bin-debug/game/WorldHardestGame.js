@@ -142,7 +142,7 @@ var LevelControl = (function (_super) {
         }
     };
     LevelControl.prototype.onLoop = function (e) {
-        simpleTrace(this.isMove);
+        traceSimple(this.isMove);
         if (this.isMove) {
             var speedX = this.speedX * this.movePoint.x;
             var speedY = this.speedY * this.movePoint.y;

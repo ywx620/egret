@@ -54,7 +54,7 @@ var Puzzle = (function (_super) {
         this.setStep();
     };
     Puzzle.prototype.setStep = function () {
-        simpleTrace("步数:" + this.step++);
+        traceSimple("步数:" + this.step++);
     };
     Puzzle.prototype.moveEnd = function (point) {
         if (this.checkImages.length == 1) {
@@ -136,7 +136,7 @@ var Puzzle = (function (_super) {
         }
         //trace(checkOrder);
         if (this.rightOrder == checkOrder) {
-            simpleTrace("一共用了" + this.step + "步完成");
+            traceSimple("一共用了" + this.step + "步完成");
         }
         else {
             this.coltrolMove.open();

@@ -254,7 +254,7 @@ var SendMediator = (function (_super) {
     SendMediator.prototype.onRegister = function () {
         this.view = new SendView();
         this.container.addChild(this.view);
-        this.view.newAddEventListener(moon.MoonEvent.CLICK, this.onClick.bind(this));
+        this.view.addEvent(moon.MoonEvent.CLICK, this.onClick.bind(this));
         this.view.y = 210;
     };
     /**发送转发数据*/
@@ -295,7 +295,7 @@ var SendView = (function (_super) {
     };
     SendView.prototype.onClick = function (e) {
         var btn = e.currentTarget;
-        this.newDispatchEvent(moon.MoonEvent.CLICK, btn.label);
+        this.dispEvent(moon.MoonEvent.CLICK, btn.label);
     };
     return SendView;
 }(moon.BasicView));

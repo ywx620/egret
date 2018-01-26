@@ -57,7 +57,7 @@ var TestDisplayHit = (function (_super) {
         r2.y = this.rect2.y;
         var isHit2 = r1.intersects(r2);
         //simpleTrace("hitTestPoint="+isHit1);
-        simpleTrace("intersects=" + isHit2);
+        traceSimple("intersects=" + isHit2);
     };
     /**显示锚点位置 */
     TestDisplayHit.prototype.showPoint = function (rect) {

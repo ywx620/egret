@@ -8,6 +8,33 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
+var Button = (function (_super) {
+    __extends(Button, _super);
+    function Button() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return Button;
+}(eui.Button));
+__reflect(Button.prototype, "Button");
+;
+var ImageIcon = (function (_super) {
+    __extends(ImageIcon, _super);
+    function ImageIcon() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return ImageIcon;
+}(eui.Image));
+__reflect(ImageIcon.prototype, "ImageIcon");
+;
+var Component = (function (_super) {
+    __extends(Component, _super);
+    function Component() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return Component;
+}(eui.Component));
+__reflect(Component.prototype, "Component");
+;
 /**基础皮肤类 */
 var BasicComponent = (function (_super) {
     __extends(BasicComponent, _super);
@@ -59,6 +86,6 @@ var BasicComponent = (function (_super) {
         });
     };
     return BasicComponent;
-}(eui.Component));
+}(Component));
 __reflect(BasicComponent.prototype, "BasicComponent");
 //# sourceMappingURL=BasicComponent.js.map
