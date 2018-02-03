@@ -35,10 +35,17 @@ module moon
 		public static fontName:string="黑体";
 	}
 	export class Const{
-		/**横版布局 */
+		/**布局 横版*/
 		public static readonly HORIZONTAL:string="horizontal";
-		/**竖版布局 */
+		/**布局 竖版*/
 		public static readonly VERTICAL:string="vertical";
+
+		/**形状 方块*/
+		public static readonly SHAPE_RECT:string="shape rect";
+		/**形状 圆角方块*/
+		public static readonly SHAPE_RECT_ROUND:string="shape rect round";
+		/**形状 圆块*/
+		public static readonly SHAPE_CIRCLE:string="shape circle";
 	}
 	export interface IItem{  
 		update():void;
@@ -348,6 +355,7 @@ module moon
 		private static instance:TipsManager;
 		private stage:Stage;
 		private tipsView:BasicTips;
+		public bgName:string="tips_png";//TIPS的背景图片
 		public static getIns():TipsManager{
 			if(this.instance == null){
 					this.instance = new TipsManager();
@@ -361,7 +369,7 @@ module moon
 		public simpleTips(value:string,pos:Point):void
 		{
 			if(this.tipsView==null){
-				this.tipsView=new moon.BasicTips("tips_png");
+				this.tipsView=new moon.BasicTips(this.bgName);
         		this.tipsView.setValue(value)
         		this.stage.addChild(this.tipsView);
 				this.setPosition(pos);
@@ -427,6 +435,67 @@ module moon
 			this.type=type;
 			this.data=data;
 			this.currentTarget=currentTarget;
+		}
+	}
+	export class MoonDisplayObject extends Sprite
+	{
+		private _type:string=Const.SHAPE_RECT;
+		private _color:number=0;
+		private _data:any;
+		private display:Sprite;
+		private bg:Sprite;
+		public constructor()
+		{
+			super();
+			this.display=new Sprite;
+			this.bg=new Sprite;
+		}
+		set type(value:string){this._type=value}
+		get type():string{return this._type}
+		set color(value:number){this._color=value;this._data.c=value;this.draw();}
+		get color():number{return this._color}
+		/**{w:1,h:1,r:1,c:1,ew:1,eh:1} */
+		set data(value:Object){this._data=value;this.draw();}
+		protected draw():void
+		{
+			this.display.graphics.clear();
+			this.display=this.getDisplay(this._data);
+			this.addChild(this.display);
+			this.setPosition();
+		}
+		protected setPosition():void
+		{
+			if(this.bg!=null&&this.type!=Const.SHAPE_CIRCLE){
+				this.display.x=(this.bg.width-this.display.width)>>1;
+				this.display.y=(this.bg.height-this.display.height)>>1;
+			}
+		}
+		public setBackground(color:number,side:number=1)
+		{
+			var d:any=this._data;
+			var o:any={};
+			for(var i in d){
+				o[i]=d[i];
+			}
+			o.c=color;
+			if(o.w) o.w=o.w+side*2;
+			if(o.h) o.h=o.h+side*2;
+			if(o.r) o.r=o.r+side;
+			this.bg.graphics.clear();
+			this.bg=this.getDisplay(o);
+			this.addChildAt(this.bg,0);
+			this.setPosition();
+		}
+		protected getDisplay(o:any):Sprite
+		{
+			switch(this.type){
+				case Const.SHAPE_RECT:
+				return MoonUI.getRect(o.w,o.h,o.c);
+				case Const.SHAPE_RECT_ROUND:
+				return MoonUI.getRoundRect(o.w,o.h,o.c,o.ew,o.eh);
+				case Const.SHAPE_CIRCLE:
+				return MoonUI.getCircle(o.r,o.c);
+			}
 		}
 	}
     export class MoonContainer extends DisplayObjectContainer
@@ -554,6 +623,26 @@ module moon
 			s.graphics.beginFill(c);
 			s.graphics.drawRect(x,y,w,h);
 			s.graphics.endFill();
+		}
+		protected createBackground(c:number=0):Sprite
+		{
+			return this.createRect(this.stageWidth,this.stageHeight,c)
+		}
+	}
+	export class GameView extends BasicView
+	{
+		protected play():void
+		{
+			egret.startTick(this.loop, this);
+		}
+		protected stop():void
+		{
+			egret.stopTick(this.loop, this);
+		}
+		protected loop(n:number):boolean
+		{
+			traceSimple(n);
+			return true;
 		}
 	}
     export class MapHorizontalHouse extends MoonContainer

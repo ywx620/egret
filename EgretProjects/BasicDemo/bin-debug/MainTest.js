@@ -38,13 +38,21 @@ var MainTest = (function (_super) {
         //this.testHit();
         //this.testDisplayDo();
         this.moonTest();
+        //this.maomaoJump();
     };
+    /** 测试毛毛跳一跳*/
+    MainTest.prototype.maomaoJump = function () {
+        this.addChild(new MaoMaoJump);
+    };
+    /** 测试月亮组件*/
     MainTest.prototype.moonTest = function () {
         this.addChild(new MoonTest);
     };
+    /** 测试可显对象各种*/
     MainTest.prototype.testDisplayDo = function () {
         this.addChild(new TestDisplayDo);
     };
+    /** 测试碰撞*/
     MainTest.prototype.testHit = function () {
         this.addChild(new TestDisplayHit);
     };
@@ -52,61 +60,61 @@ var MainTest = (function (_super) {
     MainTest.prototype.turnCard = function () {
         this.addChild(new TestCardTurn);
     };
-    /** */
+    /** 测试exml*/
     MainTest.prototype.testSkinClass = function () {
         this.addChild(new TestSkinClass);
     };
-    /** */
+    /** 测试最难的游戏*/
     MainTest.prototype.worldHandestGame = function () {
         this.addChild(new WorldHardestGame);
     };
-    /** */
+    /** 测试拼图*/
     MainTest.prototype.puzzle = function () {
         this.addChild(new Puzzle);
     };
-    /** */
+    /** 测试MVC*/
     MainTest.prototype.mainMvc = function () {
         /**发布时注意－使用puremvc-typescript-multicore-1.1.min.js有错
          * 需要手动修改为puremvc-typescript-multicore-1.1.js
         */
         this.addChild(new MainMvc);
     };
-    /** */
+    /** 测试缩放*/
     MainTest.prototype.scaleMode = function () {
         this.addChild(new TestView());
     };
-    /** */
+    /** 测试多点触摸*/
     MainTest.prototype.morePointTouch = function () {
         //this.addChild(new MorePointTouch)
         this.addChild(new MorePointTouch2);
     };
-    /** */
+    /** 测试文本*/
     MainTest.prototype.text = function () {
         this.addChild(new TextTest);
     };
-    /** */
+    /** 测试控制器*/
     MainTest.prototype.control = function () {
         this.addChild(new ControlTest);
     };
-    /** */
+    /** 测试跑酷*/
     MainTest.prototype.gameParkour = function () {
         this.addChild(new GameParkour);
     };
-    /** */
+    /** 测试P2物理引擎*/
     MainTest.prototype.p2Test = function () {
-        //this.addChild(new P2Camera);
+        this.addChild(new P2Camera);
         //this.addChild(new TestFromPolygon);
         //this.addChild(new P2Drag);
     };
-    /** */
+    /** 测试JSON*/
     MainTest.prototype.readJson = function () {
         new ReadJson();
     };
-    /** */
+    /** 测试A星寻路*/
     MainTest.prototype.astar = function () {
         this.addChild(new AStarTest);
     };
-    /** */
+    /** 测试月亮背景组件*/
     MainTest.prototype.moon = function () {
         var rect = new egret.Rectangle(0, 0, this.stageW, this.stageH);
         var home = new egret.Rectangle(10, 200, 20, 200);

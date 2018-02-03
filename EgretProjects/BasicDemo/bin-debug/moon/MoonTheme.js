@@ -146,10 +146,16 @@ var moon;
     var Const = (function () {
         function Const() {
         }
-        /**横版布局 */
+        /**布局 横版*/
         Const.HORIZONTAL = "horizontal";
-        /**竖版布局 */
+        /**布局 竖版*/
         Const.VERTICAL = "vertical";
+        /**形状 方块*/
+        Const.SHAPE_RECT = "shape rect";
+        /**形状 圆角方块*/
+        Const.SHAPE_RECT_ROUND = "shape rect round";
+        /**形状 圆块*/
+        Const.SHAPE_CIRCLE = "shape circle";
         return Const;
     }());
     moon.Const = Const;
@@ -610,6 +616,7 @@ var moon;
     __reflect(showLog.prototype, "moon.showLog");
     var TipsManager = (function () {
         function TipsManager() {
+            this.bgName = "tips_png"; //TIPS的背景图片
         }
         TipsManager.getIns = function () {
             if (this.instance == null) {
@@ -622,7 +629,7 @@ var moon;
         };
         TipsManager.prototype.simpleTips = function (value, pos) {
             if (this.tipsView == null) {
-                this.tipsView = new moon.BasicTips("tips_png");
+                this.tipsView = new moon.BasicTips(this.bgName);
                 this.tipsView.setValue(value);
                 this.stage.addChild(this.tipsView);
                 this.setPosition(pos);
@@ -691,6 +698,79 @@ var moon;
     }(egret.EventDispatcher));
     moon.MoonEvent = MoonEvent;
     __reflect(MoonEvent.prototype, "moon.MoonEvent");
+    var MoonDisplayObject = (function (_super) {
+        __extends(MoonDisplayObject, _super);
+        function MoonDisplayObject() {
+            var _this = _super.call(this) || this;
+            _this._type = Const.SHAPE_RECT;
+            _this._color = 0;
+            _this.display = new Sprite;
+            _this.bg = new Sprite;
+            return _this;
+        }
+        Object.defineProperty(MoonDisplayObject.prototype, "type", {
+            get: function () { return this._type; },
+            set: function (value) { this._type = value; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MoonDisplayObject.prototype, "color", {
+            get: function () { return this._color; },
+            set: function (value) { this._color = value; this._data.c = value; this.draw(); },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(MoonDisplayObject.prototype, "data", {
+            /**{w:1,h:1,r:1,c:1,ew:1,eh:1} */
+            set: function (value) { this._data = value; this.draw(); },
+            enumerable: true,
+            configurable: true
+        });
+        MoonDisplayObject.prototype.draw = function () {
+            this.display.graphics.clear();
+            this.display = this.getDisplay(this._data);
+            this.addChild(this.display);
+            this.setPosition();
+        };
+        MoonDisplayObject.prototype.setPosition = function () {
+            if (this.bg != null && this.type != Const.SHAPE_CIRCLE) {
+                this.display.x = (this.bg.width - this.display.width) >> 1;
+                this.display.y = (this.bg.height - this.display.height) >> 1;
+            }
+        };
+        MoonDisplayObject.prototype.setBackground = function (color, side) {
+            if (side === void 0) { side = 1; }
+            var d = this._data;
+            var o = {};
+            for (var i in d) {
+                o[i] = d[i];
+            }
+            o.c = color;
+            if (o.w)
+                o.w = o.w + side * 2;
+            if (o.h)
+                o.h = o.h + side * 2;
+            if (o.r)
+                o.r = o.r + side;
+            this.bg.graphics.clear();
+            this.bg = this.getDisplay(o);
+            this.addChildAt(this.bg, 0);
+            this.setPosition();
+        };
+        MoonDisplayObject.prototype.getDisplay = function (o) {
+            switch (this.type) {
+                case Const.SHAPE_RECT:
+                    return MoonUI.getRect(o.w, o.h, o.c);
+                case Const.SHAPE_RECT_ROUND:
+                    return MoonUI.getRoundRect(o.w, o.h, o.c, o.ew, o.eh);
+                case Const.SHAPE_CIRCLE:
+                    return MoonUI.getCircle(o.r, o.c);
+            }
+        };
+        return MoonDisplayObject;
+    }(Sprite));
+    moon.MoonDisplayObject = MoonDisplayObject;
+    __reflect(MoonDisplayObject.prototype, "moon.MoonDisplayObject");
     var MoonContainer = (function (_super) {
         __extends(MoonContainer, _super);
         function MoonContainer() {
@@ -830,10 +910,33 @@ var moon;
             s.graphics.drawRect(x, y, w, h);
             s.graphics.endFill();
         };
+        BasicView.prototype.createBackground = function (c) {
+            if (c === void 0) { c = 0; }
+            return this.createRect(this.stageWidth, this.stageHeight, c);
+        };
         return BasicView;
     }(MoonContainer));
     moon.BasicView = BasicView;
     __reflect(BasicView.prototype, "moon.BasicView");
+    var GameView = (function (_super) {
+        __extends(GameView, _super);
+        function GameView() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        GameView.prototype.play = function () {
+            egret.startTick(this.loop, this);
+        };
+        GameView.prototype.stop = function () {
+            egret.stopTick(this.loop, this);
+        };
+        GameView.prototype.loop = function (n) {
+            traceSimple(n);
+            return true;
+        };
+        return GameView;
+    }(BasicView));
+    moon.GameView = GameView;
+    __reflect(GameView.prototype, "moon.GameView");
     var MapHorizontalHouse = (function (_super) {
         __extends(MapHorizontalHouse, _super);
         function MapHorizontalHouse(rect, house, color) {

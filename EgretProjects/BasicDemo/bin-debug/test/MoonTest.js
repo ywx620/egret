@@ -19,7 +19,7 @@ var MoonTest = (function (_super) {
         names.push("moon纯代码组件一，基本按钮展示");
         names.push("moon纯代码组件二，进度条与滑动器展示");
         names.push("moon纯代码组件三，TIPS展示");
-        //names.push("moon纯代码组件四， Scroll展示");
+        names.push("moon纯代码组件四， MoonDisplay展示");
         for (var i = 0; i < names.length; i++) {
             var panel = new moon.PanelBar();
             panel.label = names[i];
@@ -33,17 +33,9 @@ var MoonTest = (function (_super) {
         this.showButton(0);
         this.showProgresBar(1);
         this.showTipsBar(2);
-        //this.showScrollBar(0);
+        this.showMoonDisplay(3);
+        //this.showScrollBar(4);
         //this.panelMore.once(egret.Event.ADDED_TO_STAGE,this.addToStageMore,this);
-        var bitmap = new Bitmap();
-        bitmap.texture = RES.getRes("maomao_png");
-        var h = bitmap.height;
-        //bitmap.anchorOffsetY=bitmap.height>>1;
-        bitmap.x = bitmap.y = 400;
-        bitmap.scaleY = -1;
-        var tw = Tween.get(bitmap, { loop: true });
-        tw.to({ height: 200 }, 300).to({ height: h }, 300);
-        this.addChild(bitmap);
     };
     MoonTest.prototype.addToStageMore = function (e) {
         this.panelMore.close();
@@ -116,13 +108,13 @@ var MoonTest = (function (_super) {
         }
         //-------------------
         var items = ["A", "B", "C", "D"];
-        var radioButton = new moon.RadioButtonBar;
+        var radioButton1 = new moon.RadioButtonBar;
         for (var i = 0; i < items.length; i++) {
-            radioButton.addItemLabel(items[i]);
+            radioButton1.addItemLabel(items[i]);
         }
-        radioButton.layout(moon.Const.HORIZONTAL, 100);
+        radioButton1.layout(moon.Const.HORIZONTAL, 100);
         panel.addItem(new moon.Label("单选框按钮横排版", 0), 10, 800);
-        panel.addItem(radioButton, 10, 840);
+        panel.addItem(radioButton1, 10, 840);
         //-----------
         var items = ["我帅", "我很帅", "我双酷双帅", "我帅得惊动上帝"];
         var checkBox = new moon.CheckBoxBar;
@@ -202,8 +194,50 @@ var MoonTest = (function (_super) {
         }
     };
     //------屏幕4-----
-    MoonTest.prototype.showScrollBar = function (index) {
+    MoonTest.prototype.showMoonDisplay = function (index) {
         var panel = this.panelMore.getItem(index);
+        //方形
+        var rect = new moon.MoonDisplayObject;
+        rect.type = moon.Const.SHAPE_RECT;
+        rect.data = { w: 100, h: 100, c: moon.Color.random };
+        panel.addItem(rect, 100, 100);
+        //圆角方形
+        var rect = new moon.MoonDisplayObject;
+        rect.type = moon.Const.SHAPE_RECT_ROUND;
+        rect.data = { w: 100, h: 100, c: moon.Color.random, ew: 50, eh: 50 };
+        panel.addItem(rect, 100, 300);
+        //圆形
+        var rect = new moon.MoonDisplayObject;
+        rect.type = moon.Const.SHAPE_CIRCLE;
+        rect.data = { r: 50, c: moon.Color.random };
+        panel.addItem(rect, 100, 600);
+        //有边框的方形
+        var rect = new moon.MoonDisplayObject;
+        rect.type = moon.Const.SHAPE_RECT;
+        rect.data = { w: 100, h: 100, c: moon.Color.random };
+        panel.addItem(rect, 300, 100);
+        rect.setBackground(moon.Color.random, 10);
+        //有边框圆角方形
+        var rect = new moon.MoonDisplayObject;
+        rect.type = moon.Const.SHAPE_RECT_ROUND;
+        rect.data = { w: 100, h: 100, c: moon.Color.random, ew: 50, eh: 50 };
+        panel.addItem(rect, 300, 300);
+        rect.setBackground(moon.Color.random, 10);
+        //有边框圆形
+        var rect = new moon.MoonDisplayObject;
+        rect.type = moon.Const.SHAPE_CIRCLE;
+        rect.data = { r: 50, c: moon.Color.random };
+        panel.addItem(rect, 300, 600);
+        rect.setBackground(moon.Color.random, 10);
+        // var rect=new moon.MoonDisplayObject;
+        // rect.type=moon.Const.SHAPE_RECT_ROUND
+        // rect.data={w:100,h:100,c:moon.Color.random,ew:20,eh:20}
+        // panel.addItem(rect,300,100);
+        //rect.setBackground(moon.Color.random,10);
+        //rect.color=0XFF0000;
+    };
+    /**独立显示 */
+    MoonTest.prototype.showScrollBar = function (index) {
         var scrollBar = new moon.ScrollBar();
         var bitmap = new moon.Scale9Image("bg_jpg");
         scrollBar.target = bitmap;
