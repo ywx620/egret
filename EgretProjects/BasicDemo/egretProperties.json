@@ -1,56 +1,56 @@
 {
-  "native": {
-    "path_ignore": []
-  },
-  "engineVersion": "5.1.2",
-  "compilerVersion": "5.1.2",
-  "publish": {
-    "web": 0,
-    "native": 1,
-    "path": "bin-release"
-  },
-  "template": {},
-  "eui": {
-    "exmlRoot": [
-      "resource/eui_skins"
-    ],
-    "themes": [
-      "resource/default.thm.json"
-    ],
-    "exmlPublishPolicy": "commonjs"
-  },
-  "modules": [
-    {
-      "name": "egret"
-    },
-    {
-      "name": "eui"
-    },
-    {
-      "name": "res"
-    },
-    {
-      "name": "tween"
-    },
-    {
-      "name": "dragonBones"
-    },
-    {
-      "name": "game"
-    },
-    {
-      "name": "experimental"
-    },
-    {
-      "name": "promise"
-    },
-    {
-      "name": "p2Physics",
-      "path": "libs/p2Physics"
-    },
-    {
-      "name": "puremvc-typescript-multicore-1.1",
-      "path": "libs/puremvc"
-    }
-  ]
+	"native": {
+		"path_ignore": []
+	},
+	"engineVersion": "5.1.4",
+	"compilerVersion": "5.1.4",
+	"publish": {
+		"web": 0,
+		"native": 1,
+		"path": "bin-release"
+	},
+	"template": {},
+	"eui": {
+		"exmlRoot": [
+			"resource/eui_skins"
+		],
+		"themes": [
+			"resource/default.thm.json"
+		],
+		"exmlPublishPolicy": "commonjs"
+	},
+	"modules": [
+		{
+			"name": "egret"
+		},
+		{
+			"name": "eui"
+		},
+		{
+			"name": "res"
+		},
+		{
+			"name": "tween"
+		},
+		{
+			"name": "dragonBones"
+		},
+		{
+			"name": "game"
+		},
+		{
+			"name": "experimental"
+		},
+		{
+			"name": "promise"
+		},
+		{
+			"name": "p2Physics",
+			"path": "libs/p2Physics"
+		},
+		{
+			"name": "puremvc-typescript-multicore-1.1",
+			"path": "libs/puremvc"
+		}
+	]
 }

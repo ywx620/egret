@@ -1277,7 +1277,7 @@ module moon
 		protected title:TextField;
 		protected containerBg:Sprite;
 		protected container:MoonContainer;
-		protected containerMask:Shape;
+		protected containerMask:Sprite;
 		protected pWidth:number;
 		protected pHeight:number;
 		protected titleHeight:number=60;

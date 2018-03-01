@@ -36,6 +36,8 @@ var MoonTest = (function (_super) {
         this.showMoonDisplay(3);
         //this.showScrollBar(4);
         //this.panelMore.once(egret.Event.ADDED_TO_STAGE,this.addToStageMore,this);
+        var pinyin = new PinYin;
+        trace(pinyin.convertPinyin("工作项目\阶段四\程序\前端"));
     };
     MoonTest.prototype.addToStageMore = function (e) {
         this.panelMore.close();
@@ -108,13 +110,13 @@ var MoonTest = (function (_super) {
         }
         //-------------------
         var items = ["A", "B", "C", "D"];
-        var radioButton1 = new moon.RadioButtonBar;
+        var radioButton_1 = new moon.RadioButtonBar;
         for (var i = 0; i < items.length; i++) {
-            radioButton1.addItemLabel(items[i]);
+            radioButton_1.addItemLabel(items[i]);
         }
-        radioButton1.layout(moon.Const.HORIZONTAL, 100);
+        radioButton_1.layout(moon.Const.HORIZONTAL, 100);
         panel.addItem(new moon.Label("单选框按钮横排版", 0), 10, 800);
-        panel.addItem(radioButton1, 10, 840);
+        panel.addItem(radioButton_1, 10, 840);
         //-----------
         var items = ["我帅", "我很帅", "我双酷双帅", "我帅得惊动上帝"];
         var checkBox = new moon.CheckBoxBar;

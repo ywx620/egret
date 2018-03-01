@@ -1,0 +1,42 @@
+{
+  "2001": {
+    "id": 2001,
+    "head": "head2001.png",
+    "record": "record2001.png",
+    "createHead": "createHead2001.png",
+    "createBody": "createBody2001.png",
+    "name": "name2001.png",
+    "createName": "createName2001.png",
+    "loginReward": "loginReward2001.png"
+  },
+  "2002": {
+    "id": 2002,
+    "head": "head2002.png",
+    "record": "record2002.png",
+    "createHead": "createHead2002.png",
+    "createBody": "createBody2002.png",
+    "name": "name2002.png",
+    "createName": "createName2002.png",
+    "loginReward": "loginReward2002.png"
+  },
+  "2003": {
+    "id": 2003,
+    "head": "head2003.png",
+    "record": "record2003.png",
+    "createHead": "createHead2003.png",
+    "createBody": "createBody2003.png",
+    "name": "name2003.png",
+    "createName": "createName2003.png",
+    "loginReward": "loginReward2003.png"
+  },
+  "2004": {
+    "id": 2004,
+    "head": "head2004.png",
+    "record": "record2004.png",
+    "createHead": "createHead2004.png",
+    "createBody": "createBody2004.png",
+    "name": "name2004.png",
+    "createName": "createName2004.png",
+    "loginReward": "loginReward2004.png"
+  }
+}

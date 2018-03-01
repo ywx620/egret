@@ -89,4 +89,3 @@ var MorePointNode = (function (_super) {
     return MorePointNode;
 }(egret.Sprite));
 __reflect(MorePointNode.prototype, "MorePointNode");
-//# sourceMappingURL=MorePointTouch.js.map

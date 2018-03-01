@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="WHG_control" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image width="380" height="380" source="arrowControl_png" horizontalCenter="0" verticalCenter="300"/>
+	<e:Image id="arrow_r" width="105" height="73" x="373" y="835.14" source="arrow_png"/>
+	<e:Image id="arrow_l" width="105" height="73" x="268" y="906.8" source="arrow_png" rotation="180"/>
+	<e:Image id="arrow_d" width="105" height="73" x="356.58" y="924.91" source="arrow_png" rotation="90.09"/>
+	<e:Image id="arrow_u" width="105" height="73" x="283.42" y="819.03" source="arrow_png" rotation="270.09"/>
+</e:Skin>

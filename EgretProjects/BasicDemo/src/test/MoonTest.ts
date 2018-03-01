@@ -27,6 +27,9 @@ class MoonTest extends moon.MoonContainer
         this.showMoonDisplay(3);
         //this.showScrollBar(4);
         //this.panelMore.once(egret.Event.ADDED_TO_STAGE,this.addToStageMore,this);
+
+        var pinyin:PinYin=new PinYin;
+        trace(pinyin.convertPinyin("工作项目\阶段四\程序\前端"))
         
     }
     protected addToStageMore(e:egret.Event):void

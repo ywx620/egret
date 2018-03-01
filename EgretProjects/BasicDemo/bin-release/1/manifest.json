@@ -1,0 +1,19 @@
+{
+	"initial": [
+		"js/egret.min_cbeb05c3.js",
+		"js/egret.web.min_af52805a.js",
+		"js/eui.min_407717cb.js",
+		"js/res.min_f2dfb165.js",
+		"js/tween.min_6c5a88f9.js",
+		"js/dragonBones.min_488c2517.js",
+		"js/game.min_5eb26499.js",
+		"js/experimental.min_31954293.js",
+		"js/promise.min_83a6a5d.js",
+		"js/p2Physics.min_49162447.js",
+		"js/puremvc-typescript-multicore-1.1.min_211464c2.js"
+	],
+	"game": [
+		"js/default.thm.min_89d4fa71.js",
+		"js/main.min_76968389.js"
+	]
+}
