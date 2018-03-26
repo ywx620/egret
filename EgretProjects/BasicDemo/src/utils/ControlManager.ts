@@ -63,13 +63,21 @@ module control
     export class ControlBarMove extends ControlBasic{
         private controlBg:egret.DisplayObject;
         private controlBar:egret.DisplayObject;
+        private isDrag:boolean;
         constructor(stage:egret.Stage,controlBar:egret.DisplayObject,controlBg:egret.DisplayObject) {
             super(stage);
             this.controlBar=controlBar;
             this.controlBg=controlBg;
         }
-        
+        /** 手指按下*/
+        protected controlStart(): void {
+           if(this.controlBar.hitTestPoint(this.posStart.x,this.posStart.y)){
+                super.controlStart();
+                this.isDrag=true;
+            }
+        }
         protected controlMove(): void {
+            if(this.isDrag==false) return;
             var x:number=this.posMove.x,y:number=this.posMove.y;
             var bg=this.controlBg;
             var bar=this.controlBar;
@@ -95,6 +103,7 @@ module control
         }
         
         protected controlEnd(): void {
+            this.isDrag=false;
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouch, this);
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
 
@@ -147,20 +156,36 @@ module control
     export class ControlDrag extends ControlBasic{
         display:egret.DisplayObject;
         distance:egret.Point;
+        isDrag:boolean;
         constructor(stage:egret.Stage,display:egret.DisplayObject) {
             super(stage);
             this.display=display;
             this.distance=new egret.Point;
         }
+        public set target(value:egret.DisplayObject){
+            this.display=value;
+        }
         protected controlStart(): void {
-            super.controlStart();
-            this.distance.x = this.posStart.x - this.display.x;
-            this.distance.y = this.posStart.y - this.display.y;
+            if(this.display.hitTestPoint(this.posStart.x,this.posStart.y)){
+                super.controlStart();
+                this.isDrag=true;
+                this.distance.x = this.posStart.x - this.display.x;
+                this.distance.y = this.posStart.y - this.display.y;
+            }
         }
         protected controlMove(): void {
-            super.controlMove();
-            this.display.x = this.posMove.x - this.distance.x;
-            this.display.y = this.posMove.y - this.distance.y;
+            if(this.isDrag){
+                super.controlMove();
+                this.display.x = this.posMove.x - this.distance.x;
+                this.display.y = this.posMove.y - this.distance.y;
+            }
+        }
+        protected controlEnd(): void {
+            this.isDrag=false;
+            super.controlEnd();
+            if(this.endBackFun!=null){
+                this.endBackFun();
+             }
         }
     }
     /**

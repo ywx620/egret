@@ -42,13 +42,33 @@ class Uinfy{
     {
         if(isGray){
             image.filters = [new egret.ColorMatrixFilter([
-                            0.3, 0.6, 0, 0, 0,
-                            0.3, 0.6, 0, 0, 0,
-                            0.3, 0.6, 0, 0, 0,
+                            0.3, 0.6, 0.08, 0, 0,
+                            0.3, 0.6, 0.08, 0, 0,
+                            0.3, 0.6, 0.08, 0, 0,
                             0, 0, 0, 1, 0
             ])]
         }else{
             image.filters =[];
         }
+    }
+    /**设置可示对象的明亮度值在-255到255,默认为0*/
+    public static setColorLight(image:egret.DisplayObject,offset:number=0):void
+    {
+        image.filters = [new egret.ColorMatrixFilter([
+                            1, 0, 0, 0, offset,
+                            0, 1, 0, 0, offset,
+                            0, 0, 1, 0, offset,
+                            0, 0, 0, 1, 0
+        ])]
+    }
+    /**是否让动画组中的每一个动画都循环播放*/
+    public static playAnimation(target:egret.tween.TweenGroup,isLoop:boolean):void
+    {
+        if(isLoop){
+            for(var key in target.items){
+                target.items[key].props = {loop:true};
+            }
+        }
+        target.play();
     }
 }

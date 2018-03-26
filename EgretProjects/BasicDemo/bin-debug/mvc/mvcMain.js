@@ -22,8 +22,11 @@ var MainMvc = (function (_super) {
         var moduleView = new c;
         var moduleMediator = new ModuleMediator(ModuleMediator.NAME, moduleView);
         this.addChild(moduleView);
+        //注册主视窗控制
         facade.registerMediator(moduleMediator);
+        //注册命令
         facade.registerCommand(MVCConst.CMD_START, StartCommand);
+        //发收执行开始命令
         facade.sendNotification(MVCConst.CMD_START);
     };
     return MainMvc;

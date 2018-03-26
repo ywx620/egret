@@ -12,7 +12,7 @@ var TestSkinClass = (function (_super) {
     __extends(TestSkinClass, _super);
     function TestSkinClass() {
         var _this = _super.call(this) || this;
-        _this.setSkinName("../resource/askins/TestSkin.exml");
+        _this.setSkinName("resource/askins/TestSkin.exml");
         return _this;
     }
     TestSkinClass.prototype.render = function () {

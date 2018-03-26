@@ -17,7 +17,7 @@ var ControlTest = (function (_super) {
         var controlBg = moon.MoonUI.getCircle(100, 0Xffff00);
         var controlBar = moon.MoonUI.getCircle(20, 0X00ff00);
         var controlAuton = new control.ControlBarMove(this.stage, controlBar, controlBg);
-        //controlAuton.open();
+        controlAuton.open();
         controlBg.x = controlBar.x = this.stage.stageWidth >> 1;
         controlBg.y = controlBar.y = this.stage.stageHeight >> 1;
         this.addChild(controlBg);

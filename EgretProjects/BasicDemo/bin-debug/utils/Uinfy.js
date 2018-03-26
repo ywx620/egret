@@ -62,15 +62,25 @@ var Uinfy = (function () {
     Uinfy.imageSetGray = function (image, isGray) {
         if (isGray) {
             image.filters = [new egret.ColorMatrixFilter([
-                    0.3, 0.6, 0, 0, 0,
-                    0.3, 0.6, 0, 0, 0,
-                    0.3, 0.6, 0, 0, 0,
+                    0.3, 0.6, 0.08, 0, 0,
+                    0.3, 0.6, 0.08, 0, 0,
+                    0.3, 0.6, 0.08, 0, 0,
                     0, 0, 0, 1, 0
                 ])];
         }
         else {
             image.filters = [];
         }
+    };
+    /**设置可示对象的明亮度值在-255到255,默认为0*/
+    Uinfy.setColorLight = function (image, offset) {
+        if (offset === void 0) { offset = 0; }
+        image.filters = [new egret.ColorMatrixFilter([
+                1, 0, 0, 0, offset,
+                0, 1, 0, 0, offset,
+                0, 0, 1, 0, offset,
+                0, 0, 0, 1, 0
+            ])];
     };
     return Uinfy;
 }());

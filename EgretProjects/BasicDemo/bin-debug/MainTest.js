@@ -26,7 +26,7 @@ var MainTest = (function (_super) {
         //this.astar();
         //this.moon();
         //this.gameParkour();
-        //this.control();
+        this.control();
         //this.text();
         //this.morePointTouch();
         //this.scaleMode();
@@ -37,8 +37,29 @@ var MainTest = (function (_super) {
         //this.turnCard();
         //this.testHit();
         //this.testDisplayDo();
-        this.moonTest();
+        //this.moonTest();
         //this.maomaoJump();
+        //this.timeTest();
+        //this.dragCircleTest();
+        // this.colorTest();
+    };
+    MainTest.prototype.colorTest = function () {
+        this.addChild(new ColorTest);
+    };
+    MainTest.prototype.dragCircleTest = function () {
+        this.addChild(new DragCircle);
+    };
+    /**测试计时器与倒计时 */
+    MainTest.prototype.timeTest = function () {
+        var t;
+        t = time.TimeFactory.getIns().createTime("11", time.TimeFactory.COUNT_DOWN);
+        //t=time.TimeFactory.getIns().createTime("22",time.TimeFactory.COUNT_UP);
+        t.setTimeStart(350);
+        t.showNum = 3;
+        t.setBackFunction(backfun);
+        function backfun(data) {
+            traceSimple("时间格式：" + data["show"], "时间总秒数：" + data["value"]);
+        }
     };
     /** 测试毛毛跳一跳*/
     MainTest.prototype.maomaoJump = function () {

@@ -4,7 +4,7 @@ class TestSkinClass extends BasicComponent
     group:eui.Group;
     constructor() {
         super();
-        this.setSkinName("../resource/askins/TestSkin.exml");
+        this.setSkinName("resource/askins/TestSkin.exml");
     }
     protected render():void
     {

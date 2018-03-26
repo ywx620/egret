@@ -16,12 +16,13 @@
 		"bin-debug/moon/MoonTheme.js",
 		"bin-debug/utils/BasicComponent.js",
 		"bin-debug/p2/AbstractP2Test.js",
-		"bin-debug/test/ControlTest.js",
+		"bin-debug/test/ColorTest.js",
 		"bin-debug/ThemeAdapter.js",
 		"bin-debug/dragon/DragonDemo.js",
 		"bin-debug/dragon/FrameAnimation.js",
 		"bin-debug/dragon/astar/AStar.js",
 		"bin-debug/dragon/astar/AStarTest.js",
+		"bin-debug/game/DragCircle.js",
 		"bin-debug/game/GameParkour.js",
 		"bin-debug/game/MaoMaoJump.js",
 		"bin-debug/game/Puzzle.js",
@@ -37,6 +38,7 @@
 		"bin-debug/p2/P2Drag.js",
 		"bin-debug/p2/TestFromPolygon.js",
 		"bin-debug/utils/Uinfy.js",
+		"bin-debug/test/ControlTest.js",
 		"bin-debug/test/CreateView.js",
 		"bin-debug/test/DisplayTest.js",
 		"bin-debug/test/MoonTest.js",
@@ -58,6 +60,7 @@
 		"bin-debug/utils/ObjectPool.js",
 		"bin-debug/utils/P2World.js",
 		"bin-debug/utils/SoundControl.js",
+		"bin-debug/utils/TimeManager.js",
 		"bin-debug/LoadingUI.js"
 	]
 }

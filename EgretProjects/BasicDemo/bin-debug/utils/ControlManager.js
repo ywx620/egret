@@ -74,7 +74,16 @@ var control;
             _this.controlBg = controlBg;
             return _this;
         }
+        /** 手指按下*/
+        ControlBarMove.prototype.controlStart = function () {
+            if (this.controlBar.hitTestPoint(this.posStart.x, this.posStart.y)) {
+                _super.prototype.controlStart.call(this);
+                this.isDrag = true;
+            }
+        };
         ControlBarMove.prototype.controlMove = function () {
+            if (this.isDrag == false)
+                return;
             var x = this.posMove.x, y = this.posMove.y;
             var bg = this.controlBg;
             var bar = this.controlBar;
@@ -100,6 +109,7 @@ var control;
             }
         };
         ControlBarMove.prototype.controlEnd = function () {
+            this.isDrag = false;
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouch, this);
             this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
             var bg = this.controlBg;
@@ -160,15 +170,34 @@ var control;
             _this.distance = new egret.Point;
             return _this;
         }
+        Object.defineProperty(ControlDrag.prototype, "target", {
+            set: function (value) {
+                this.display = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
         ControlDrag.prototype.controlStart = function () {
-            _super.prototype.controlStart.call(this);
-            this.distance.x = this.posStart.x - this.display.x;
-            this.distance.y = this.posStart.y - this.display.y;
+            if (this.display.hitTestPoint(this.posStart.x, this.posStart.y)) {
+                _super.prototype.controlStart.call(this);
+                this.isDrag = true;
+                this.distance.x = this.posStart.x - this.display.x;
+                this.distance.y = this.posStart.y - this.display.y;
+            }
         };
         ControlDrag.prototype.controlMove = function () {
-            _super.prototype.controlMove.call(this);
-            this.display.x = this.posMove.x - this.distance.x;
-            this.display.y = this.posMove.y - this.distance.y;
+            if (this.isDrag) {
+                _super.prototype.controlMove.call(this);
+                this.display.x = this.posMove.x - this.distance.x;
+                this.display.y = this.posMove.y - this.distance.y;
+            }
+        };
+        ControlDrag.prototype.controlEnd = function () {
+            this.isDrag = false;
+            _super.prototype.controlEnd.call(this);
+            if (this.endBackFun != null) {
+                this.endBackFun();
+            }
         };
         return ControlDrag;
     }(ControlBasic));
