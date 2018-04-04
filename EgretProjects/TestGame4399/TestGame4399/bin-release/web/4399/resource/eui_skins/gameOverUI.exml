@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="gameStartUI" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*">
+	<w:Declarations>
+	</w:Declarations>
+	<e:Image width="100%" height="100%" x="-1" y="0" source="mask_png"/>
+	<e:Button id="btnStart" label="再来一次" x="195" y="568">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="btn3_jpg" source.down="btn3_jpg"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+	<e:Label id="txtScore" text="score:0" x="254" y="387.64" size="40" textAlign="center"/>
+	<e:Label id="txtLevel" text="level:1" x="262" y="447.64" size="40" textAlign="center"/>
+</e:Skin>

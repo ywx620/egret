@@ -44,6 +44,7 @@ var LoadingUI = (function (_super) {
         return _this;
     }
     LoadingUI.prototype.addToStage = function () {
+        this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.addToStage, this);
         this.textField = new egret.TextField();
         this.addChild(this.textField);
         this.textField.width = 480;

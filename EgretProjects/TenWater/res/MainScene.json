@@ -1,0 +1,278 @@
+{
+  "ID": "a2ee0952-26b5-49ae-8bf9-4f1d6279b798",
+  "Version": "2.3.1.2",
+  "Name": "MainScene",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Children": [
+          {
+            "FileData": {
+              "Type": "Normal",
+              "Path": "gameBg.jpg",
+              "Plist": ""
+            },
+            "BlendFunc": {
+              "Src": 1,
+              "Dst": 771
+            },
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 480.0,
+              "Y": 320.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.5
+            },
+            "PreSize": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "Tag": 5,
+            "ActionTag": 953446860,
+            "Size": {
+              "X": 960.0,
+              "Y": 640.0
+            },
+            "Name": "Default",
+            "ctype": "SpriteObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "Normal",
+              "Path": "BigWater0001.png",
+              "Plist": ""
+            },
+            "BlendFunc": {
+              "Src": 1,
+              "Dst": 771
+            },
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 889.3734,
+              "Y": 416.4572
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.9264,
+              "Y": 0.6507
+            },
+            "PreSize": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "HorizontalEdge": "RightEdge",
+            "VerticalEdge": "TopEdge",
+            "LeftMargin": 817.8734,
+            "RightMargin": -0.8734,
+            "TopMargin": 128.5428,
+            "BottomMargin": 321.4572,
+            "Tag": 6,
+            "ActionTag": -652440559,
+            "Size": {
+              "X": 143.0,
+              "Y": 190.0
+            },
+            "Name": "Sprite_water",
+            "ctype": "SpriteObjectData"
+          },
+          {
+            "FontSize": 72,
+            "LabelText": "99",
+            "HorizontalAlignmentType": "HT_Center",
+            "VerticalAlignmentType": "VT_Center",
+            "OutlineColor": {
+              "G": 0,
+              "B": 0
+            },
+            "ShadowColor": {
+              "R": 110,
+              "G": 110,
+              "B": 110
+            },
+            "ShadowOffsetX": 2.0,
+            "ShadowOffsetY": -2.0,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 892.8614,
+              "Y": 397.3388
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.9301,
+              "Y": 0.6208
+            },
+            "PreSize": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "HorizontalEdge": "RightEdge",
+            "VerticalEdge": "TopEdge",
+            "LeftMargin": 856.8614,
+            "RightMargin": 31.1386,
+            "TopMargin": 206.6612,
+            "BottomMargin": 361.3388,
+            "Tag": 19,
+            "ActionTag": -1714413884,
+            "Size": {
+              "X": 72.0,
+              "Y": 72.0
+            },
+            "Name": "Text_water",
+            "ctype": "TextObjectData"
+          },
+          {
+            "FontSize": 48,
+            "LabelText": "99",
+            "HorizontalAlignmentType": "HT_Center",
+            "VerticalAlignmentType": "VT_Center",
+            "OutlineColor": {
+              "G": 0,
+              "B": 0
+            },
+            "ShadowColor": {
+              "R": 110,
+              "G": 110,
+              "B": 110
+            },
+            "ShadowOffsetX": 2.0,
+            "ShadowOffsetY": -2.0,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 893.7527,
+              "Y": 215.7683
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.931,
+              "Y": 0.3371
+            },
+            "PreSize": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "HorizontalEdge": "RightEdge",
+            "VerticalEdge": "BottomEdge",
+            "LeftMargin": 881.7527,
+            "RightMargin": 54.2473,
+            "TopMargin": 400.2317,
+            "BottomMargin": 191.7683,
+            "Tag": 20,
+            "ActionTag": -1531658276,
+            "Size": {
+              "X": 48.0,
+              "Y": 48.0
+            },
+            "Name": "Text_level",
+            "ctype": "TextObjectData"
+          },
+          {
+            "FontSize": 25,
+            "LabelText": "9999999",
+            "VerticalAlignmentType": "VT_Center",
+            "OutlineColor": {
+              "G": 0,
+              "B": 0
+            },
+            "ShadowColor": {
+              "R": 110,
+              "G": 110,
+              "B": 110
+            },
+            "ShadowOffsetX": 2.0,
+            "ShadowOffsetY": -2.0,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 910.5734,
+              "Y": 136.0113
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.9485,
+              "Y": 0.2125
+            },
+            "PreSize": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "HorizontalEdge": "RightEdge",
+            "VerticalEdge": "BottomEdge",
+            "LeftMargin": 865.0734,
+            "RightMargin": 3.9266,
+            "TopMargin": 491.4887,
+            "BottomMargin": 123.5113,
+            "Tag": 5,
+            "ActionTag": -633127538,
+            "Size": {
+              "X": 91.0,
+              "Y": 25.0
+            },
+            "Name": "Text_score",
+            "ctype": "TextObjectData"
+          }
+        ],
+        "Size": {
+          "X": 960.0,
+          "Y": 640.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "BigWater0001.png",
+        "gameBg.jpg"
+      ],
+      "ctype": "GameProjectData"
+    }
+  },
+  "Type": "Scene"
+}

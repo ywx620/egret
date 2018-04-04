@@ -11,6 +11,7 @@
 		"pomelo/src/PomeloClient.js"
 	],
 	"game": [
-		"bin-debug/Main.js"
+		"bin-debug/Main.js",
+		"bin-debug/Pomelo.js"
 	]
 }

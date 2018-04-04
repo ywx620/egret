@@ -1,0 +1,149 @@
+{
+  "ID": "dd5acc12-cdd7-44a9-832e-1e7e92e74003",
+  "Version": "2.3.1.2",
+  "Name": "Layer",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 7,
+        "Children": [
+          {
+            "FileData": {
+              "Type": "Normal",
+              "Path": "gameStart.png",
+              "Plist": ""
+            },
+            "Scale9Width": 960,
+            "Scale9Height": 640,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 480.0,
+              "Y": 320.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.5
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "Tag": 10,
+            "ActionTag": -874888501,
+            "Size": {
+              "X": 960.0,
+              "Y": 640.0
+            },
+            "Name": "Image_2",
+            "ctype": "ImageViewObjectData"
+          },
+          {
+            "FontSize": 14,
+            "ButtonText": "",
+            "TextColor": {
+              "R": 65,
+              "G": 65,
+              "B": 70
+            },
+            "DisabledFileData": {
+              "Type": "Default",
+              "Path": "Default/Button_Disable.png",
+              "Plist": ""
+            },
+            "PressedFileData": {
+              "Type": "Normal",
+              "Path": "ksyx001.png",
+              "Plist": ""
+            },
+            "NormalFileData": {
+              "Type": "Normal",
+              "Path": "ksyx003.png",
+              "Plist": ""
+            },
+            "Scale9Enable": true,
+            "Scale9OriginX": 15,
+            "Scale9OriginY": 11,
+            "Scale9Width": 146,
+            "Scale9Height": 90,
+            "OutlineColor": {
+              "G": 0,
+              "B": 0
+            },
+            "ShadowColor": {
+              "R": 110,
+              "G": 110,
+              "B": 110
+            },
+            "ShadowOffsetX": 2.0,
+            "ShadowOffsetY": -2.0,
+            "TouchEnable": true,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 459.9226,
+              "Y": 140.4328
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.4791,
+              "Y": 0.2194
+            },
+            "PreSize": {
+              "X": 0.1833,
+              "Y": 0.175
+            },
+            "LeftMargin": 371.9226,
+            "RightMargin": 412.0774,
+            "TopMargin": 443.5672,
+            "BottomMargin": 84.4328,
+            "Tag": 11,
+            "ActionTag": 2108412724,
+            "Size": {
+              "X": 176.0,
+              "Y": 112.0
+            },
+            "Name": "Button_start",
+            "ctype": "ButtonObjectData"
+          }
+        ],
+        "Size": {
+          "X": 960.0,
+          "Y": 640.0
+        },
+        "Name": "Layer",
+        "ctype": "LayerObjectData"
+      },
+      "UsedResources": [
+        "Default/Button_Disable.png",
+        "gameStart.png",
+        "ksyx001.png",
+        "ksyx003.png"
+      ],
+      "ctype": "GameProjectData"
+    }
+  },
+  "Type": "Layer"
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="gameStartUI" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*">
+	<w:Declarations>
+		<tween:TweenGroup id="animation">
+			<tween:TweenItem target="{image}">
+				<tween:Set/>
+				<tween:To duration="500">
+					<tween:props>
+						<e:Object x="{335.65}"/>
+					</tween:props>
+				</tween:To>
+				<tween:To duration="1250">
+					<tween:props>
+						<e:Object x="{319}" y="{367.38}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+			<tween:TweenItem target="{image0}">
+				<tween:Set/>
+				<tween:Wait duration="500"/>
+				<tween:Set/>
+				<tween:To duration="1250">
+					<tween:props>
+						<e:Object x="{218.79}" y="{270.73}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+	</w:Declarations>
+	<e:Image width="100%" height="100%" x="-1" y="0" source="start_jpg"/>
+	<e:Image id="image0" width="202.42" height="202.42" x="234.44" y="794.96" source="start_red_png" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Image id="image" width="129.09" height="129.09" x="495.39" y="896.17" source="start_hand_png" anchorOffsetX="0" anchorOffsetY="0"/>
+	<e:Button id="btnStart" label="开始游戏" x="194" y="444">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="btn3_jpg" source.down="按下状态资btn3_jpg源名"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+</e:Skin>

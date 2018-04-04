@@ -82,6 +82,15 @@ var Uinfy = (function () {
                 0, 0, 0, 1, 0
             ])];
     };
+    /**是否让动画组中的每一个动画都循环播放*/
+    Uinfy.playAnimation = function (target, isLoop) {
+        if (isLoop) {
+            for (var key in target.items) {
+                target.items[key].props = { loop: true };
+            }
+        }
+        target.play();
+    };
     return Uinfy;
 }());
 __reflect(Uinfy.prototype, "Uinfy");

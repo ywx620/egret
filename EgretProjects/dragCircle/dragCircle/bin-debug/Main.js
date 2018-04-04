@@ -163,7 +163,6 @@ var Main = (function (_super) {
     Main.prototype.createGameScene = function () {
         this.addChild(new Game);
         this.addChild(new GameStart);
-        // this.addChild(new eui.Image("bg_jpg"));
     };
     return Main;
 }(eui.UILayer));

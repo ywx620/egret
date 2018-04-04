@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="gameUISkin" width="640" height="1136" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+	<w:Config id="16247f710b6" ></w:Config>
+	<e:Image width="100%" height="100%" x="0" y="0" source="bg_jpg"/>
+	<e:Label id="txtScore" text="score:0" x="14" y="14"/>
+	<e:Label id="txtLevel" text="LEVEL:1" x="265" y="14"/>
+	<e:Image id="p0" width="180" height="180" x="115" y="163" anchorOffsetX="90" anchorOffsetY="90" source="circle_bg_png" name="p0"/>
+	<e:Image id="p1" width="180" height="180" x="320" y="163" anchorOffsetX="90" anchorOffsetY="90" source="circle_bg_png" name="p1"/>
+	<e:Image width="180" height="180" x="524" y="163" anchorOffsetX="90" anchorOffsetY="90" source="circle_bg_png" id="p2" name="p2"/>
+	<e:Image width="180" height="180" x="115" y="375" anchorOffsetX="90" anchorOffsetY="90" source="circle_bg_png" id="p3" name="p3"/>
+	<e:Image width="180" height="180" x="320" y="375" anchorOffsetX="90" anchorOffsetY="90" source="circle_bg_png" id="p4" name="p4"/>
+	<e:Image width="180" height="180" x="524" y="375" anchorOffsetX="90" anchorOffsetY="90" source="circle_bg_png" id="p5" name="p5"/>
+	<e:Image width="180" height="180" x="115" y="584" anchorOffsetX="90" anchorOffsetY="90" source="circle_bg_png" id="p6" name="p6"/>
+	<e:Image width="180" height="180" x="320" y="584" anchorOffsetX="90" anchorOffsetY="90" source="circle_bg_png" id="p7" name="p7"/>
+	<e:Image width="180" height="180" x="524" y="584" anchorOffsetX="90" anchorOffsetY="90" source="circle_bg_png" id="p8" name="p8"/>
+	<e:Image width="180" height="180" x="336.5" y="893" anchorOffsetX="90" anchorOffsetY="90" source="circle_bg_png" id="p9" name="p9"/>
+	<e:Image width="40" height="40" x="592" y="9" source="blood_png"/>
+	<e:Label id="txtBlood" text="88" x="547" y="14"/>
+	<e:Button id="btnChange" label="更换" x="31" y="753">
+		<e:skinName>
+			<e:Skin states="up,down,disabled">
+			<e:Image width="100%" height="100%" source="btn1_png" source.down="btn2_png"/>
+			<e:Label id="labelDisplay" horizontalCenter="0" verticalCenter="0"/>
+			</e:Skin>
+		</e:skinName>
+	</e:Button>
+</e:Skin>

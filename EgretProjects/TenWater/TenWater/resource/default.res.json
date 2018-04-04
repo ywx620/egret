@@ -1,0 +1,120 @@
+{
+	"groups": [
+		{
+			"keys": "background_jpg,chessboard_jpg,title_png,level_png,score_png,waterNum1_png,waterNum2_png,waterNum3_png,w1_png,w2_png,w3_png,w4_png,w5_png,explain_jpg,backgroundAlpha_png,btnReStart_png,btnStart_png,bomb_wav,click_wav,water_wav,background_mp3,titleOver_png",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"name": "background_jpg",
+			"type": "image",
+			"url": "assets/background.jpg"
+		},
+		{
+			"name": "chessboard_jpg",
+			"type": "image",
+			"url": "assets/chessboard.jpg"
+		},
+		{
+			"name": "title_png",
+			"type": "image",
+			"url": "assets/title.png"
+		},
+		{
+			"name": "level_png",
+			"type": "image",
+			"url": "assets/level.png"
+		},
+		{
+			"name": "score_png",
+			"type": "image",
+			"url": "assets/score.png"
+		},
+		{
+			"name": "waterNum1_png",
+			"type": "image",
+			"url": "assets/waterNum1.png"
+		},
+		{
+			"name": "waterNum2_png",
+			"type": "image",
+			"url": "assets/waterNum2.png"
+		},
+		{
+			"name": "waterNum3_png",
+			"type": "image",
+			"url": "assets/waterNum3.png"
+		},
+		{
+			"name": "w1_png",
+			"type": "image",
+			"url": "assets/w1.png"
+		},
+		{
+			"name": "w2_png",
+			"type": "image",
+			"url": "assets/w2.png"
+		},
+		{
+			"name": "w3_png",
+			"type": "image",
+			"url": "assets/w3.png"
+		},
+		{
+			"name": "w4_png",
+			"type": "image",
+			"url": "assets/w4.png"
+		},
+		{
+			"name": "w5_png",
+			"type": "image",
+			"url": "assets/w5.png"
+		},
+		{
+			"name": "explain_jpg",
+			"type": "image",
+			"url": "assets/explain.jpg"
+		},
+		{
+			"name": "backgroundAlpha_png",
+			"type": "image",
+			"url": "assets/backgroundAlpha.png"
+		},
+		{
+			"name": "btnReStart_png",
+			"type": "image",
+			"url": "assets/btnReStart.png"
+		},
+		{
+			"name": "btnStart_png",
+			"type": "image",
+			"url": "assets/btnStart.png"
+		},
+		{
+			"name": "bomb_wav",
+			"type": "sound",
+			"url": "music/bomb.wav"
+		},
+		{
+			"name": "click_wav",
+			"type": "sound",
+			"url": "music/click.wav"
+		},
+		{
+			"name": "water_wav",
+			"type": "sound",
+			"url": "music/water.wav"
+		},
+		{
+			"name": "background_mp3",
+			"type": "sound",
+			"url": "music/background.mp3"
+		},
+		{
+			"name": "titleOver_png",
+			"type": "image",
+			"url": "assets/titleOver.png"
+		}
+	]
+}

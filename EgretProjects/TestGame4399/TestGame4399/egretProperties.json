@@ -22,6 +22,9 @@
       "name": "promise"
     },
     {
+      "name": "eui"
+    },
+    {
 			"name": "egret_4399_h5api",
 			"path": "D:/Users/4399-3046/Documents/GitHub/egret/EgretProjects/TestGame4399/egret_4399_h5api"
 		}

@@ -95,6 +95,5 @@ class Main extends eui.UILayer {
     protected createGameScene(): void {
         this.addChild(new Game);
         this.addChild(new GameStart);
-       // this.addChild(new eui.Image("bg_jpg"));
     }
 }

@@ -9,6 +9,7 @@ class Bitmap extends egret.Bitmap{};
 class BitmapData extends egret.BitmapData{};
 class Stage extends egret.Stage{};
 class Tween extends egret.Tween{};
+class Ease extends egret.Ease{};
 //----------------------------------------------
 var trace=function(...arg):void
 {
@@ -47,12 +48,14 @@ module moon
 		/**形状 圆块*/
 		public static readonly SHAPE_CIRCLE:string="shape circle";
 	}
-	export interface IItem{  
+	export interface IItem{
 		update():void;
 		addItem(item:DisplayObject):void;
 		removeItem(item:DisplayObject):void;
 		hasItem(index:number):boolean;
 		getItem(index:number):DisplayObject;
+		getNextItem():DisplayObject;
+		reset():void;
     }
 	export interface ILayout{  
 		layout(type:string,interval:number):void;
@@ -74,6 +77,24 @@ module moon
 		public static get skinNormal():number{return 0X15191C};
 		public static get skinDown():number{return 0X999999};
 		public static get titleBackground():number{return 0X20262B};
+		public static getRandomArray(count:number):number[]{
+			var colors:number[]=[];
+			for(var i:number=0;i<count;i++) colors.push(Math.random()*0XFFFFFF);
+			return colors;
+		};
+		/** 可改变颜色的亮暗,value值是-255到255*/
+		public static lightenDarkenColor(color:number, value:number):number {  
+			var r = (color >> 16) + value;
+			if (r > 255) r = 255;
+			else if (r < 0) r = 0;
+			var b = ((color >> 8) & 0x00FF) + value;
+			if (b > 255) b = 255;
+			else if (b < 0) b = 0;
+			var g = (color & 0x0000FF) + value;
+			if (g > 255) g = 255;
+			else if (g < 0) g = 0;
+			return (g | (b << 8) | (r << 16));
+		}
 	}
 	/**皮肤 */
 	export class Skin
@@ -126,6 +147,23 @@ module moon
 			return btn;
 		}
 	}
+	/**
+	 * ...
+	 * 简单的布局
+	 * @author vinson
+	 */
+	export class SimpleLayout{
+		/**参数：数组,X轴个数,X轴距离,Y轴距离,X轴位置,Y轴位置,正排/反排 */
+		public static displayRank(array:any[],xNum:number=1,xDis:number=0,yDis:number=0,x:number=0,y:number=0,sign:number=1):void
+		{
+			var display:egret.DisplayObject;
+			for(var i:number=0;i<array.length;i++){
+				display=array[i];
+				display.x=x+Math.floor(i%xNum)*(display.width+xDis)*sign;
+				display.y=y+Math.floor(i/xNum)*(display.height+yDis)*sign;
+			}
+		}
+	}
     /**
 	 * ...
 	 * 默认参数x轴,y轴,w宽,h高,r半径,c颜色,ew圆角宽,eh圆家高
@@ -136,6 +174,35 @@ module moon
         /**得到随机色*/
 		public static get randomColor():number{
 			return Math.random()*0XFFFFFF;
+		}
+		/**得到矩形框*/
+		public static getLineRect(w:number,h:number,c:number=0,s:number=1,x:number=0,y:number=0):Sprite
+		{
+			var node:Sprite=new Sprite()
+			node.graphics.lineStyle(s,c)
+			node.graphics.drawRect(x,y,w,h);
+			node.graphics.endFill();
+			return node;
+		}
+		/**得到圆形框*/
+		public static getLineCircle(r:number,c:number=0,s:number=1,x:number=0,y:number=0):Sprite
+		{
+			var node:Sprite=new Sprite();
+			node.graphics.lineStyle(s,c)
+			node.graphics.drawCircle(x,y,r);
+			node.graphics.endFill();
+			return node;
+		}
+		/**得到渐变矩形 a为角度偏移率0,0.5,1,2分别为四个正方向*/
+		public static getMatrixRect(w:number,h:number,c1:number=0,c2:number=0,a:number=0):Sprite
+		{
+			var node = new Sprite();
+			var matrix = new egret.Matrix();
+			matrix.createGradientBox(w, h, Math.PI * a, 0, 0); 
+			node.graphics.beginGradientFill(egret.GradientType.LINEAR, [c1, c2], [1, 1], [0, 255], matrix);
+			node.graphics.drawRect(0, 0, w, h);
+			node.graphics.endFill();
+			return node;
 		}
 		/**得到矩形*/
 		public static getRect(w:number,h:number,c:number=0,x:number=0,y:number=0):Sprite
@@ -243,6 +310,7 @@ module moon
 			var s:Sprite = new Sprite;
 			s.addChild(this.getRoundRect(w,h,c));
 			var text:TextField=new TextField;
+			text.name="text";
 			text.text=str;
 			text.x=(s.width-text.width)>>1;
 			text.y=(s.height-text.height)>>1;
@@ -290,10 +358,10 @@ module moon
 		 * rect.height是网格高
 		 * lc网格线颜色
 		 * */
-		public static getGridding(rect:Rectangle,lc:number=0):Sprite
+		public static getGridding(rect:Rectangle,c:number=0):Sprite
 		{
 			var s:Sprite=new Sprite;
-			s.graphics.lineStyle(0.1,lc);
+			s.graphics.lineStyle(0.1,c);
 			var disx:number=rect.width/rect.x;
 			var disy:number=rect.height/rect.y;
 			for(var i:number=0;i<rect.x;i++){
@@ -306,6 +374,22 @@ module moon
 			}
 			return s;
 		}
+		/***得到爱心 */
+		public static getHeart(r:number=15,c:number=0XFF0000):Sprite
+		{
+			var s:Sprite=new Sprite;
+			s.graphics.beginFill(c);
+			s.graphics.moveTo(0,0);
+			s.graphics.lineTo(0,-r*2)
+			s.graphics.cubicCurveTo(r,-r*2.5,r*2,-r*1.5,0,0);  
+			s.graphics.moveTo(0,0);
+			s.graphics.lineTo(0,-r*2)
+			s.graphics.cubicCurveTo(-r,-r*2.5,-r*2,-r*1.5,0,0);  	
+			s.graphics.endFill();
+			s.anchorOffsetX=-s.width/2;
+			s.anchorOffsetY=-s.height;
+			return s;
+		}
     }
     //--------------
 	export class showLog
@@ -314,10 +398,10 @@ module moon
 		private txtSimple:TextField;
 		private txtMessage:TextField;
 		public static getIns():showLog{
-				if(this.instance == null){
-						this.instance = new showLog();
-				}
-				return this.instance;
+			if(this.instance == null){
+					this.instance = new showLog();
+			}
+			return this.instance;
 		}
 		public init(stage:Stage):void
 		{
@@ -424,6 +508,8 @@ module moon
 		public static readonly MOVE:string="move";
 		public static readonly OVER:string="over";
 		public static readonly PAUSE:string="pause";
+		public static readonly OPEN:string="open";
+		public static readonly CLOSE:string="close";
 		
 		public currentTarget:Object;
 		public type:string;
@@ -442,6 +528,7 @@ module moon
 		private _type:string=Const.SHAPE_RECT;
 		private _color:number=0;
 		private _data:any;
+		private _hasBg:boolean;
 		private display:Sprite;
 		private bg:Sprite;
 		public constructor()
@@ -458,6 +545,7 @@ module moon
 		set data(value:Object){this._data=value;this.draw();}
 		protected draw():void
 		{
+			this._color=this._data.c;
 			this.display.graphics.clear();
 			this.display=this.getDisplay(this._data);
 			this.addChild(this.display);
@@ -465,13 +553,14 @@ module moon
 		}
 		protected setPosition():void
 		{
-			if(this.bg!=null&&this.type!=Const.SHAPE_CIRCLE){
+			if(this._hasBg&&this.type!=Const.SHAPE_CIRCLE){
 				this.display.x=(this.bg.width-this.display.width)>>1;
 				this.display.y=(this.bg.height-this.display.height)>>1;
 			}
 		}
 		public setBackground(color:number,side:number=1)
 		{
+			this._hasBg=true;
 			var d:any=this._data;
 			var o:any={};
 			for(var i in d){
@@ -559,10 +648,10 @@ module moon
 			}
 		}
 		/**把自己从父级删除*/
-		public removeFromParent(dispose:Boolean=false):void
+		public removeFromParent(value:Boolean=false):void
 		{
 			var _parent:DisplayObjectContainer=this.parent as DisplayObjectContainer;
-			if(dispose)		this.dispose();
+			if(value)		this.dispose();
 			if(_parent&&_parent.contains(this))		_parent.removeChild(this);
 			_parent=null;
 		}
@@ -624,19 +713,36 @@ module moon
 			s.graphics.drawRect(x,y,w,h);
 			s.graphics.endFill();
 		}
+		/**创建纯色背景 */
 		protected createBackground(c:number=0):Sprite
 		{
 			return this.createRect(this.stageWidth,this.stageHeight,c)
 		}
+		/**创建渐变色背景 */
+		protected createBgGradientFill(c1:number=0X017AC3,c2:number=0XDDDDDD):Sprite
+		{
+			var w:number=this.stageWidth;
+			var h:number=this.stageHeight;
+			var matrix:egret.Matrix = new egret.Matrix();
+			matrix.createGradientBox(w,h,Math.PI/2);
+			var sprite:Sprite=new Sprite;
+			sprite.graphics.beginGradientFill(egret.GradientType.LINEAR,[c1,c2],[1,1],[0,255],matrix);
+			sprite.graphics.drawRect(0,0,w,h);
+			this.addChild(sprite);
+			return sprite;
+		}
 	}
 	export class GameView extends BasicView
 	{
+		protected isPlay:boolean;
 		protected play():void
 		{
+			this.isPlay=true;
 			egret.startTick(this.loop, this);
 		}
 		protected stop():void
 		{
+			this.isPlay=false;
 			egret.stopTick(this.loop, this);
 		}
 		protected loop(n:number):boolean
@@ -644,40 +750,14 @@ module moon
 			traceSimple(n);
 			return true;
 		}
+		protected createButton(name:string,x:number=0,y:number=0):moon.BasicButton
+		{
+			var btn:moon.BasicButton=new moon.BasicButton
+			btn.label=name;btn.x=x;btn.y=y;
+			this.addChild(btn);
+			return btn;
+		}
 	}
-    export class MapHorizontalHouse extends MoonContainer
-	{
-        private rect:Rectangle;
-        private house:Rectangle;
-        private color:number
-        public constructor(rect:Rectangle,house:Rectangle,color:number=-1)
-        {
-            super();
-            this.rect=rect;
-            this.house=house;
-            this.color=color;
-        }
-        protected render():void
-        {
-            var house:Rectangle=this.house;
-            var bg:Sprite=moon.MoonUI.getRect(this.rect.width,this.rect.height);
-            bg.alpha=0.1;
-            this.addChild(bg);
-
-            var count:number=this.rect.width/house.width;
-            var prevx:number=0;
-            for(var i:number=0;i<count;i++){
-                var color=this.color==-1?Math.random()*0XFFFFFF:this.color;
-                var width:number=house.width+Math.random()*house.x;
-                var height:number=house.height+Math.random()*house.y;
-                var rect=moon.MoonUI.getRect(width,height,color);
-                this.addChild(rect);
-                rect.y=this.rect.height-rect.height;
-                rect.x=prevx;
-                prevx=rect.x+rect.width;
-            }
-        }
-    }
 	/**九宫格*/
 	export class Scale9Image extends Bitmap
 	{
@@ -749,7 +829,7 @@ module moon
 			return this.text;
 		}
 	}
-	export class BasicButton extends MoonContainer
+	export class BasicButton extends MoonContainer implements IOnoff
 	{
 		protected statusNormal:DisplayObject;
 		protected statusDown:DisplayObject;
@@ -768,8 +848,19 @@ module moon
 			this.text=(new Label).textField;
 			this.addChild(this.text);
 
+			this.open();
+		}
+		public open():void
+		{
+			this.close();
 			this.touchEnabled=true;
 			this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouch,this);
+		}
+		public close():void
+		{
+			this.touchEnabled=false;
+			this.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouch,this);
+			if(this.stage) this.stage.removeEventListener(egret.TouchEvent.TOUCH_END,this.onTouch,this);
 		}
 		public setLabelPoint(x:number,y:number):void
 		{
@@ -875,8 +966,7 @@ module moon
 		}
 		public dispose():void
 		{
-			this.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.onTouch,this);
-			this.stage.removeEventListener(egret.TouchEvent.TOUCH_END,this.onTouch,this);
+			this.close();
 			super.dispose();
 		}
 	}
@@ -923,6 +1013,7 @@ module moon
 	export class BasicBar extends BasicView implements IItem
 	{
 		protected items:any[]=[];
+		protected index:number=0;
 		public addItem(item:DisplayObject):void
 		{
 			this.items.push(item);
@@ -930,19 +1021,39 @@ module moon
 		public removeItem(item:DisplayObject):void
 		{
 			var index:number=this.items.indexOf(item);
-			if(index>0) this.items.splice(index,1);
+			if(index>=0) this.items.splice(index,1);
 		}
 		public hasItem(index:number):boolean
 		{
-			return index>=0||index<this.items.length;
+			return this.items.length>0&&(index>=0&&index<this.items.length);
 		}
 		public getItem(index:number):DisplayObject
 		{
 			return this.items[index];
 		}
+		public getNextItem():DisplayObject
+		{
+			return this.items[this.index++]; 
+		}
+		public reset():void
+		{
+			this.index=0;
+		}
 		public update():void
 		{
 
+		}
+		/**销毁*/
+		public dispose():void
+		{
+			this.reset();
+			while(this.hasItem(this.index)){
+				var item:DisplayObject=this.getItem(this.index) as DisplayObject;
+				this.removeItem(item);
+				if(item instanceof MoonContainer){
+					item.removeFromParent(true);
+				}
+			}
 		}
 	}
 	/***进度条 */
@@ -1103,23 +1214,57 @@ module moon
                 case egret.TouchEvent.TOUCH_END:
 					this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
 					this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouch, this);
-					this.hideShow(0);
+					this.hideShow(0,100);
 					this.timeMove(e.stageX,e.stageY);
                     break;
             }
         }
+		//缓动动画
 		protected timeMove(x:number,y:number):void
 		{
-			//缓动动画
+			var time:number=egret.getTimer()-this.startTime;
+			if(time<500){
+				var target:DisplayObject=this._target;
+				var maskRect:DisplayObject=this.maskRect;
+				Tween.removeTweens(target);
+				var dx:number=x-this.stPos.x;
+				var dy:number=y-this.stPos.y;
+				var distance:number=Math.sqrt(dx*dx+dy*dy);
+				var value:number=(distance/time)*100;
+				var tw:Tween=Tween.get(target);
+				if(this.type==Const.VERTICAL){
+					var sign:number=dy>0?1:-1;
+					value*=sign;
+					var h:number=target.y+value;
+					if(h>0&&target.y+value>0) h=0;
+					if(h<0&&target.y+value<(maskRect.height-target.height)) h=maskRect.height-target.height;
+					tw.to({y:h},400,Ease.sineOut).call(this.setBarPos,this);
+				}else{
+					var sign:number=dx>0?1:-1;
+					value*=sign;
+					var w:number=target.x+value;
+					if(w>0&&target.x+value>0) w=0;
+					if(w<0&&target.x+value<(maskRect.width-target.width)) w=maskRect.width-target.width;
+					tw.to({x:w},400,Ease.sineOut).call(this.setBarPos,this);
+				}
+				
+			}
 		}
-		protected hideShow(alpha:number):void
+		protected setBarPos():void
+		{
+			if(this.type==Const.VERTICAL)
+				this.skinBar.y=-this._target.y/(this._target.height-this.maskRect.height)*(this.maskRect.height-this.skinBar.height);
+			else
+				this.skinBar.x=-this._target.x/(this._target.width-this.maskRect.width)*(this.maskRect.width-this.skinBar.width);
+		}
+		protected hideShow(alpha:number,time:number=1000):void
 		{
 			Tween.removeTweens(this.skinBar);
 			if(alpha==1){
 				this.skinBar.alpha=1;
 			}
 			var tw:Tween=Tween.get(this.skinBar);
-			tw.to({alpha:alpha},1500);
+			tw.to({alpha:alpha},time);
 		}
 		protected moveDo(x:number,y:number):void
 		{
@@ -1208,12 +1353,12 @@ module moon
 			this.dispEvent(moon.MoonEvent.CHANGE);
 		}
 		/**布局 type类型为横或竖，interval为对象间的间隔*/
-		public layout(type:string=Const.VERTICAL,interval:number=50):void
+		public layout(type:string=Const.VERTICAL,interval:number=10):void
 		{
 			for(var i:number=0;i<this.items.length;i++){
 				var item:DisplayObject=this.items[i];
-				if(type==Const.VERTICAL) item.y=interval*i;
-				else					 item.x=interval*i;
+				if(type==Const.VERTICAL) item.y=(item.height+interval)*i;
+				else					 item.x=(item.width+interval)*i;
 			}
 		}
 		public get selectIndexs():number[]
@@ -1225,6 +1370,33 @@ module moon
 			}
 			return nums;
 		}
+	}
+	/**复选框按钮 */
+	export class TabbarBar extends CheckBoxBar
+	{
+		protected _selectIndex:number=0;
+		protected onClick(e:egret.TouchEvent):void
+		{
+			var curr:MoreSkinButton=e.currentTarget as MoreSkinButton;
+			this.selectItem(curr)
+		}
+		protected selectItem(curr:MoreSkinButton):void
+		{
+			this.reset();
+			while(this.hasItem(this.index)){
+				var item:MoreSkinButton=this.getNextItem() as MoreSkinButton;
+				item.currentPage=0;
+				item.setSkinNormal();
+				item.open();
+			}
+			curr.close();
+			curr.currentPage=1;
+			curr.setSkinNormal();
+			this._selectIndex=this.items.indexOf(curr);
+			this.dispEvent(moon.MoonEvent.CHANGE,this._selectIndex);
+		}
+		set selectIndex(value:number){this._selectIndex=value,this.selectItem(this.getItem(value) as MoreSkinButton)}
+		get selectIndex():number{return this._selectIndex}
 	}
 	/**单选框按钮 */
 	export class RadioButtonBar extends CheckBoxBar
@@ -1270,6 +1442,111 @@ module moon
 			return this._selectIndex;
 		}
 	}
+	/**提示警告框 */
+	export class AlertBar extends BasicBar
+	{
+		private bg:MoonDisplayObject;
+		private bgColor:number;
+		private text:TextField;
+		public constructor(title:string="提示或警告")
+        {
+			super();
+			this.bgColor=Color.gray;
+			this.text=(new Label).textField;
+			this.text.text=title;
+		}
+		/**加载到舞台之后调用 */
+        protected render():void
+        {
+			super.render();
+			var node:Sprite=this.createBackground(0);
+			node.alpha=0.3;
+			node.touchEnabled=true
+			
+			var w:number=this.stageWidth-100;
+			var x:number=(this.stageWidth-w)>>1;
+			var y:number=(this.stageHeight-w)>>1;
+			this.bg=new MoonDisplayObject;
+			this.bg.type=Const.SHAPE_RECT_ROUND;
+            this.bg.data={w:w,h:w,c:this.bgColor,ew:10,eh:10};
+            this.bg.setBackground(0,2);
+			this.bg.x=x;this.bg.y=y;
+			this.addChild(this.bg);
+
+			var btn:BasicButton=new BasicButton;
+			btn.label="确定";
+			this.addChild(btn);
+			btn.x=(this.stageWidth-btn.width)>>1;
+			btn.y=this.bg.y+this.bg.height-100;
+			btn.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onClick,this);
+
+			this.text.x=(this.stageWidth-this.text.width)>>1;
+			this.text.y=this.bg.y+(this.bg.height>>1)-this.text.height;
+			this.addChild(this.text);
+		}
+		private onClick(e:egret.TouchEvent):void
+		{
+			this.removeFromParent(true);
+			this.dispEvent(MoonEvent.CLOSE);
+		}
+		/**设置背景色 */
+		set color(value:number){
+			this.bgColor=value;
+			if(this.bg)this.bg.color=value;
+		};
+	}
+	/**输入框 */
+	export class InputBar extends BasicBar
+	{
+		private bg:MoonDisplayObject;
+		private bgColor:number;
+		private text:TextField;
+		private inputW:number;
+		private inputH:number;
+		public constructor(width:number=100,height:number=50)
+        {
+			super();
+			this.text=(new Label).textField;
+			this.inputW=width;
+			this.inputH=height;
+		}
+		/**加载到舞台之后调用 */
+        protected render():void
+        {
+			super.render();
+			var w:number=this.inputW;
+			var h:number=this.inputH;
+			this.bg=new MoonDisplayObject;
+			this.bg.type=Const.SHAPE_RECT_ROUND;
+            this.bg.data={w:w,h:h,c:this.bgColor,ew:10,eh:10};
+            this.bg.setBackground(0,2);
+			this.addChild(this.bg);
+
+			var side:number=5;
+			this.text.x=side;
+			this.text.y=side;
+			this.text.width=w-side*2;
+			this.text.height=h-side*2;
+			this.text.type=egret.TextFieldType.INPUT;
+			this.addChild(this.text);
+		}
+		/**设置为多行 */
+		public setMultiline():void
+		{
+			this.text.wordWrap=true;
+			this.text.multiline=true;
+			this.text.verticalAlign = egret.VerticalAlign.TOP;
+		}
+		/**设置背景色 */
+		set color(value:number){
+			this.bgColor=value;
+			if(this.bg)this.bg.color=value;
+		};
+		/**设置最大数量 */
+		set maxChars(value:number){this.text.maxChars=value;}
+		/**设置输入内容限制（如只输入字母数字 a-zA-Z0-9） */
+		set restrict(value:string){this.text.restrict=value}
+	}
 	/**面板 */
 	export class PanelBar extends BasicBar
 	{
@@ -1314,6 +1591,7 @@ module moon
 			this.addChild(this.container);
 			this.containerMask=this.createRect(this.stageWidth,this.stageHeight-this.titleHeight,moon.Color.white,0,this.titleHeight);
 			this.container.mask=this.containerMask;
+			this.touchEnabled=true;//为了阻挡面板下所有事件
 			this.dispEvent(MoonEvent.RENDER_COMPLETE);
         }
 		public addItem(item:DisplayObject,x:number=0,y:number=0):void
@@ -1345,6 +1623,9 @@ module moon
 		{
 			var rect:Rectangle=new Rectangle(0,0,this.stageWidth,this.stageHeight);
 			return rect;
+		}
+		get topHeight():number{
+			return this.titleHeight;
 		}
 		public removeAll():void
 		{
@@ -1501,6 +1782,168 @@ module moon
 			this.moveItems.length=0;
 			this.container.x=0;
 			this.dispEvent(MoonEvent.OVER)
+		}
+		/**销毁*/
+		public dispose():void
+		{
+			super.dispose();
+			this.close();
+		}
+	}
+	/**游戏加载模版 */
+	export class GameLoad extends moon.GameView
+	{
+		private txtLoad:TextField;
+		private txtName:TextField;
+		private progress:Sprite;
+		private txtLoadPos:Point;
+		private color:number=0XF9AB03;
+		private proWidth:number;
+		private airFan:Sprite;
+		protected render():void
+		{
+			super.render();
+			this.createBgGradientFill();
+			var container:Sprite=new Sprite;
+			this.addChild(container);
+			var sw:number=this.stageWidth;
+			var sh:number=this.stageHeight;
+			var w:number=80;
+			var loadbg:Sprite=MoonUI.getRoundRect(sw-100,w,0XFCE59D,100,100);
+			loadbg.x=(sw-loadbg.width)>>1;
+			loadbg.y=(sh-loadbg.height)>>1;
+			container.addChild(loadbg);
+
+			//--------
+			var progress:Sprite=MoonUI.getRect(sw-120,w-10,this.color);
+			progress.x=(sw-progress.width)>>1;
+			progress.y=(sh-progress.height)>>1;
+			container.addChild(progress);
+			this.proWidth=progress.width;
+
+			var mask:Sprite=MoonUI.getRoundRect(sw-120,w-10,0,100,100);
+			mask.x=(sw-mask.width)>>1;
+			mask.y=(sh-mask.height)>>1;
+			progress.mask=mask;
+			this.progress=progress;
+			
+			//--------
+			var txtbg:MoonDisplayObject=new MoonDisplayObject();
+			txtbg.type=moon.Const.SHAPE_CIRCLE
+            txtbg.data={r:w/2,c:0XE18E0D};
+            txtbg.setBackground(0XFFFFFF,5);
+            this.addChild(txtbg);
+			txtbg.x=loadbg.x+loadbg.width-w/2;
+			txtbg.y=loadbg.y+w/2;
+			this.txtLoadPos=new Point(txtbg.x,txtbg.y);
+			
+			var txtExp:TextField=this.createText(0,0,"");
+			txtExp.size=40;
+			txtExp.textColor=0xB07300;
+			this.txtLoad=txtExp;
+			//--------
+			var txtTip:TextField=this.createText(0,0,"游戏加载");
+			txtTip.size=40;
+			txtTip.x=(sw-txtTip.width)>>1;
+			txtTip.y=loadbg.y-txtTip.height*2;
+			
+			var txtName:TextField=this.createText(0,0,"");
+			txtName.size=40;
+			this.txtName=txtName;
+			this.updateName("敬请期待");
+			//--------
+			this.createAirFan();
+			this.airFan.x=txtbg.x;
+			this.airFan.y=txtbg.y;
+
+			this.createLogo();
+			
+			this.update(0);
+			this.play();
+		}
+		protected loop(n:number):boolean
+		{
+			this.airFan.rotation+=3;
+			return true;
+		}
+		private createAirFan():void
+		{
+			this.airFan=new Sprite;
+			this.addChild(this.airFan);
+			for (var i:number=0; i<4; i++)  
+			{  
+				var shape:Sprite=new Sprite();  
+				this.airFan.addChild(shape);  
+				shape.graphics.lineStyle(0);  
+				shape.graphics.beginFill(0xFFFFFF);  
+				shape.graphics.cubicCurveTo(-29,-28,29,-28,0,0);  
+				shape.graphics.endFill();  
+				shape.rotation = i * 90;  
+			}  
+		}
+		protected createLogo():void
+		{
+			var sw:number=this.stageWidth;
+			var sh:number=this.stageHeight;
+			var logo:MoonDisplayObject=new MoonDisplayObject();
+			logo.type=moon.Const.SHAPE_CIRCLE;
+            logo.data={r:50,c:0XE18E0D};
+			logo.setBackground(0XFFFFFF,2);
+			logo.x=sw>>1;
+			logo.y=logo.height;
+			this.addChild(logo);
+
+			var txtName:TextField=this.createText(0,0,"ZL");
+			txtName.size=40;
+			txtName.x=logo.x-(txtName.width>>1);
+			txtName.y=logo.y-(txtName.height>>1)-15;
+
+			txtName=this.createText(0,0,"game");
+			txtName.size=30;
+			txtName.x=logo.x-(txtName.width>>1);
+			txtName.y=logo.y-(txtName.height>>1)+15;
+
+			this.addChild(moon.MoonUI.getHeart(15,0XFFFFFF))
+			txtName=this.createText(0,0,"子乐游戏");
+			txtName.size=40;
+			txtName.textColor=0XE09F21;
+			txtName.x=sw-txtName.width-10;
+			txtName.y=sh-txtName.height-10;
+
+		}
+		/**创建渐变色背景 */
+		protected createBgGradientFill(c1:number=0XFDD559,c2:number=0XE09F21):Sprite
+		{
+			var w:number=this.stageWidth;
+			var h:number=this.stageHeight;
+			var matrix:egret.Matrix = new egret.Matrix();
+			matrix.createGradientBox(w*2,h*2,Math.PI/2);
+			var sprite:Sprite=new Sprite;
+			sprite.graphics.beginGradientFill(egret.GradientType.RADIAL,[c1,c2],[1,1],[0,255],matrix);
+			sprite.graphics.drawRect(0,0,w,h);
+			this.addChild(sprite);
+			return sprite;
+		}
+		public updateName(name:string):void
+		{
+			this.txtName.text=name;
+			this.txtName.x=(this.stageWidth-this.txtName.width)>>1;
+			this.txtName.y=this.stageHeight/2+this.txtName.height*2;
+		}
+		public update(value:number):void
+		{
+			if(value>1) return;
+			if(value>0.99) this.stop();
+			this.progress.scaleX=value;
+			var txtExp:TextField=this.txtLoad;
+			var pos:Point=this.txtLoadPos;
+			txtExp.text=Math.ceil(value*100)+"%";
+			txtExp.x=(this.stageWidth-txtExp.width)>>1;
+			txtExp.y=pos.y-txtExp.height/2;
+			var exp:Sprite=MoonUI.getCircle(5+Math.random()*5,this.color,pos.x,pos.y);
+			exp.y=10-Math.random()*20;
+			this.addChildAt(exp,2);
+			Tween.get(exp).to({x:-this.proWidth,alpha:0},1000);
 		}
 	}
 }

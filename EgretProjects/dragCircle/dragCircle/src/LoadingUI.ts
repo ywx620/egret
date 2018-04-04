@@ -34,22 +34,15 @@ class LoadingUI extends egret.Sprite implements RES.PromiseTaskReporter {
         this.addEventListener(egret.Event.ADDED_TO_STAGE,this.addToStage,this);
     }
 
-    private textField:egret.TextField;
+    private gameLoad:moon.GameLoad;
 
     private addToStage():void {
         this.removeEventListener(egret.Event.ADDED_TO_STAGE,this.addToStage,this);
-        this.textField = new egret.TextField();
-        this.addChild(this.textField);
-        this.textField.width = 480;
-        this.textField.height = 50;
-        this.textField.textAlign = "center";
-
-        this.textField.x = (this.stage.stageWidth-this.textField.width)>>1;
-        this.textField.y = (this.stage.stageHeight-this.textField.height)>>1;
+        this.gameLoad = new moon.GameLoad;
+        this.addChild(this.gameLoad);
     }
 
     public onProgress(current: number, total: number): void {
-        
-        this.textField.text = `Loading...${current}/${total}`;
+        this.gameLoad.update(current/total);
     }
 }

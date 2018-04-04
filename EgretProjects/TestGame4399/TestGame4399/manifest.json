@@ -6,13 +6,20 @@
 		"libs/modules/tween/tween.js",
 		"libs/modules/assetsmanager/assetsmanager.js",
 		"libs/modules/promise/promise.js",
+		"libs/modules/eui/eui.js",
 		"libs/modules/egret_4399_h5api/egret_4399_h5api.js"
 	],
 	"game": [
-		"bin-debug/moon/MoonTheme.js",
-		"bin-debug/Game.js",
+		"bin-debug/BasicComponent.js",
 		"bin-debug/LoadingUI.js",
+		"bin-debug/ControlManager.js",
+		"bin-debug/Game.js",
+		"bin-debug/LayoutManager.js",
+		"bin-debug/AssetAdapter.js",
 		"bin-debug/Main.js",
-		"bin-debug/Platform.js"
+		"bin-debug/Platform.js",
+		"bin-debug/SoundControl.js",
+		"bin-debug/ThemeAdapter.js",
+		"bin-debug/moon/MoonTheme.js"
 	]
 }
