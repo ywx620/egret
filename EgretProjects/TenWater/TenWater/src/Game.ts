@@ -6,6 +6,8 @@ var MUSIC_BG:string="background_mp3";
 var EVENT_BOMB:string="event bomb";
 var EVENT_REMOVE:string="event remove";
 var EVENT_ADD_WATER:string="event add water";
+
+var TYPE_HAND:string="type hand";
 class GamePanel extends moon.BasicGamePanel
 {
 	private chessboard:MImage;
@@ -54,6 +56,7 @@ class GamePanel extends moon.BasicGamePanel
 		this.layout.setRight(30);
 		this.layout.setTop(top-image.height);
 		this.txtScore=this.createText();
+		this.txtScore.size=40;
 		this.setMImageText(image,this.txtScore);
 		
 		var image:MImage=new BloodImage("waterNum3_png");
@@ -121,6 +124,11 @@ class GamePanel extends moon.BasicGamePanel
 	private bombHandler(e:MoonEvent):void
 	{
 		var water:Water=e.currentTarget as Water;
+		if(e.dataType==TYPE_HAND){
+			if(this.blood==0){
+				return;
+			}
+		}
 		if(e.type==EVENT_ADD_WATER){
 			this.blood--;
 			this.updateBlood();
@@ -129,6 +137,7 @@ class GamePanel extends moon.BasicGamePanel
 			}
 			this.calc=0;
 			this.canCalc=water.currentFrame==3;
+			water.updateWater();
 			return;
 		}else if(e.type==EVENT_BOMB){
 			this.startCheck=false;
@@ -344,6 +353,7 @@ class GameOver extends moon.BasicGameOver
 		this.layout.setRight(50);
 		this.layout.setBottom(500);
 		this.txtScore=this.createText();
+		this.txtScore.size=40;
 		this.setMImageText(image,this.txtScore);
 
 		var image:MImage=new MImage("titleOver_png");
@@ -400,7 +410,10 @@ class Water extends moon.ImageAnimation
     }
 	private onClick(e:egret.TouchEvent):void
 	{
-		this.dispEvent(EVENT_ADD_WATER);
+		this.dispEvent(EVENT_ADD_WATER,null,TYPE_HAND);
+	}
+	public updateWater():void
+	{
 		if(this.index==this.items.length-1){
 			this.dispEvent(EVENT_BOMB);
 			SoundControl.getIns().play(MUSIC_BOMB);
@@ -423,6 +436,15 @@ class Water extends moon.ImageAnimation
 			this.backCall();
 		}
 		
+	}
+	 public gotoAndStop(index:number):void{
+		var len:number=this.items.length-1
+		index=index>=len?len:index;
+		if(this.hasItem(index)){
+			this.index=index;
+			this.skinName=this.getItem(index);
+			this.update();
+		}
 	}
 	public dispose():void
 	{

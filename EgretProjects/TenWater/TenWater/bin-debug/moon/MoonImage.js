@@ -8,6 +8,7 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
+var MOON_FTP = 24;
 var moon;
 (function (moon) {
     var Image = (function (_super) {
@@ -19,6 +20,8 @@ var moon;
                 _this.skinName = skinName;
                 _this.position = new Point();
                 _this.addBitmap();
+                _this.bgWidth = _this.width;
+                _this.bgHeight = _this.height;
             }
             return _this;
         }
@@ -36,9 +39,9 @@ var moon;
     }(moon.MoonContainer));
     moon.Image = Image;
     __reflect(Image.prototype, "moon.Image");
-    var ImageAnimation = (function (_super) {
-        __extends(ImageAnimation, _super);
-        function ImageAnimation(skinName, start, end) {
+    var BasicAnimation = (function (_super) {
+        __extends(BasicAnimation, _super);
+        function BasicAnimation(skinName, start, end) {
             if (skinName === void 0) { skinName = ""; }
             var _this = _super.call(this) || this;
             _this.items = [];
@@ -50,17 +53,50 @@ var moon;
             _this.addBitmap();
             return _this;
         }
-        ImageAnimation.prototype.hasItem = function (index) {
+        BasicAnimation.prototype.hasItem = function (index) {
             return this.items.length > 0 && (index >= 0 && index < this.items.length);
         };
-        ImageAnimation.prototype.getItem = function (index) {
+        BasicAnimation.prototype.getItem = function (index) {
             return this.items[index];
         };
-        ImageAnimation.prototype.getNextItem = function () {
+        BasicAnimation.prototype.getNextItem = function () {
             return this.items[this.index++];
         };
-        ImageAnimation.prototype.reset = function () {
+        BasicAnimation.prototype.reset = function () {
             this.index = 0;
+        };
+        return BasicAnimation;
+    }(Image));
+    moon.BasicAnimation = BasicAnimation;
+    __reflect(BasicAnimation.prototype, "moon.BasicAnimation");
+    var ImageAnimation = (function (_super) {
+        __extends(ImageAnimation, _super);
+        function ImageAnimation(skinName, start, end) {
+            if (skinName === void 0) { skinName = ""; }
+            var _this = _super.call(this, skinName, start, end) || this;
+            _this._ftp = MOON_FTP;
+            _this.createTime();
+            return _this;
+        }
+        ImageAnimation.prototype.createTime = function () {
+            if (this.timer == null) {
+                this.timer = new egret.Timer(1000 / this.ftp, 0);
+                this.timer.addEventListener(egret.TimerEvent.TIMER, this.onTimer, this);
+            }
+        };
+        ImageAnimation.prototype.onTimer = function () {
+            if (this.hasItem(this.index)) {
+                this.gotoAndStop(++this.index);
+            }
+            else {
+                if (this.loop) {
+                    this.reset();
+                    this.gotoAndStop(this.index);
+                }
+                else {
+                    this.timer.stop();
+                }
+            }
         };
         ImageAnimation.prototype.gotoAndStop = function (index) {
             if (this.hasItem(index)) {
@@ -71,6 +107,16 @@ var moon;
             else {
                 trace("gotoAndStop的参数请保持在0到" + this.items.length, "当前index=" + index);
             }
+        };
+        ImageAnimation.prototype.gotoAndPlay = function (index) {
+            this.index = index;
+            this.play();
+        };
+        ImageAnimation.prototype.play = function () {
+            this.timer.start();
+        };
+        ImageAnimation.prototype.stop = function () {
+            this.timer.stop();
         };
         ImageAnimation.prototype.update = function () {
             if (RES.hasRes(this.skinName)) {
@@ -85,8 +131,29 @@ var moon;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(ImageAnimation.prototype, "ftp", {
+            get: function () { return this._ftp; },
+            set: function (value) {
+                this._ftp = value;
+                this.removeTime();
+                this.createTime();
+            },
+            enumerable: true,
+            configurable: true
+        });
+        ImageAnimation.prototype.removeTime = function () {
+            if (this.timer != null) {
+                this.timer.stop();
+                this.timer.removeEventListener(egret.TimerEvent.TIMER, this.onTimer, this);
+                this.timer = null;
+            }
+        };
+        ImageAnimation.prototype.dispose = function () {
+            _super.prototype.dispose.call(this);
+            this.removeTime();
+        };
         return ImageAnimation;
-    }(Image));
+    }(BasicAnimation));
     moon.ImageAnimation = ImageAnimation;
     __reflect(ImageAnimation.prototype, "moon.ImageAnimation");
     var ImageLayout = (function () {
@@ -123,11 +190,15 @@ var moon;
             this.image.y = (this.th - this.image.height) >> 1;
         };
         ImageLayout.prototype.setCenterXByPanent = function (image) {
-            if (image.parent)
+            if (image.parent instanceof Image)
+                image.x = (image.parent.bgWidth - image.width) >> 1;
+            else
                 image.x = (image.parent.width - image.width) >> 1;
         };
         ImageLayout.prototype.setCenterYByPanent = function (image) {
-            if (image.parent)
+            if (image.parent instanceof Image)
+                image.y = (image.parent.bgHeight - image.height) >> 1;
+            else
                 image.y = (image.parent.height - image.height) >> 1;
         };
         return ImageLayout;

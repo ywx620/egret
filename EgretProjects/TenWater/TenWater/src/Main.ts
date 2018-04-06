@@ -38,8 +38,8 @@ class Main extends egret.DisplayObjectContainer {
 
     private onAddToStage(event: egret.Event) {
 
-        //egret_4399_h5api.initGame(100054108,"十滴水",this.stage.stageWidth,this.stage.stageHeight,true);
-        //egret_4399_h5api.progress(100);
+        egret_4399_h5api.initGame(100054108,"十滴水",this.stage.stageWidth,this.stage.stageHeight,true);
+        egret_4399_h5api.progress(100);
 
         moon.showLog.getIns().init(this.stage);
         egret.Capabilities.isMobile?this.stage.scaleMode=egret.StageScaleMode.FIXED_WIDTH:this.stage.scaleMode=egret.StageScaleMode.SHOW_ALL;

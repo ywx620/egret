@@ -15,6 +15,7 @@ var MUSIC_BG = "background_mp3";
 var EVENT_BOMB = "event bomb";
 var EVENT_REMOVE = "event remove";
 var EVENT_ADD_WATER = "event add water";
+var TYPE_HAND = "type hand";
 var GamePanel = (function (_super) {
     __extends(GamePanel, _super);
     function GamePanel() {
@@ -56,6 +57,7 @@ var GamePanel = (function (_super) {
         this.layout.setRight(30);
         this.layout.setTop(top - image.height);
         this.txtScore = this.createText();
+        this.txtScore.size = 40;
         this.setMImageText(image, this.txtScore);
         var image = new BloodImage("waterNum3_png");
         this.layout.setImage(image);
@@ -115,6 +117,11 @@ var GamePanel = (function (_super) {
     };
     GamePanel.prototype.bombHandler = function (e) {
         var water = e.currentTarget;
+        if (e.dataType == TYPE_HAND) {
+            if (this.blood == 0) {
+                return;
+            }
+        }
         if (e.type == EVENT_ADD_WATER) {
             this.blood--;
             this.updateBlood();
@@ -123,6 +130,7 @@ var GamePanel = (function (_super) {
             }
             this.calc = 0;
             this.canCalc = water.currentFrame == 3;
+            water.updateWater();
             return;
         }
         else if (e.type == EVENT_BOMB) {
@@ -327,6 +335,7 @@ var GameOver = (function (_super) {
         this.layout.setRight(50);
         this.layout.setBottom(500);
         this.txtScore = this.createText();
+        this.txtScore.size = 40;
         this.setMImageText(image, this.txtScore);
         var image = new MImage("titleOver_png");
         this.addChild(image);
@@ -379,7 +388,9 @@ var Water = (function (_super) {
         return _this;
     }
     Water.prototype.onClick = function (e) {
-        this.dispEvent(EVENT_ADD_WATER);
+        this.dispEvent(EVENT_ADD_WATER, null, TYPE_HAND);
+    };
+    Water.prototype.updateWater = function () {
         if (this.index == this.items.length - 1) {
             this.dispEvent(EVENT_BOMB);
             SoundControl.getIns().play(MUSIC_BOMB);
@@ -400,6 +411,15 @@ var Water = (function (_super) {
         }
         else {
             this.backCall();
+        }
+    };
+    Water.prototype.gotoAndStop = function (index) {
+        var len = this.items.length - 1;
+        index = index >= len ? len : index;
+        if (this.hasItem(index)) {
+            this.index = index;
+            this.skinName = this.getItem(index);
+            this.update();
         }
     };
     Water.prototype.dispose = function () {
