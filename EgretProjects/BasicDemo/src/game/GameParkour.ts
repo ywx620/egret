@@ -241,7 +241,7 @@ class GameParkour extends egret.DisplayObjectContainer{
         }else{
             var bodys=this.p2World.world.bodies;
             var l: number = bodys.length;
-            moon.showLog.getIns().log("奔跑:"+this.distance+"米");
+            trace("奔跑:"+this.distance+"米");
             this.distance+=Math.floor(this.speed/100)
             for (var i: number = 0; i < l; i++) {
                 var body: p2.Body = bodys[i];

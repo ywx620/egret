@@ -7,7 +7,7 @@ class TestView extends eui.Component {
 
 	protected childrenCreated(): void {
 		super.childrenCreated();
-		moon.showLog.getIns().log("1.3");
+		trace("1.3");
 		var btns:string[]=[
 			egret.StageScaleMode.EXACT_FIT,
 			egret.StageScaleMode.FIXED_HEIGHT,

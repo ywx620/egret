@@ -107,7 +107,20 @@ var Tween = (function (_super) {
 }(egret.Tween));
 __reflect(Tween.prototype, "Tween");
 ;
+var Ease = (function (_super) {
+    __extends(Ease, _super);
+    function Ease() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return Ease;
+}(egret.Ease));
+__reflect(Ease.prototype, "Ease");
+;
 //----------------------------------------------
+//以下几种方法在使用前都必须先调用各自的初始化函数
+//moon.TipsManager.getIns().init(this.stage);
+//moon.showLog.getIns().init(this.stage);
+//moon.AlertManager.getIns().init(this.stage);
 var trace = function () {
     var arg = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -118,7 +131,7 @@ var trace = function () {
         str += arg[i] + ",";
     }
     str = str.substr(0, str.length - 1);
-    moon.showLog.getIns().logMessage(str);
+    moon.LogManager.getIns().logMessage(str);
 };
 var traceSimple = function () {
     var arg = [];
@@ -130,7 +143,21 @@ var traceSimple = function () {
         str += arg[i] + ",";
     }
     str = str.substr(0, str.length - 1);
-    moon.showLog.getIns().log(str);
+    moon.LogManager.getIns().log(str);
+};
+var alertAuto = function (title, closeTime) {
+    if (title === void 0) { title = "提示或警告"; }
+    if (closeTime === void 0) { closeTime = 3; }
+    moon.AlertManager.getIns().alertAuto(title, closeTime);
+};
+var alertHand = function (title) {
+    if (title === void 0) { title = "提示或警告"; }
+    moon.AlertManager.getIns().alert(title);
+};
+var alertRoll = function (title, bgWidth) {
+    if (title === void 0) { title = "提示或警告"; }
+    if (bgWidth === void 0) { bgWidth = 200; }
+    moon.AlertManager.getIns().alertRoll(title, bgWidth);
 };
 //----------------------------------------------
 var moon;
@@ -156,6 +183,10 @@ var moon;
         Const.SHAPE_RECT_ROUND = "shape rect round";
         /**形状 圆块*/
         Const.SHAPE_CIRCLE = "shape circle";
+        /**版本 调试*/
+        Const.VER_DEBUG = "debug";
+        /**版本 发布*/
+        Const.VER_RELEASE = "release";
         return Const;
     }());
     moon.Const = Const;
@@ -224,6 +255,32 @@ var moon;
             configurable: true
         });
         ;
+        Color.getRandomArray = function (count) {
+            var colors = [];
+            for (var i = 0; i < count; i++)
+                colors.push(Math.random() * 0XFFFFFF);
+            return colors;
+        };
+        ;
+        /** 可改变颜色的亮暗,value值是-255到255*/
+        Color.lightenDarkenColor = function (color, value) {
+            var r = (color >> 16) + value;
+            if (r > 255)
+                r = 255;
+            else if (r < 0)
+                r = 0;
+            var b = ((color >> 8) & 0x00FF) + value;
+            if (b > 255)
+                b = 255;
+            else if (b < 0)
+                b = 0;
+            var g = (color & 0x0000FF) + value;
+            if (g > 255)
+                g = 255;
+            else if (g < 0)
+                g = 0;
+            return (g | (b << 8) | (r << 16));
+        };
         return Color;
     }());
     moon.Color = Color;
@@ -366,6 +423,33 @@ var moon;
     __reflect(Skin.prototype, "moon.Skin");
     /**
      * ...
+     * 简单的布局
+     * @author vinson
+     */
+    var SimpleLayout = (function () {
+        function SimpleLayout() {
+        }
+        /**参数：数组,X轴个数,X轴距离,Y轴距离,X轴位置,Y轴位置,正排/反排 */
+        SimpleLayout.displayRank = function (array, xNum, xDis, yDis, x, y, sign) {
+            if (xNum === void 0) { xNum = 1; }
+            if (xDis === void 0) { xDis = 0; }
+            if (yDis === void 0) { yDis = 0; }
+            if (x === void 0) { x = 0; }
+            if (y === void 0) { y = 0; }
+            if (sign === void 0) { sign = 1; }
+            var display;
+            for (var i = 0; i < array.length; i++) {
+                display = array[i];
+                display.x = x + Math.floor(i % xNum) * (display.width + xDis) * sign;
+                display.y = y + Math.floor(i / xNum) * (display.height + yDis) * sign;
+            }
+        };
+        return SimpleLayout;
+    }());
+    moon.SimpleLayout = SimpleLayout;
+    __reflect(SimpleLayout.prototype, "moon.SimpleLayout");
+    /**
+     * ...
      * 默认参数x轴,y轴,w宽,h高,r半径,c颜色,ew圆角宽,eh圆家高
      * @author vinson
      */
@@ -380,6 +464,43 @@ var moon;
             enumerable: true,
             configurable: true
         });
+        /**得到矩形框*/
+        MoonUI.getLineRect = function (w, h, c, s, x, y) {
+            if (c === void 0) { c = 0; }
+            if (s === void 0) { s = 1; }
+            if (x === void 0) { x = 0; }
+            if (y === void 0) { y = 0; }
+            var node = new Sprite();
+            node.graphics.lineStyle(s, c);
+            node.graphics.drawRect(x, y, w, h);
+            node.graphics.endFill();
+            return node;
+        };
+        /**得到圆形框*/
+        MoonUI.getLineCircle = function (r, c, s, x, y) {
+            if (c === void 0) { c = 0; }
+            if (s === void 0) { s = 1; }
+            if (x === void 0) { x = 0; }
+            if (y === void 0) { y = 0; }
+            var node = new Sprite();
+            node.graphics.lineStyle(s, c);
+            node.graphics.drawCircle(x, y, r);
+            node.graphics.endFill();
+            return node;
+        };
+        /**得到渐变矩形 a为角度偏移率0,0.5,1,2分别为四个正方向*/
+        MoonUI.getMatrixRect = function (w, h, c1, c2, a) {
+            if (c1 === void 0) { c1 = 0; }
+            if (c2 === void 0) { c2 = 0; }
+            if (a === void 0) { a = 0; }
+            var node = new Sprite();
+            var matrix = new egret.Matrix();
+            matrix.createGradientBox(w, h, Math.PI * a, 0, 0);
+            node.graphics.beginGradientFill(egret.GradientType.LINEAR, [c1, c2], [1, 1], [0, 255], matrix);
+            node.graphics.drawRect(0, 0, w, h);
+            node.graphics.endFill();
+            return node;
+        };
         /**得到矩形*/
         MoonUI.getRect = function (w, h, c, x, y) {
             if (c === void 0) { c = 0; }
@@ -397,17 +518,27 @@ var moon;
             if (x === void 0) { x = 0; }
             if (y === void 0) { y = 0; }
             var s = this.getRect(w, h, c, x, y);
+            s.addChild(this.getX(w, h, c, 1, x, y));
+            return s;
+        };
+        /**得到矩形和一个X*/
+        MoonUI.getX = function (w, h, c, s, x, y) {
+            if (c === void 0) { c = 0; }
+            if (s === void 0) { s = 1; }
+            if (x === void 0) { x = 0; }
+            if (y === void 0) { y = 0; }
+            var container = new Sprite;
             var l1 = new Sprite;
-            l1.graphics.lineStyle(0.1);
+            l1.graphics.lineStyle(s, c);
             l1.graphics.moveTo(0, 0);
             l1.graphics.lineTo(w, h);
             var l2 = new Sprite;
-            l2.graphics.lineStyle(0.1);
+            l2.graphics.lineStyle(s, c);
             l2.graphics.moveTo(w, 0);
             l2.graphics.lineTo(0, h);
-            s.addChild(l1);
-            s.addChild(l2);
-            return s;
+            container.addChild(l1);
+            container.addChild(l2);
+            return container;
         };
         /**得到圆角矩形*/
         MoonUI.getRoundRect = function (w, h, c, ew, eh, x, y) {
@@ -499,6 +630,7 @@ var moon;
             var s = new Sprite;
             s.addChild(this.getRoundRect(w, h, c));
             var text = new TextField;
+            text.name = "text";
             text.text = str;
             text.x = (s.width - text.width) >> 1;
             text.y = (s.height - text.height) >> 1;
@@ -556,10 +688,10 @@ var moon;
          * rect.height是网格高
          * lc网格线颜色
          * */
-        MoonUI.getGridding = function (rect, lc) {
-            if (lc === void 0) { lc = 0; }
+        MoonUI.getGridding = function (rect, c) {
+            if (c === void 0) { c = 0; }
             var s = new Sprite;
-            s.graphics.lineStyle(0.1, lc);
+            s.graphics.lineStyle(0.1, c);
             var disx = rect.width / rect.x;
             var disy = rect.height / rect.y;
             for (var i = 0; i < rect.x; i++) {
@@ -572,21 +704,39 @@ var moon;
             }
             return s;
         };
+        /***得到爱心 */
+        MoonUI.getHeart = function (r, c) {
+            if (r === void 0) { r = 15; }
+            if (c === void 0) { c = 0XFF0000; }
+            var s = new Sprite;
+            s.graphics.beginFill(c);
+            s.graphics.moveTo(0, 0);
+            s.graphics.lineTo(0, -r * 2);
+            s.graphics.cubicCurveTo(r, -r * 2.5, r * 2, -r * 1.5, 0, 0);
+            s.graphics.moveTo(0, 0);
+            s.graphics.lineTo(0, -r * 2);
+            s.graphics.cubicCurveTo(-r, -r * 2.5, -r * 2, -r * 1.5, 0, 0);
+            s.graphics.endFill();
+            s.anchorOffsetX = -s.width / 2;
+            s.anchorOffsetY = -s.height;
+            return s;
+        };
         return MoonUI;
     }());
     moon.MoonUI = MoonUI;
     __reflect(MoonUI.prototype, "moon.MoonUI");
     //--------------
-    var showLog = (function () {
-        function showLog() {
+    var LogManager = (function () {
+        function LogManager() {
         }
-        showLog.getIns = function () {
+        LogManager.getIns = function () {
             if (this.instance == null) {
-                this.instance = new showLog();
+                this.instance = new LogManager();
             }
             return this.instance;
         };
-        showLog.prototype.init = function (stage) {
+        /**请先调用初始化函数 */
+        LogManager.prototype.init = function (stage) {
             var txt = (new Label).textField;
             txt.textAlign = egret.HorizontalAlign.LEFT;
             stage.addChild(txt);
@@ -597,23 +747,72 @@ var moon;
             this.txtMessage = txt;
         };
         /**每次都覆盖上一次信息 */
-        showLog.prototype.log = function (value) {
-            this.txtSimple.text = value;
+        LogManager.prototype.log = function (value) {
+            if (GameData.version == Const.VER_DEBUG)
+                this.txtSimple.text = value;
         };
         /**显示所有信息 */
-        showLog.prototype.logMessage = function (value) {
-            this.txtMessage.appendText(value + "\n");
+        LogManager.prototype.logMessage = function (value) {
+            if (GameData.version == Const.VER_DEBUG)
+                this.txtMessage.appendText(value + "\n");
         };
-        showLog.prototype.setLogColor = function (color) {
+        LogManager.prototype.setLogColor = function (color) {
             this.txtSimple.textColor = color;
         };
-        showLog.prototype.setLogMessageColor = function (color) {
+        LogManager.prototype.setLogMessageColor = function (color) {
             this.txtMessage.textColor = color;
         };
-        return showLog;
+        return LogManager;
     }());
-    moon.showLog = showLog;
-    __reflect(showLog.prototype, "moon.showLog");
+    moon.LogManager = LogManager;
+    __reflect(LogManager.prototype, "moon.LogManager");
+    //--------------
+    var AlertManager = (function () {
+        function AlertManager() {
+        }
+        AlertManager.getIns = function () {
+            if (this.instance == null) {
+                this.instance = new AlertManager();
+            }
+            return this.instance;
+        };
+        /**请先调用初始化函数 */
+        AlertManager.prototype.init = function (stage) {
+            this.stage = stage;
+        };
+        AlertManager.prototype.alertAuto = function (title, closeTime) {
+            if (title === void 0) { title = "自动关闭的提示或警告"; }
+            if (closeTime === void 0) { closeTime = 3; }
+            var a = new AlertAutoBar(title, closeTime);
+            if (this.stage)
+                this.stage.addChild(a);
+            else
+                trace("调用alertAuto时请先执行AlertManager的init初始化函数");
+            return a;
+        };
+        AlertManager.prototype.alert = function (title) {
+            if (title === void 0) { title = "手动关闭的提示或警告"; }
+            var a = new AlertBar(title);
+            if (this.stage)
+                this.stage.addChild(a);
+            else
+                trace("调用alertAuto时请先执行AlertManager的init初始化函数");
+            return a;
+        };
+        AlertManager.prototype.alertRoll = function (title, bgWidth) {
+            if (title === void 0) { title = "提示或警告"; }
+            if (bgWidth === void 0) { bgWidth = 200; }
+            var a = new AlertRollBar(title, bgWidth);
+            if (this.stage)
+                this.stage.addChild(a);
+            else
+                trace("调用alertAuto时请先执行AlertManager的init初始化函数");
+            return a;
+        };
+        return AlertManager;
+    }());
+    moon.AlertManager = AlertManager;
+    __reflect(AlertManager.prototype, "moon.AlertManager");
     var TipsManager = (function () {
         function TipsManager() {
             this.bgName = "tips_png"; //TIPS的背景图片
@@ -624,6 +823,7 @@ var moon;
             }
             return this.instance;
         };
+        /**请先调用初始化函数 */
         TipsManager.prototype.init = function (stage) {
             this.stage = stage;
         };
@@ -679,21 +879,25 @@ var moon;
             return _this;
         }
         //button event
-        MoonEvent.MOUSE_OVER = "event-over";
-        MoonEvent.MOUSE_OUT = "event-out";
-        MoonEvent.MOUSE_DOWN = "event-down";
-        MoonEvent.MOUSE_MOVE = "event-move";
-        MoonEvent.MOUSE_UP = "event-up";
-        MoonEvent.CLICK = "event-click";
+        MoonEvent.MOUSE_OVER = "event-over"; //移进
+        MoonEvent.MOUSE_OUT = "event-out"; //移出
+        MoonEvent.MOUSE_DOWN = "event-down"; //点下
+        MoonEvent.MOUSE_MOVE = "event-move"; //移动
+        MoonEvent.MOUSE_UP = "event-up"; //弹开
+        MoonEvent.CLICK = "event-click"; //单击
         //tabbar event
-        MoonEvent.CHANGE = "change";
-        MoonEvent.COMPLETE = "complete";
-        MoonEvent.RENDER_COMPLETE = "render complete";
-        MoonEvent.UPDATE = "update";
-        MoonEvent.START = "start";
-        MoonEvent.MOVE = "move";
-        MoonEvent.OVER = "over";
-        MoonEvent.PAUSE = "pause";
+        MoonEvent.CHANGE = "change"; //更换
+        MoonEvent.COMPLETE = "complete"; //完成
+        MoonEvent.RENDER_COMPLETE = "render complete"; //渲染完成
+        MoonEvent.UPDATE = "update"; //更新
+        MoonEvent.START = "start"; //开始
+        MoonEvent.MOVE = "move"; //移动
+        MoonEvent.OVER = "over"; //结束
+        MoonEvent.PAUSE = "pause"; //暂停
+        MoonEvent.STOP = "stop"; //停止
+        MoonEvent.PLAY = "play"; //播放
+        MoonEvent.OPEN = "open"; //开启
+        MoonEvent.CLOSE = "close"; //关闭
         return MoonEvent;
     }(egret.EventDispatcher));
     moon.MoonEvent = MoonEvent;
@@ -727,19 +931,21 @@ var moon;
             configurable: true
         });
         MoonDisplayObject.prototype.draw = function () {
+            this._color = this._data.c;
             this.display.graphics.clear();
             this.display = this.getDisplay(this._data);
             this.addChild(this.display);
             this.setPosition();
         };
         MoonDisplayObject.prototype.setPosition = function () {
-            if (this.bg != null && this.type != Const.SHAPE_CIRCLE) {
+            if (this._hasBg && this.type != Const.SHAPE_CIRCLE) {
                 this.display.x = (this.bg.width - this.display.width) >> 1;
                 this.display.y = (this.bg.height - this.display.height) >> 1;
             }
         };
         MoonDisplayObject.prototype.setBackground = function (color, side) {
             if (side === void 0) { side = 1; }
+            this._hasBg = true;
             var d = this._data;
             var o = {};
             for (var i in d) {
@@ -827,10 +1033,10 @@ var moon;
             }
         };
         /**把自己从父级删除*/
-        MoonContainer.prototype.removeFromParent = function (dispose) {
-            if (dispose === void 0) { dispose = false; }
+        MoonContainer.prototype.removeFromParent = function (value) {
+            if (value === void 0) { value = false; }
             var _parent = this.parent;
-            if (dispose)
+            if (value)
                 this.dispose();
             if (_parent && _parent.contains(this))
                 _parent.removeChild(this);
@@ -864,6 +1070,8 @@ var moon;
         MoonContainer.prototype.dispose = function () {
             this.removeChildAll(0, -1, true);
             this.dataEvent = null;
+            this.stageWidth = null;
+            this.stageHeight = null;
         };
         return MoonContainer;
     }(DisplayObjectContainer));
@@ -910,9 +1118,28 @@ var moon;
             s.graphics.drawRect(x, y, w, h);
             s.graphics.endFill();
         };
-        BasicView.prototype.createBackground = function (c) {
+        /**创建纯色背景 */
+        BasicView.prototype.createBackground = function (c, a) {
             if (c === void 0) { c = 0; }
-            return this.createRect(this.stageWidth, this.stageHeight, c);
+            if (a === void 0) { a = 1; }
+            var s = this.createRect(this.stageWidth, this.stageHeight, c);
+            s.alpha = a;
+            s.touchEnabled = true; //用于阻止下层点击事件
+            return s;
+        };
+        /**创建渐变色背景 */
+        BasicView.prototype.createBgGradientFill = function (c1, c2) {
+            if (c1 === void 0) { c1 = 0X017AC3; }
+            if (c2 === void 0) { c2 = 0XDDDDDD; }
+            var w = this.stageWidth;
+            var h = this.stageHeight;
+            var matrix = new egret.Matrix();
+            matrix.createGradientBox(w, h, Math.PI / 2);
+            var sprite = new Sprite;
+            sprite.graphics.beginGradientFill(egret.GradientType.LINEAR, [c1, c2], [1, 1], [0, 255], matrix);
+            sprite.graphics.drawRect(0, 0, w, h);
+            this.addChild(sprite);
+            return sprite;
         };
         return BasicView;
     }(MoonContainer));
@@ -924,59 +1151,45 @@ var moon;
             return _super !== null && _super.apply(this, arguments) || this;
         }
         GameView.prototype.play = function () {
+            this.stop();
+            this.isPlay = true;
             egret.startTick(this.loop, this);
         };
         GameView.prototype.stop = function () {
+            this.isPlay = false;
             egret.stopTick(this.loop, this);
         };
         GameView.prototype.loop = function (n) {
             traceSimple(n);
             return true;
         };
+        GameView.prototype.createButton = function (name, x, y) {
+            if (x === void 0) { x = 0; }
+            if (y === void 0) { y = 0; }
+            var btn = new moon.BasicButton;
+            btn.label = name;
+            btn.x = x;
+            btn.y = y;
+            this.addChild(btn);
+            return btn;
+        };
         return GameView;
     }(BasicView));
     moon.GameView = GameView;
     __reflect(GameView.prototype, "moon.GameView");
-    var MapHorizontalHouse = (function (_super) {
-        __extends(MapHorizontalHouse, _super);
-        function MapHorizontalHouse(rect, house, color) {
-            if (color === void 0) { color = -1; }
-            var _this = _super.call(this) || this;
-            _this.rect = rect;
-            _this.house = house;
-            _this.color = color;
-            return _this;
-        }
-        MapHorizontalHouse.prototype.render = function () {
-            var house = this.house;
-            var bg = moon.MoonUI.getRect(this.rect.width, this.rect.height);
-            bg.alpha = 0.1;
-            this.addChild(bg);
-            var count = this.rect.width / house.width;
-            var prevx = 0;
-            for (var i = 0; i < count; i++) {
-                var color = this.color == -1 ? Math.random() * 0XFFFFFF : this.color;
-                var width = house.width + Math.random() * house.x;
-                var height = house.height + Math.random() * house.y;
-                var rect = moon.MoonUI.getRect(width, height, color);
-                this.addChild(rect);
-                rect.y = this.rect.height - rect.height;
-                rect.x = prevx;
-                prevx = rect.x + rect.width;
-            }
-        };
-        return MapHorizontalHouse;
-    }(MoonContainer));
-    moon.MapHorizontalHouse = MapHorizontalHouse;
-    __reflect(MapHorizontalHouse.prototype, "moon.MapHorizontalHouse");
     /**九宫格*/
     var Scale9Image = (function (_super) {
         __extends(Scale9Image, _super);
         function Scale9Image(name, rect) {
             if (rect === void 0) { rect = null; }
             var _this = _super.call(this) || this;
-            _this.texture = RES.getRes(name);
-            _this.scale9Grid = rect || new Rectangle(8, 8, 2, 2);
+            if (RES.hasRes(name)) {
+                _this.texture = RES.getRes(name);
+                _this.scale9Grid = rect || new Rectangle(8, 8, 2, 2);
+            }
+            else {
+                egret.error("找不到资源：" + name);
+            }
             return _this;
         }
         return Scale9Image;
@@ -1063,10 +1276,20 @@ var moon;
             _this.updateSkin(_this.statusNormal);
             _this.text = (new Label).textField;
             _this.addChild(_this.text);
-            _this.touchEnabled = true;
-            _this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, _this.onTouch, _this);
+            _this.open();
             return _this;
         }
+        BasicButton.prototype.open = function () {
+            this.close();
+            this.touchEnabled = true;
+            this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
+        };
+        BasicButton.prototype.close = function () {
+            this.touchEnabled = false;
+            this.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
+            if (this.stage)
+                this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
+        };
         BasicButton.prototype.setLabelPoint = function (x, y) {
             this.text.anchorOffsetX = 0;
             this.text.anchorOffsetY = 0;
@@ -1187,14 +1410,13 @@ var moon;
             this.skinContainer.addChild(skin);
         };
         BasicButton.prototype.dispose = function () {
-            this.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
-            this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
+            this.close();
             _super.prototype.dispose.call(this);
         };
         return BasicButton;
     }(MoonContainer));
     moon.BasicButton = BasicButton;
-    __reflect(BasicButton.prototype, "moon.BasicButton");
+    __reflect(BasicButton.prototype, "moon.BasicButton", ["moon.IOnoff"]);
     /**类似多个皮肤按钮,构造函数的参数必须大于2个且必须是2的次方
      * 使用四个皮肤就可以模拟ToggleSwitch了
     */
@@ -1206,6 +1428,11 @@ var moon;
             _this.skins = skins;
             return _this;
         }
+        /**更新到第几个按钮同时刷新皮肤 */
+        MoreSkinButton.prototype.updatePage = function (value) {
+            this.currentPage = value;
+            this.setSkinNormal();
+        };
         Object.defineProperty(MoreSkinButton.prototype, "currentPage", {
             get: function () {
                 return this._currentPage;
@@ -1245,6 +1472,7 @@ var moon;
         function BasicBar() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
             _this.items = [];
+            _this.index = 0;
             return _this;
         }
         BasicBar.prototype.addItem = function (item) {
@@ -1252,16 +1480,33 @@ var moon;
         };
         BasicBar.prototype.removeItem = function (item) {
             var index = this.items.indexOf(item);
-            if (index > 0)
+            if (index >= 0)
                 this.items.splice(index, 1);
         };
         BasicBar.prototype.hasItem = function (index) {
-            return index >= 0 || index < this.items.length;
+            return this.items.length > 0 && (index >= 0 && index < this.items.length);
         };
         BasicBar.prototype.getItem = function (index) {
             return this.items[index];
         };
+        BasicBar.prototype.getNextItem = function () {
+            return this.items[this.index++];
+        };
+        BasicBar.prototype.reset = function () {
+            this.index = 0;
+        };
         BasicBar.prototype.update = function () {
+        };
+        /**销毁*/
+        BasicBar.prototype.dispose = function () {
+            this.reset();
+            while (this.hasItem(this.index)) {
+                var item = this.getItem(this.index);
+                this.removeItem(item);
+                if (item instanceof MoonContainer) {
+                    item.removeFromParent(true);
+                }
+            }
         };
         return BasicBar;
     }(BasicView));
@@ -1439,21 +1684,59 @@ var moon;
                 case egret.TouchEvent.TOUCH_END:
                     this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
                     this.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.onTouch, this);
-                    this.hideShow(0);
+                    this.hideShow(0, 100);
                     this.timeMove(e.stageX, e.stageY);
                     break;
             }
         };
+        //缓动动画
         ScrollBar.prototype.timeMove = function (x, y) {
-            //缓动动画
+            var time = egret.getTimer() - this.startTime;
+            if (time < 500) {
+                var target = this._target;
+                var maskRect = this.maskRect;
+                Tween.removeTweens(target);
+                var dx = x - this.stPos.x;
+                var dy = y - this.stPos.y;
+                var distance = Math.sqrt(dx * dx + dy * dy);
+                var value = (distance / time) * 100;
+                var tw = Tween.get(target);
+                if (this.type == Const.VERTICAL) {
+                    var sign = dy > 0 ? 1 : -1;
+                    value *= sign;
+                    var h = target.y + value;
+                    if (h > 0 && target.y + value > 0)
+                        h = 0;
+                    if (h < 0 && target.y + value < (maskRect.height - target.height))
+                        h = maskRect.height - target.height;
+                    tw.to({ y: h }, 400, Ease.sineOut).call(this.setBarPos, this);
+                }
+                else {
+                    var sign = dx > 0 ? 1 : -1;
+                    value *= sign;
+                    var w = target.x + value;
+                    if (w > 0 && target.x + value > 0)
+                        w = 0;
+                    if (w < 0 && target.x + value < (maskRect.width - target.width))
+                        w = maskRect.width - target.width;
+                    tw.to({ x: w }, 400, Ease.sineOut).call(this.setBarPos, this);
+                }
+            }
         };
-        ScrollBar.prototype.hideShow = function (alpha) {
+        ScrollBar.prototype.setBarPos = function () {
+            if (this.type == Const.VERTICAL)
+                this.skinBar.y = -this._target.y / (this._target.height - this.maskRect.height) * (this.maskRect.height - this.skinBar.height);
+            else
+                this.skinBar.x = -this._target.x / (this._target.width - this.maskRect.width) * (this.maskRect.width - this.skinBar.width);
+        };
+        ScrollBar.prototype.hideShow = function (alpha, time) {
+            if (time === void 0) { time = 1000; }
             Tween.removeTweens(this.skinBar);
             if (alpha == 1) {
                 this.skinBar.alpha = 1;
             }
             var tw = Tween.get(this.skinBar);
-            tw.to({ alpha: alpha }, 1500);
+            tw.to({ alpha: alpha }, time);
         };
         ScrollBar.prototype.moveDo = function (x, y) {
             if (this.type == Const.VERTICAL) {
@@ -1551,13 +1834,13 @@ var moon;
         /**布局 type类型为横或竖，interval为对象间的间隔*/
         CheckBoxBar.prototype.layout = function (type, interval) {
             if (type === void 0) { type = Const.VERTICAL; }
-            if (interval === void 0) { interval = 50; }
+            if (interval === void 0) { interval = 10; }
             for (var i = 0; i < this.items.length; i++) {
                 var item = this.items[i];
                 if (type == Const.VERTICAL)
-                    item.y = interval * i;
+                    item.y = (item.height + interval) * i;
                 else
-                    item.x = interval * i;
+                    item.x = (item.width + interval) * i;
             }
         };
         Object.defineProperty(CheckBoxBar.prototype, "selectIndexs", {
@@ -1577,6 +1860,42 @@ var moon;
     }(BasicBar));
     moon.CheckBoxBar = CheckBoxBar;
     __reflect(CheckBoxBar.prototype, "moon.CheckBoxBar", ["moon.ILayout"]);
+    /**复选框按钮 */
+    var TabbarBar = (function (_super) {
+        __extends(TabbarBar, _super);
+        function TabbarBar() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this._selectIndex = 0;
+            return _this;
+        }
+        TabbarBar.prototype.onClick = function (e) {
+            var curr = e.currentTarget;
+            this.selectItem(curr);
+        };
+        TabbarBar.prototype.selectItem = function (curr) {
+            this.reset();
+            while (this.hasItem(this.index)) {
+                var item = this.getNextItem();
+                item.currentPage = 0;
+                item.setSkinNormal();
+                item.open();
+            }
+            curr.close();
+            curr.currentPage = 1;
+            curr.setSkinNormal();
+            this._selectIndex = this.items.indexOf(curr);
+            this.dispEvent(moon.MoonEvent.CHANGE, this._selectIndex);
+        };
+        Object.defineProperty(TabbarBar.prototype, "selectIndex", {
+            get: function () { return this._selectIndex; },
+            set: function (value) { this._selectIndex = value, this.selectItem(this.getItem(value)); },
+            enumerable: true,
+            configurable: true
+        });
+        return TabbarBar;
+    }(CheckBoxBar));
+    moon.TabbarBar = TabbarBar;
+    __reflect(TabbarBar.prototype, "moon.TabbarBar");
     /**单选框按钮 */
     var RadioButtonBar = (function (_super) {
         __extends(RadioButtonBar, _super);
@@ -1630,6 +1949,219 @@ var moon;
     }(CheckBoxBar));
     moon.RadioButtonBar = RadioButtonBar;
     __reflect(RadioButtonBar.prototype, "moon.RadioButtonBar");
+    /**提示警告框 手动关闭*/
+    var AlertBar = (function (_super) {
+        __extends(AlertBar, _super);
+        function AlertBar(title) {
+            if (title === void 0) { title = "提示或警告"; }
+            var _this = _super.call(this) || this;
+            _this.bgColor = Color.gray;
+            _this.text = (new Label).textField;
+            _this.text.text = title;
+            return _this;
+        }
+        /**加载到舞台之后调用 */
+        AlertBar.prototype.render = function () {
+            _super.prototype.render.call(this);
+            this.initView();
+        };
+        AlertBar.prototype.initView = function () {
+            var node = this.createBackground(0, 0.3);
+            var tw = this.text.width;
+            var th = this.text.height;
+            var w = tw + 80;
+            var h = th + 120;
+            var x = (this.stageWidth - w) >> 1;
+            var y = (this.stageHeight - h) >> 1;
+            this.bg = new MoonDisplayObject;
+            this.bg.type = Const.SHAPE_RECT_ROUND;
+            this.bg.data = { w: w, h: h, c: this.bgColor, ew: 10, eh: 10 };
+            this.bg.setBackground(0, 2);
+            this.bg.x = x;
+            this.bg.y = y;
+            this.addChild(this.bg);
+            var btn = new BasicButton;
+            btn.label = "确 定";
+            this.bg.addChild(btn);
+            btn.x = (w - btn.width) >> 1;
+            btn.y = this.text.y + th + 40;
+            btn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onClick, this);
+            this.text.x = x + ((w - tw) >> 1);
+            this.text.y = y + 20;
+            this.addChild(this.text);
+        };
+        AlertBar.prototype.onClick = function (e) {
+            this.removeFromParent(true);
+            this.dispEvent(MoonEvent.CLOSE);
+        };
+        Object.defineProperty(AlertBar.prototype, "color", {
+            /**设置背景色 */
+            set: function (value) {
+                this.bgColor = value;
+                if (this.bg)
+                    this.bg.color = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        ;
+        AlertBar.prototype.dispose = function () {
+            _super.prototype.dispose.call(this);
+            this.bg = null;
+            this.bgColor = null;
+            this.text = null;
+        };
+        return AlertBar;
+    }(BasicBar));
+    moon.AlertBar = AlertBar;
+    __reflect(AlertBar.prototype, "moon.AlertBar");
+    /**提示警告框 自动关闭*/
+    var AlertAutoBar = (function (_super) {
+        __extends(AlertAutoBar, _super);
+        function AlertAutoBar(title, closeTime) {
+            if (title === void 0) { title = "提示或警告"; }
+            if (closeTime === void 0) { closeTime = 3; }
+            var _this = _super.call(this, title) || this;
+            _this.time = closeTime;
+            return _this;
+        }
+        AlertAutoBar.prototype.initView = function () {
+            var tw = this.text.width;
+            var th = this.text.height;
+            var w = tw + 20;
+            var h = th + 20;
+            var x = (this.stageWidth - w) >> 1;
+            var y = (this.stageHeight - h) >> 1;
+            this.bg = new MoonDisplayObject;
+            this.bg.type = Const.SHAPE_RECT_ROUND;
+            this.bg.data = { w: w, h: h, c: this.bgColor, ew: 10, eh: 10 };
+            this.bg.setBackground(0, 2);
+            this.bg.x = x;
+            this.bg.y = y;
+            this.addChild(this.bg);
+            this.text.x = x + ((w - tw) >> 1);
+            this.text.y = y + ((h - th) >> 1);
+            this.addChild(this.text);
+            this.alpha = 0;
+            var ty = this.y - 50;
+            Tween.get(this).to({ alpha: 1 }, 500).wait(this.time * 1000).to({ alpha: 0, y: ty }, 500).call(this.backCall, this);
+        };
+        AlertAutoBar.prototype.backCall = function () {
+            Tween.removeTweens(this);
+            this.removeFromParent(true);
+            this.time = null;
+            this.dispEvent(MoonEvent.CLOSE);
+        };
+        return AlertAutoBar;
+    }(AlertBar));
+    moon.AlertAutoBar = AlertAutoBar;
+    __reflect(AlertAutoBar.prototype, "moon.AlertAutoBar");
+    /**提示警告框 滚动显示*/
+    var AlertRollBar = (function (_super) {
+        __extends(AlertRollBar, _super);
+        function AlertRollBar(title, bgWidth) {
+            if (title === void 0) { title = "提示或警告"; }
+            if (bgWidth === void 0) { bgWidth = 200; }
+            var _this = _super.call(this, title) || this;
+            _this.bgWidth = bgWidth;
+            return _this;
+        }
+        AlertRollBar.prototype.initView = function () {
+            var tw = this.text.width;
+            var th = this.text.height;
+            var w = this.bgWidth;
+            var h = th + 20;
+            var x = (this.stageWidth - w) >> 1;
+            var y = 100;
+            this.bg = new MoonDisplayObject;
+            this.bg.type = Const.SHAPE_RECT;
+            this.bg.data = { w: w, h: h, c: this.bgColor };
+            this.bg.x = x;
+            this.bg.y = y;
+            this.addChild(this.bg);
+            var mask = MoonUI.getRect(w, h, 0, x, y);
+            this.bg.mask = mask;
+            this.text.x = w;
+            this.text.y = 10;
+            this.bg.addChild(this.text);
+            var time = 2000 + this.text.text.length * 100;
+            var tx = -tw;
+            Tween.get(this.text).to({ x: tx }, time).call(this.backCall, this);
+        };
+        AlertRollBar.prototype.backCall = function () {
+            Tween.removeTweens(this);
+            Tween.removeTweens(this.text);
+            this.removeFromParent(true);
+            this.bgWidth = null;
+            this.dispEvent(MoonEvent.CLOSE);
+        };
+        return AlertRollBar;
+    }(AlertBar));
+    moon.AlertRollBar = AlertRollBar;
+    __reflect(AlertRollBar.prototype, "moon.AlertRollBar");
+    /**输入框 */
+    var InputBar = (function (_super) {
+        __extends(InputBar, _super);
+        function InputBar(width, height) {
+            if (width === void 0) { width = 100; }
+            if (height === void 0) { height = 50; }
+            var _this = _super.call(this) || this;
+            _this.text = (new Label).textField;
+            _this.inputW = width;
+            _this.inputH = height;
+            return _this;
+        }
+        /**加载到舞台之后调用 */
+        InputBar.prototype.render = function () {
+            _super.prototype.render.call(this);
+            var w = this.inputW;
+            var h = this.inputH;
+            this.bg = new MoonDisplayObject;
+            this.bg.type = Const.SHAPE_RECT_ROUND;
+            this.bg.data = { w: w, h: h, c: this.bgColor, ew: 10, eh: 10 };
+            this.bg.setBackground(0, 2);
+            this.addChild(this.bg);
+            var side = 5;
+            this.text.x = side;
+            this.text.y = side;
+            this.text.width = w - side * 2;
+            this.text.height = h - side * 2;
+            this.text.type = egret.TextFieldType.INPUT;
+            this.addChild(this.text);
+        };
+        /**设置为多行 */
+        InputBar.prototype.setMultiline = function () {
+            this.text.wordWrap = true;
+            this.text.multiline = true;
+            this.text.verticalAlign = egret.VerticalAlign.TOP;
+        };
+        Object.defineProperty(InputBar.prototype, "color", {
+            /**设置背景色 */
+            set: function (value) {
+                this.bgColor = value;
+                if (this.bg)
+                    this.bg.color = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        ;
+        Object.defineProperty(InputBar.prototype, "maxChars", {
+            /**设置最大数量 */
+            set: function (value) { this.text.maxChars = value; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(InputBar.prototype, "restrict", {
+            /**设置输入内容限制（如只输入字母数字 a-zA-Z0-9） */
+            set: function (value) { this.text.restrict = value; },
+            enumerable: true,
+            configurable: true
+        });
+        return InputBar;
+    }(BasicBar));
+    moon.InputBar = InputBar;
+    __reflect(InputBar.prototype, "moon.InputBar");
     /**面板 */
     var PanelBar = (function (_super) {
         __extends(PanelBar, _super);
@@ -1668,6 +2200,7 @@ var moon;
             this.addChild(this.container);
             this.containerMask = this.createRect(this.stageWidth, this.stageHeight - this.titleHeight, moon.Color.white, 0, this.titleHeight);
             this.container.mask = this.containerMask;
+            this.touchEnabled = true; //为了阻挡面板下所有事件
             this.dispEvent(MoonEvent.RENDER_COMPLETE);
         };
         PanelBar.prototype.addItem = function (item, x, y) {
@@ -1715,6 +2248,13 @@ var moon;
             get: function () {
                 var rect = new Rectangle(0, 0, this.stageWidth, this.stageHeight);
                 return rect;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(PanelBar.prototype, "topHeight", {
+            get: function () {
+                return this.titleHeight;
             },
             enumerable: true,
             configurable: true
@@ -1870,9 +2410,173 @@ var moon;
             this.container.x = 0;
             this.dispEvent(MoonEvent.OVER);
         };
+        /**销毁*/
+        PanelMoreManager.prototype.dispose = function () {
+            _super.prototype.dispose.call(this);
+            this.close();
+        };
         return PanelMoreManager;
     }(BasicBar));
     moon.PanelMoreManager = PanelMoreManager;
     __reflect(PanelMoreManager.prototype, "moon.PanelMoreManager", ["moon.IOnoff"]);
+    var GameData = (function () {
+        function GameData() {
+        }
+        /**游戏屏幕宽 */
+        GameData.stageWidth = 640;
+        /**游戏屏幕高 */
+        GameData.stageHeight = 1136;
+        /**游戏版号，默认是调试版 */
+        GameData.version = Const.VER_DEBUG;
+        /**是否为移动模式（例如移动电话或平板电脑） */
+        GameData.isMobile = egret.Capabilities.isMobile;
+        /**游戏的ID */
+        GameData.gameId = 1;
+        return GameData;
+    }());
+    moon.GameData = GameData;
+    __reflect(GameData.prototype, "moon.GameData");
+    /**游戏加载模版 */
+    var GameLoad = (function (_super) {
+        __extends(GameLoad, _super);
+        function GameLoad() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.color = 0XF9AB03;
+            return _this;
+        }
+        GameLoad.prototype.render = function () {
+            _super.prototype.render.call(this);
+            this.createBgGradientFill();
+            var container = new Sprite;
+            this.addChild(container);
+            var sw = this.stageWidth;
+            var sh = this.stageHeight;
+            var w = 80;
+            var loadbg = MoonUI.getRoundRect(sw - 100, w, 0XFCE59D, 100, 100);
+            loadbg.x = (sw - loadbg.width) >> 1;
+            loadbg.y = (sh - loadbg.height) >> 1;
+            container.addChild(loadbg);
+            //--------
+            var progress = MoonUI.getRect(sw - 120, w - 10, this.color);
+            progress.x = (sw - progress.width) >> 1;
+            progress.y = (sh - progress.height) >> 1;
+            container.addChild(progress);
+            this.proWidth = progress.width;
+            var mask = MoonUI.getRoundRect(sw - 120, w - 10, 0, 100, 100);
+            mask.x = (sw - mask.width) >> 1;
+            mask.y = (sh - mask.height) >> 1;
+            progress.mask = mask;
+            this.progress = progress;
+            //--------
+            var txtbg = new MoonDisplayObject();
+            txtbg.type = moon.Const.SHAPE_CIRCLE;
+            txtbg.data = { r: w / 2, c: 0XE18E0D };
+            txtbg.setBackground(0XFFFFFF, 5);
+            this.addChild(txtbg);
+            txtbg.x = loadbg.x + loadbg.width - w / 2;
+            txtbg.y = loadbg.y + w / 2;
+            this.txtLoadPos = new Point(txtbg.x, txtbg.y);
+            var txtExp = this.createText(0, 0, "");
+            txtExp.size = 40;
+            txtExp.textColor = 0xB07300;
+            this.txtLoad = txtExp;
+            //--------
+            var txtTip = this.createText(0, 0, "游戏加载");
+            txtTip.size = 40;
+            txtTip.x = (sw - txtTip.width) >> 1;
+            txtTip.y = loadbg.y - txtTip.height * 2;
+            var txtName = this.createText(0, 0, "");
+            txtName.size = 40;
+            this.txtName = txtName;
+            this.updateName("敬请期待");
+            //--------
+            this.createAirFan();
+            this.airFan.x = txtbg.x;
+            this.airFan.y = txtbg.y;
+            this.createLogo();
+            this.update(0);
+            this.play();
+        };
+        GameLoad.prototype.loop = function (n) {
+            this.airFan.rotation += 3;
+            return true;
+        };
+        GameLoad.prototype.createAirFan = function () {
+            this.airFan = new Sprite;
+            this.addChild(this.airFan);
+            for (var i = 0; i < 4; i++) {
+                var shape = new Sprite();
+                this.airFan.addChild(shape);
+                shape.graphics.lineStyle(0);
+                shape.graphics.beginFill(0xFFFFFF);
+                shape.graphics.cubicCurveTo(-29, -28, 29, -28, 0, 0);
+                shape.graphics.endFill();
+                shape.rotation = i * 90;
+            }
+        };
+        GameLoad.prototype.createLogo = function () {
+            var sw = this.stageWidth;
+            var sh = this.stageHeight;
+            var logo = new MoonDisplayObject();
+            logo.type = moon.Const.SHAPE_CIRCLE;
+            logo.data = { r: 50, c: 0XE18E0D };
+            logo.setBackground(0XFFFFFF, 2);
+            logo.x = sw >> 1;
+            logo.y = logo.height;
+            this.addChild(logo);
+            var txtName = this.createText(0, 0, "ZL");
+            txtName.size = 40;
+            txtName.x = logo.x - (txtName.width >> 1);
+            txtName.y = logo.y - (txtName.height >> 1) - 15;
+            txtName = this.createText(0, 0, "game");
+            txtName.size = 30;
+            txtName.x = logo.x - (txtName.width >> 1);
+            txtName.y = logo.y - (txtName.height >> 1) + 15;
+            this.addChild(moon.MoonUI.getHeart(15, 0XFFFFFF));
+            txtName = this.createText(0, 0, "子乐游戏");
+            txtName.size = 40;
+            txtName.textColor = 0XE09F21;
+            txtName.x = sw - txtName.width - 10;
+            txtName.y = sh - txtName.height - 10;
+        };
+        /**创建渐变色背景 */
+        GameLoad.prototype.createBgGradientFill = function (c1, c2) {
+            if (c1 === void 0) { c1 = 0XFDD559; }
+            if (c2 === void 0) { c2 = 0XE09F21; }
+            var w = this.stageWidth;
+            var h = this.stageHeight;
+            var matrix = new egret.Matrix();
+            matrix.createGradientBox(w * 2, h * 2, Math.PI / 2);
+            var sprite = new Sprite;
+            sprite.graphics.beginGradientFill(egret.GradientType.RADIAL, [c1, c2], [1, 1], [0, 255], matrix);
+            sprite.graphics.drawRect(0, 0, w, h);
+            this.addChild(sprite);
+            return sprite;
+        };
+        GameLoad.prototype.updateName = function (name) {
+            this.txtName.text = name;
+            this.txtName.x = (this.stageWidth - this.txtName.width) >> 1;
+            this.txtName.y = this.stageHeight / 2 + this.txtName.height * 2;
+        };
+        GameLoad.prototype.update = function (value) {
+            if (value > 1)
+                return;
+            if (value > 0.99)
+                this.stop();
+            this.progress.scaleX = value;
+            var txtExp = this.txtLoad;
+            var pos = this.txtLoadPos;
+            txtExp.text = Math.ceil(value * 100) + "%";
+            txtExp.x = (this.stageWidth - txtExp.width) >> 1;
+            txtExp.y = pos.y - txtExp.height / 2;
+            var exp = MoonUI.getCircle(5 + Math.random() * 5, this.color, pos.x, pos.y);
+            exp.y = 10 - Math.random() * 20;
+            this.addChildAt(exp, 2);
+            Tween.get(exp).to({ x: -this.proWidth, alpha: 0 }, 1000);
+        };
+        return GameLoad;
+    }(moon.GameView));
+    moon.GameLoad = GameLoad;
+    __reflect(GameLoad.prototype, "moon.GameLoad");
 })(moon || (moon = {}));
 //# sourceMappingURL=MoonTheme.js.map

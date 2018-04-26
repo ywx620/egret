@@ -16,7 +16,7 @@ var TestSkinClass = (function (_super) {
         return _this;
     }
     TestSkinClass.prototype.render = function () {
-        moon.showLog.getIns().setLogMessageColor(0);
+        moon.LogManager.getIns().setLogMessageColor(0);
         for (var i = 0; i < this.numChildren; i++) {
             var image = this.getChildAt(i);
             trace(image instanceof eui.Button, image.name, image.x, image.y);

@@ -8,7 +8,7 @@ class TestSkinClass extends BasicComponent
     }
     protected render():void
     {
-        moon.showLog.getIns().setLogMessageColor(0);
+        moon.LogManager.getIns().setLogMessageColor(0);
         for(var i:number=0;i<this.numChildren;i++){
             var image:any=this.getChildAt(i) as any;
             trace(image instanceof eui.Button,image.name,image.x,image.y);

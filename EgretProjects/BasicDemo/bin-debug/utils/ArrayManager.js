@@ -14,6 +14,26 @@ var ArrayManager = (function () {
         }
         return value;
     };
+    /**通过二维数组得到一维数组 xy为0时取x轴,xy为1时取y轴,index为索引*/
+    ArrayManager.getOneArrayByTwoArray = function (array, xy, index) {
+        var value = [];
+        var copy = array.concat();
+        var len = copy.length;
+        if (xy == 0) {
+            if (index < len) {
+                value = copy[index];
+            }
+        }
+        else {
+            for (var i = 0; i < len; i++) {
+                var temps = copy[i];
+                if (index < temps.length) {
+                    value.push(temps[temps[i]]);
+                }
+            }
+        }
+        return value;
+    };
     return ArrayManager;
 }());
 __reflect(ArrayManager.prototype, "ArrayManager");

@@ -8,7 +8,7 @@ class ReadJson {
         for (var i in data){
             var d:Object=data[i];
             for(var j in d){
-                moon.showLog.getIns().logMessage(j+"="+d[j]);
+                trace(j+"="+d[j]);
             }
         }
     }

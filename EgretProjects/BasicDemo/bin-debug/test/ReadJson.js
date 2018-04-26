@@ -10,7 +10,7 @@ var ReadJson = (function () {
         for (var i in data) {
             var d = data[i];
             for (var j in d) {
-                moon.showLog.getIns().logMessage(j + "=" + d[j]);
+                trace(j + "=" + d[j]);
             }
         }
     };

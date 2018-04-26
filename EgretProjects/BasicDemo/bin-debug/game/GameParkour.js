@@ -242,7 +242,7 @@ var GameParkour = (function (_super) {
         else {
             var bodys = this.p2World.world.bodies;
             var l = bodys.length;
-            moon.showLog.getIns().log("奔跑:" + this.distance + "米");
+            trace("奔跑:" + this.distance + "米");
             this.distance += Math.floor(this.speed / 100);
             for (var i = 0; i < l; i++) {
                 var body = bodys[i];

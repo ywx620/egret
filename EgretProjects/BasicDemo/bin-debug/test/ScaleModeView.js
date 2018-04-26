@@ -17,7 +17,7 @@ var TestView = (function (_super) {
     }
     TestView.prototype.childrenCreated = function () {
         _super.prototype.childrenCreated.call(this);
-        moon.showLog.getIns().log("1.3");
+        trace("1.3");
         var btns = [
             egret.StageScaleMode.EXACT_FIT,
             egret.StageScaleMode.FIXED_HEIGHT,

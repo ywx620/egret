@@ -10,4 +10,24 @@
         }
         return value;
     }
+    /**通过二维数组得到一维数组 xy为0时取x轴,xy为1时取y轴,index为索引*/
+    public static getOneArrayByTwoArray(array:any[],xy:number,index:number):any[]
+    {
+        let value:any[]=[];
+        let copy:any[]=array.concat();
+        let len:number=copy.length;
+        if(xy==0){
+            if(index<len){
+                value=copy[index];
+            }
+        }else{
+            for(var i:number=0;i<len;i++){
+                var temps:any[]=copy[i];
+                if(index<temps.length){
+                    value.push(temps[temps[i]]);
+                }
+            }
+        }
+        return value;
+    }
  }

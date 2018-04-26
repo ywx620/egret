@@ -16,7 +16,7 @@ var MainTest = (function (_super) {
         return _this;
     }
     MainTest.prototype.init = function () {
-        moon.showLog.getIns().init(this.stage);
+        moon.LogManager.getIns().init(this.stage);
         moon.TipsManager.getIns().init(this.stage);
         this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.init, this);
         this.stageW = this.stage.stageWidth;
@@ -26,7 +26,7 @@ var MainTest = (function (_super) {
         //this.astar();
         //this.moon();
         //this.gameParkour();
-        this.control();
+        //this.control();
         //this.text();
         //this.morePointTouch();
         //this.scaleMode();
@@ -42,6 +42,14 @@ var MainTest = (function (_super) {
         //this.timeTest();
         //this.dragCircleTest();
         // this.colorTest();
+        //this.countMain();
+        this.testCallPhp();
+    };
+    MainTest.prototype.testCallPhp = function () {
+        new TestPhp;
+    };
+    MainTest.prototype.countMain = function () {
+        this.addChild(new CountMain());
     };
     MainTest.prototype.colorTest = function () {
         this.addChild(new ColorTest);
@@ -137,14 +145,14 @@ var MainTest = (function (_super) {
     };
     /** 测试月亮背景组件*/
     MainTest.prototype.moon = function () {
-        var rect = new egret.Rectangle(0, 0, this.stageW, this.stageH);
-        var home = new egret.Rectangle(10, 200, 20, 200);
-        var map = new moon.MapHorizontalHouse(rect, home, 0);
-        this.addChild(map);
-        var rect = new egret.Rectangle(0, 0, this.stageW, this.stageH);
-        var home = new egret.Rectangle(10, 100, 40, 100);
-        var map = new moon.MapHorizontalHouse(rect, home);
-        this.addChild(map);
+        // var rect:egret.Rectangle=new egret.Rectangle(0,0,this.stageW,this.stageH);
+        // var home:egret.Rectangle=new egret.Rectangle(10,200,20,200);
+        // var map:moon.MapHorizontalHouse=new moon.MapHorizontalHouse(rect,home,0);
+        // this.addChild(map);
+        // var rect:egret.Rectangle=new egret.Rectangle(0,0,this.stageW,this.stageH);
+        // var home:egret.Rectangle=new egret.Rectangle(10,100,40,100);
+        // var map:moon.MapHorizontalHouse=new moon.MapHorizontalHouse(rect,home);
+        // this.addChild(map);
     };
     return MainTest;
 }(egret.DisplayObjectContainer));
