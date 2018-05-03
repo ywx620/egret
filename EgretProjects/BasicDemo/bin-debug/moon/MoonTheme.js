@@ -888,6 +888,7 @@ var moon;
         //tabbar event
         MoonEvent.CHANGE = "change"; //更换
         MoonEvent.COMPLETE = "complete"; //完成
+        MoonEvent.ERROR = "error"; //错误
         MoonEvent.RENDER_COMPLETE = "render complete"; //渲染完成
         MoonEvent.UPDATE = "update"; //更新
         MoonEvent.START = "start"; //开始

@@ -18,6 +18,7 @@ var RequestServer = (function (_super) {
         _this.urlloader.dataFormat = egret.URLLoaderDataFormat.VARIABLES;
         _this.urlreq.method = egret.URLRequestMethod.POST;
         _this.urlloader.addEventListener(egret.Event.COMPLETE, _this.onComplete, _this);
+        _this.urlloader.addEventListener(egret.IOErrorEvent.IO_ERROR, _this.onError, _this);
         return _this;
     }
     /***
@@ -50,6 +51,9 @@ var RequestServer = (function (_super) {
     /**返回的数据 */
     RequestServer.prototype.onComplete = function (event) {
         this.dispEvent(moon.MoonEvent.COMPLETE, this.urlloader.data);
+    };
+    RequestServer.prototype.onError = function (event) {
+        this.dispEvent(moon.MoonEvent.ERROR, event.type);
     };
     return RequestServer;
 }(moon.MoonContainer));

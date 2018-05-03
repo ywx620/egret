@@ -17,7 +17,7 @@ module control
         }
         /** 关闭事件*/
         public close():void{
-            this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
         }
         protected onTouch(e: egret.TouchEvent){
             switch (e.type) {
