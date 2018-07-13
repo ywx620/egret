@@ -20,7 +20,7 @@ var control;
         };
         /** 关闭事件*/
         ControlBasic.prototype.close = function () {
-            this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
         };
         ControlBasic.prototype.onTouch = function (e) {
             switch (e.type) {

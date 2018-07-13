@@ -65,6 +65,7 @@
 		 * radius半径距离
 		 * size边数
 		 * skewR偏离的弧度（90度=Math.PI/2弧度）
+		 * 需要注意的是边数必须是数组长度的除数
 		 * */
 		public static displayPolygon(array:any[],centerX:number,centerY:number,radius:number=100,size:number=5,skewR:number=0):void
 		{
@@ -146,7 +147,11 @@
 				display.y=y+Math.floor(i/xNum)*(display.height+yDis);
 			}
 		}
-		/**面积不相等的块在X轴的排列 */
+		/**面积不相等的块在X轴的排列 
+		 * xNum在x轴上排列的数量
+		 * xDis,在x轴上的间距
+		 * x,y初始位置
+		 * offX:偏移的距离,*/
 		public static displayRankX(array:any[],xNum:number=1,xDis:number=0,x:number=0,y:number=0):void
 		{
 			var display:egret.DisplayObject;
@@ -159,5 +164,32 @@
                 display.x=prevx;
                 prevx=display.x+(display.width+xDis);
             }
+		}
+		/**
+		 * 可视对象梯形的排列
+		 * min在x轴上排列的最小的数值，用于拐弯
+		 * max在x轴上排列的最大的数值，用于拐弯
+		 * xDis,yDis,在x轴与y轴上的间距
+		 * x,y初始位置
+		 */
+		public static displayLadder(array:any[],min:number=0,max:number=200,xDis:number=0,yDis:number=0,x:number=0,y:number=0):void
+		{
+			var j:number=0;
+			var s:number=1;
+			var display:egret.DisplayObject;
+			var count:number=array.length;
+            for(var i:number=0;i<count;i++){
+				display=array[i]
+                var width:number=display.width;
+				var height:number=display.height;
+				display.y=y+i*(height+xDis);
+				display.x=x+j*(width+yDis);
+				j+=s;
+				if(display.x>max){
+					s=-1
+				}else if(display.x<min){
+					s=1;
+				}
+			}
 		}
 	}

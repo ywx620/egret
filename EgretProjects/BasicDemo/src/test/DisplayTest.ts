@@ -81,6 +81,7 @@ class TestDisplayDo extends moon.BasicView{
         LayoutManager.displayRank(rects,3,10,10,100,100);
         //隐藏
         Uinfy.hideShowNum(rects,false,2,5);
+        // LayoutManager.displayLadder(rects,250,300,0,10,200);
         
         var tip:moon.BasicTips=new moon.BasicTips("tips_png");
         tip.x=tip.y=300;

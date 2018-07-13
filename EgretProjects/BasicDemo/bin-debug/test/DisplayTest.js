@@ -94,6 +94,7 @@ var TestDisplayDo = (function (_super) {
         LayoutManager.displayRank(rects, 3, 10, 10, 100, 100);
         //隐藏
         Uinfy.hideShowNum(rects, false, 2, 5);
+        // LayoutManager.displayLadder(rects,250,300,0,10,200);
         var tip = new moon.BasicTips("tips_png");
         tip.x = tip.y = 300;
         tip.setValue("测试带背景的文本\n换行接着测试");

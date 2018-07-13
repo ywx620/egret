@@ -100,6 +100,7 @@ var LayoutManager = (function (_super) {
      * radius半径距离
      * size边数
      * skewR偏离的弧度（90度=Math.PI/2弧度）
+     * 需要注意的是边数必须是数组长度的除数
      * */
     LayoutManager.displayPolygon = function (array, centerX, centerY, radius, size, skewR) {
         if (radius === void 0) { radius = 100; }
@@ -193,7 +194,11 @@ var LayoutManager = (function (_super) {
             display.y = y + Math.floor(i / xNum) * (display.height + yDis);
         }
     };
-    /**面积不相等的块在X轴的排列 */
+    /**面积不相等的块在X轴的排列
+     * xNum在x轴上排列的数量
+     * xDis,在x轴上的间距
+     * x,y初始位置
+     * offX:偏移的距离,*/
     LayoutManager.displayRankX = function (array, xNum, xDis, x, y) {
         if (xNum === void 0) { xNum = 1; }
         if (xDis === void 0) { xDis = 0; }
@@ -208,6 +213,39 @@ var LayoutManager = (function (_super) {
             display.y = y;
             display.x = prevx;
             prevx = display.x + (display.width + xDis);
+        }
+    };
+    /**
+     * 可视对象梯形的排列
+     * min在x轴上排列的最小的数值，用于拐弯
+     * max在x轴上排列的最大的数值，用于拐弯
+     * xDis,yDis,在x轴与y轴上的间距
+     * x,y初始位置
+     */
+    LayoutManager.displayLadder = function (array, min, max, xDis, yDis, x, y) {
+        if (min === void 0) { min = 0; }
+        if (max === void 0) { max = 200; }
+        if (xDis === void 0) { xDis = 0; }
+        if (yDis === void 0) { yDis = 0; }
+        if (x === void 0) { x = 0; }
+        if (y === void 0) { y = 0; }
+        var j = 0;
+        var s = 1;
+        var display;
+        var count = array.length;
+        for (var i = 0; i < count; i++) {
+            display = array[i];
+            var width = display.width;
+            var height = display.height;
+            display.y = y + i * (height + xDis);
+            display.x = x + j * (width + yDis);
+            j += s;
+            if (display.x > max) {
+                s = -1;
+            }
+            else if (display.x < min) {
+                s = 1;
+            }
         }
     };
     return LayoutManager;

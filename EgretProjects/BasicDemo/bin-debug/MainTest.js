@@ -43,7 +43,15 @@ var MainTest = (function (_super) {
         //this.dragCircleTest();
         // this.colorTest();
         //this.countMain();
-        this.testCallPhp();
+        //this.testCallPhp();
+        //this.testTsCallJs();
+        this.testLayout();
+    };
+    MainTest.prototype.testLayout = function () {
+        this.addChild(new DisplayLayout);
+    };
+    MainTest.prototype.testTsCallJs = function () {
+        exampleB.b();
     };
     MainTest.prototype.testCallPhp = function () {
         new TestPhp;

@@ -28,6 +28,10 @@ var HitManager = (function (_super) {
     HitManager.prototype.hitTestRect = function (obj1, obj2) {
         var rect1 = obj1.getBounds(); //获取显示对象的测量边界
         var rect2 = obj2.getBounds(); //获取显示对象的测量边界
+        rect1.x = obj1.x;
+        rect1.y = obj1.y;
+        rect2.x = obj2.x;
+        rect2.y = obj1.y;
         //此方法检查指定的 Rectangle 对象的 x、y、width 和 height 属性，以查看它是否与此 Rectangle 对象相交。
         return rect1.intersects(rect2);
     };
