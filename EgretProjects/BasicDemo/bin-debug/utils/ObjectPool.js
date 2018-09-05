@@ -3,9 +3,6 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 };
 var utils;
 (function (utils) {
-    //import flash.utils.Dictionary;
-    //import flash.utils.getDefinitionByName;
-    //import flash.utils.getQualifiedClassName;
     /**
      * 用于显示对象的对象池类
      */

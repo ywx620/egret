@@ -36,7 +36,17 @@ class MainTest extends egret.DisplayObjectContainer {
        //this.countMain();
        //this.testCallPhp();
        //this.testTsCallJs();
-       this.testLayout();
+       //this.testLayout();
+       //this.testFollow();
+       this.testVector2D();
+    }
+    private testVector2D():void
+    {
+        this.addChild(new TestVector2D)
+    }
+    private testFollow():void
+    {
+        this.addChild(new Follow)
     }
     private testLayout():void
     {

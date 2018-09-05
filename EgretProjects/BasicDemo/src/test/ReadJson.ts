@@ -4,7 +4,7 @@ class ReadJson {
     }
     private init():void
     {
-         var data:Object=RES.getRes("RoleIcon_json");
+        var data:Object=RES.getRes("RoleIcon_json");
         for (var i in data){
             var d:Object=data[i];
             for(var j in d){

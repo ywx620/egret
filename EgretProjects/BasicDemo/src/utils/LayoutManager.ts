@@ -158,7 +158,7 @@
 			var count:number=array.length;
             var prevx:number=0;
             for(var i:number=0;i<count;i++){
-				display=array[i]
+				display=array[i];
                 var width:number=display.width;
                 display.y=y
                 display.x=prevx;
@@ -179,7 +179,7 @@
 			var display:egret.DisplayObject;
 			var count:number=array.length;
             for(var i:number=0;i<count;i++){
-				display=array[i]
+				display=array[i];
                 var width:number=display.width;
 				var height:number=display.height;
 				display.y=y+i*(height+xDis);

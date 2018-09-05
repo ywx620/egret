@@ -16,7 +16,7 @@
 		"bin-debug/moon/MoonTheme.js",
 		"bin-debug/utils/BasicComponent.js",
 		"bin-debug/p2/AbstractP2Test.js",
-		"bin-debug/test/CreateView.js",
+		"bin-debug/test/DisplayTest.js",
 		"bin-debug/ThemeAdapter.js",
 		"bin-debug/dragon/DragonDemo.js",
 		"bin-debug/dragon/FrameAnimation.js",
@@ -40,9 +40,10 @@
 		"bin-debug/p2/TestFromPolygon.js",
 		"bin-debug/test/ColorTest.js",
 		"bin-debug/test/ControlTest.js",
-		"bin-debug/utils/Uinfy.js",
+		"bin-debug/test/CreateView.js",
 		"bin-debug/test/DisplayLayout.js",
-		"bin-debug/test/DisplayTest.js",
+		"bin-debug/utils/Vector2D.js",
+		"bin-debug/test/Follow.js",
 		"bin-debug/test/MoonTest.js",
 		"bin-debug/test/MorePointTouch.js",
 		"bin-debug/test/PinYin.js",
@@ -50,6 +51,7 @@
 		"bin-debug/test/ScaleModeView.js",
 		"bin-debug/test/TestPhp.js",
 		"bin-debug/test/TestSkin.js",
+		"bin-debug/test/TestVector2D.js",
 		"bin-debug/test/TextTest.js",
 		"bin-debug/tsCallJs/A.js",
 		"bin-debug/tsCallJs/B.js",
@@ -67,6 +69,7 @@
 		"bin-debug/utils/RequestServer.js",
 		"bin-debug/utils/SoundControl.js",
 		"bin-debug/utils/TimeManager.js",
+		"bin-debug/utils/Uinfy.js",
 		"bin-debug/LoadingUI.js"
 	]
 }

@@ -45,7 +45,15 @@ var MainTest = (function (_super) {
         //this.countMain();
         //this.testCallPhp();
         //this.testTsCallJs();
-        this.testLayout();
+        //this.testLayout();
+        //this.testFollow();
+        this.testVector2D();
+    };
+    MainTest.prototype.testVector2D = function () {
+        this.addChild(new TestVector2D);
+    };
+    MainTest.prototype.testFollow = function () {
+        this.addChild(new Follow);
     };
     MainTest.prototype.testLayout = function () {
         this.addChild(new DisplayLayout);
