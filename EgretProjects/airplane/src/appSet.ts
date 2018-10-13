@@ -40,7 +40,6 @@ class SetPanel extends BasicComponent {
     {
         if(this.soundIsNo.selected==false){
             this.soundIsNo.selected=true;
-
         }
         var value:number;
         if(e.currentTarget==this.soundBg){

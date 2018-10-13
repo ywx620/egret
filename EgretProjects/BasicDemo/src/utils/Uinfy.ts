@@ -71,4 +71,14 @@ class Uinfy{
         }
         target.play();
     }
+    private static _showTime:number
+    /**先用类型0然后用类型1就可以查看用时多长久了*/
+    public static showTime(type:number,tip:string=""):void{
+        if(type==0){
+            Uinfy._showTime=egret.getTimer();
+        }else{
+            var end:number=egret.getTimer();
+            trace(tip+"用时:"+Number(end-Uinfy._showTime)+"毫秒");
+        }
+    }
 }

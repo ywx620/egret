@@ -1,13 +1,3 @@
-declare class P2CameraSkin extends eui.Skin{
-}
-declare class ScaleModeSkin extends eui.Skin{
-}
-declare class TestSkin extends eui.Skin{
-}
-declare class WHG_control extends eui.Skin{
-}
-declare class WHG_level1 extends eui.Skin{
-}
 declare module skins{
 	class ButtonSkin extends eui.Skin{
 	}

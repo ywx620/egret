@@ -33,7 +33,7 @@ class EventManager {
         var dic: Array<Function> = this.eventList[type];
         if (!dic) return;
         for (var i: number = 0; i < dic.length; i++) {
-            var data1: any = dic;
+            var data1: any = dic[i];
             (<Function>data1["fun"]).apply(data1["this"], [data]);
         }
     }
