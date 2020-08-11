@@ -205,6 +205,16 @@ module control
                 this.nodes.push(node);
             }
         }
+        /** 打开事件*/
+        public open():void{
+            this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
+            this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
+        }
+        /** 关闭事件*/
+        public close():void{
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouch, this);
+            this.stage.removeEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
+        }
         protected onTouch(e: egret.TouchEvent){
             this.id=e.touchPointID;
             super.onTouch(e);
@@ -215,24 +225,24 @@ module control
             for(var i:number=0;i<nodes.length;i++){
                 var node:MorePointNode=nodes[i];
                 if(type==1){//按下
+                    //traceSimple("按下ID="+this.id);
                     if(node.display.hitTestPoint(x,y)){
                         node.id=this.id;
-                        node.backCall(type);
+                        node.backCall({type:type,node:node});
                     }
                 }else{//松开
+                     //traceSimple("松开ID="+this.id);
                     if(node.id==this.id){
                         node.id=-1;
-                        node.backCall(type);
+                        node.backCall({type:type,node:node});
                     }
                 }
             }
         }
         protected controlStart(): void {
-            this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouch, this);
             this.check(this.posStart.x,this.posStart.y,1);
         }
         protected controlEnd():void{
-            super.controlEnd();
            this.check(this.posEnd.x,this.posEnd.y,0);
         }
     }

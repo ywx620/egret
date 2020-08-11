@@ -47,7 +47,7 @@ class SoundControl extends egret.HashObject {
      * @param start 开始播放的地方，默认从头开始播放
      * @param loop 循环播放次数，默认是1次
      */
-    public play(name:string,start:number=0,loop:number=1):void
+     public play(name:string,start:number=0,loop:number=1):egret.SoundChannel
     {
         var volume:number=this.volumeEffect
         if(this.checkSoundIsBg(this.sounds,name)){
@@ -57,13 +57,15 @@ class SoundControl extends egret.HashObject {
         if(this.sounds[name]){
             var sound:egret.Sound=this.sounds[name];
             this.channels[name]=sound.play(start,loop);
-           
             if(this.isNoVolume==0){
                 this.channels[name].volume=0;
             }else{
                 this.channels[name].volume=volume;
             }
+            //在外部帧听事件结束soundChannel.addEventListener(egret.Event.SOUND_COMPLETE,this.onComplete,this);
+            return this.channels[name];
         }
+        return null;
     }
     /**
      * 声音必须是预先已经加载好的
